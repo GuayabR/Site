@@ -42,6 +42,8 @@ function setRandomAlbumBackgrounds() {
     buttons.forEach((button) => {
         const album = button.getAttribute("data-album");
 
+        console.log("Randing button", button.textContent);
+
         fetch(`${encodeURIComponent(album)}/info.json`)
             .then((res) => res.json())
             .then((data) => {
@@ -53,6 +55,9 @@ function setRandomAlbumBackgrounds() {
 
                 // Set background image styles
                 button.style.backgroundImage = `url(${encodeURI(imagePath)})`;
+
+                console.log("Set rand img for", button.textContent);
+                console.log(button.style.backgroundImage);
             })
             .catch((err) => {
                 console.warn(`Couldn't load info.json for ${album}`, err);
