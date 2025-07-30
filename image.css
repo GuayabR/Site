@@ -1,0 +1,89 @@
+.image-view-container {
+    display: flex;
+    flex-direction: row;
+    width: 95vw;
+    height: 95vh;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive column layout on small screens */
+@media (max-width: 768px) {
+    .image-view-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 1rem;
+    }
+}
+
+.info-side {
+    width: 55%;
+    padding: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Full width for info on smaller screens */
+@media (max-width: 768px) {
+    .info-side {
+        width: 100%;
+    }
+}
+
+.info-content {
+    text-align: left;
+    max-width: 600px;
+    width: 100%;
+}
+
+.info-content h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.info-content p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+#image-lore {
+    font-size: 16px;
+    color: rgb(156, 156, 156);
+}
+
+.image-side {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+/* Full width for image on smaller screens */
+@media (max-width: 768px) {
+    .image-side {
+        width: 100%;
+    }
+}
+
+.image-side img {
+    max-width: 80%;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 10px;
+    border-width: 4px;
+    border-color: rgb(54, 54, 54);
+    border-style: solid;
+}
+
+.logo-img {
+    width: 80px;
+    margin: 30px;
+    display: block;
+    cursor: pointer;
+}

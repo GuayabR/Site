@@ -1,33 +1,14 @@
-const targetDate = new Date("2025-08-16T00:00:00");
-const countdownEl = document.getElementById("countdown");
-
-function updateCountdown() {
-    const now = new Date();
-    const diff = targetDate - now;
-
-    if (diff <= 0) {
-        countdownEl.textContent = "BEATZ! X RELEASED!";
-        return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
 window.addEventListener("DOMContentLoaded", () => {
-    const song = document.getElementById("bgsong");
-    if (song) {
-        song.volume = 0.07; // 30%
+    console.log("Loaded");
+    const { img } = getQueryParams();
+
+    if (img) {
+        loadAlbumImage();
+    } else {
+        populateAlbumGrid();
     }
 
-    document.getElementById("download_btn").textContent = "Download for " + detectDeviceType() + "!";
+    setRandomAlbumBackgrounds();
 });
 
 function detectDeviceType() {
@@ -53,4 +34,91 @@ function detectDeviceType() {
 
 function home() {
     window.location.href = "/";
+}
+
+function setRandomAlbumBackgrounds() {
+    const buttons = document.querySelectorAll(".album-btn");
+
+    buttons.forEach((button) => {
+        const album = button.getAttribute("data-album");
+
+        fetch(`${encodeURIComponent(album)}/info.json`)
+            .then((res) => res.json())
+            .then((data) => {
+                const images = Object.keys(data);
+                if (images.length === 0) return;
+
+                const randomImage = images[Math.floor(Math.random() * images.length)];
+                const imagePath = `${encodeURIComponent(album)}/${randomImage}`;
+
+                // Set background image styles
+                button.style.backgroundImage = `url(${imagePath})`;
+            })
+            .catch((err) => {
+                console.warn(`Couldn't load info.json for ${album}`, err);
+            });
+    });
+}
+
+function album_selected(album) {
+    console.log("Travelling to guayabr.com/album.html?album=", album);
+    window.location.href = `album.html?album=${encodeURIComponent(album)}`;
+}
+
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        album: params.get("album"),
+        img: params.get("img")
+    };
+}
+
+function populateAlbumGrid() {
+    const { album } = getQueryParams();
+    if (!album) return;
+
+    const grid = document.querySelector(".photos-grid");
+    const albumTitle = document.querySelector("h1");
+    albumTitle.textContent = decodeURIComponent(album);
+
+    fetch(`${album}/info.json`)
+        .then((res) => res.json())
+        .then((data) => {
+            for (const filename in data) {
+                const img = document.createElement("img");
+                img.src = `${album}/${filename}`;
+                img.alt = filename;
+                img.classList.add("album-image");
+
+                img.onclick = () => {
+                    window.location.href = `image.html?album=${encodeURIComponent(album)}&img=${encodeURIComponent(filename)}`;
+                };
+
+                grid.appendChild(img);
+            }
+        })
+        .catch((err) => {
+            console.error(`Failed to load ${album}/info.json`, err);
+        });
+}
+
+function loadAlbumImage() {
+    const { album, img } = getQueryParams();
+    if (!album || !img) return;
+
+    const imgPath = `${album}/${img}`;
+    document.getElementById("album-img").src = imgPath;
+
+    // Optional: fetch info.json
+    fetch(`${album}/info.json`)
+        .then((res) => res.json())
+        .then((data) => {
+            const info = data[img] || {};
+            document.getElementById("image-title").innerText = info.title || "";
+            document.getElementById("image-caption").innerText = info.caption || "";
+            document.getElementById("image-lore").innerText = info.lore || "";
+        })
+        .catch(() => {
+            console.warn("No info.json or failed to load.");
+        });
 }

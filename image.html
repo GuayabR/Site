@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Image view</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="image.css" />
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="icon" type="image/png" href="Assets/gr_logo_big.png" />
+    </head>
+
+    <body>
+        <div class="image-view-container">
+            <div class="fade-in fade-delay-1 image-side">
+                <img id="album-img" src="" alt="Album Image" />
+            </div>
+            <div class="fade-in fade-delay-3 info-side">
+                <div class="info-content">
+                    <h1 id="image-title">Title Placeholder</h1>
+                    <p id="image-caption">Caption goes here.</p>
+                    <p id="image-lore">Lore goes here.</p>
+                    </br>
+                    <button>Download Image</button>
+                </div>
+            </div>
+        </div>
+
+        <img
+            src="Assets/gr_logo_big.png"
+            alt="GuayabR Logo"
+            id="gr_logo"
+            title="Instagram (https://guayabr.com)"
+            onclick="window.location.href = '/'"
+            class="fade-in fade-delay-5 logo-img"/>
+    </body>
+
+    <script src="script.js"></script>
+</html>

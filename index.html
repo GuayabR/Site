@@ -3,39 +3,39 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>GuayabR.</title>
+        <title>GuayabR's</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="index.css" />
         <link rel="stylesheet" href="styles.css" />
         <link rel="icon" type="image/png" href="Assets/gr_logo_big.png" />
     </head>
     <body>
 
-        <div class="content">
-            <h1 class="fade-in fade-delay-1">GUAYABR</h1>
-            <h3 class="fade-in fade-delay-2">THANKS YOU</h3>
-            <h3 class="fade-in fade-delay-3">FOR VISITING.</h3>
-        </div>
+        <div class="info-section fade-in fade-delay-1">
+            <h1>GuayabR</h1>
+            <p class="quote">"Art is everyone, everything, everywhere and anything."</p>
+            <p class="bio">I remember moments through photography and bring rhythm to hands reach through game development.<br />
+            Check out my rhythm game: <a href="https://beatzx.com" target="_blank">Beatz! X</a></p>
 
-        <p class="fade-in fade-delay-5" id="countdown">?</p>
-        <footer class="fade-in fade-delay-6">08/16/2025</footer>
-
-        <br></br>
-
-        <div class="logo-section fade-in fade-delay-6">
-            <div class="logo-block">
-                <p style="color: white">Made by GuayabR</p>
-                <img
-                    src="/Assets/gr_logo_big.png"
-                    alt="GuayabR Logo"
-                    id="gr_logo"
-                    title="Instagram (https://instagram.com/imguayabr)"
-                    onclick="window.location.href = 'https://instagram.com/imguayabr'"
-                    class="logo-img" />
+            <div class="albums-grid">
+                <button onclick="album_selected('Explosion of Colours')" data-album = "Explosion of Colours" class="album-btn">Explosion of Colours</button>
+                <button onclick="album_selected('Chinese New Year')" data-album = "Chinese New Year" class="album-btn">Chinese New Year</button>
             </div>
         </div>
 
+        <br></br>
+
+        <img
+            src="Assets/gr_logo_big.png"
+            alt="GuayabR Logo"
+            id="gr_logo"
+            title="Instagram (https://instagram.com/imguayabr)"
+            onclick="window.location.href = 'https://instagram.com/imguayabr'"
+            class="fade-in fade-delay-4 logo-img" />
+        </div>
+        <p id="people" class="logo-section fade-in fade-delay-5">AA AM am AR aa AS aE AL AT AF</p> 
     </body>
     <script src="script.js"></script>
 </html>

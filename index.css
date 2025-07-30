@@ -1,0 +1,106 @@
+.info-section {
+    max-width: 1000px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 16px;
+}
+
+.bio {
+    font-size: 1rem;
+    margin-bottom: 32px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.bio a {
+    color: #ff0055;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.bio a:hover {
+    text-decoration: underline;
+}
+
+.albums-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    justify-items: center;
+    margin-bottom: 24px;
+}
+
+.album-btn {
+    width: 150px;
+    height: 160px;
+    border: 3px solid rgba(255, 255, 255, 0.63);
+    border-radius: 12px;
+    background-color: #6868681e;
+    color: white;
+    font-weight: 400;
+    overflow: hidden;
+    position: relative;
+    padding: 0.5em;
+    transition: all 0.2s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 600px) {
+    .albums-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 12px;
+    }
+
+    .album-btn {
+        width: 100px;
+        height: 110px;
+        font-size: 0.8rem;
+    }
+}
+
+.album-btn:hover {
+    transform: scale(1.05);
+}
+
+.browse-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.logo-section {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.logo-block {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1rem;
+}
+
+.logo-img {
+    width: 180px;
+    height: auto;
+    margin-top: 8px;
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+
+#people {
+    color: rgba(255, 255, 255, 0.185);
+}
