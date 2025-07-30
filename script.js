@@ -77,6 +77,8 @@ function populateAlbumGrid() {
     const { album } = getQueryParams();
     if (!album) return;
 
+    document.title = album;
+
     const grid = document.querySelector(".photos-grid");
     const albumTitle = document.querySelector("h1");
     albumTitle.textContent = decodeURIComponent(album);
@@ -109,6 +111,12 @@ function loadAlbumImage() {
     const imgPath = `${album}/${img}`;
     document.getElementById("album-img").src = imgPath;
 
+    // ⬇️ Set download link dynamically
+    const downloadBtn = document.getElementById("download-btn");
+    downloadBtn.href = imgPath;
+    downloadBtn.download = img; // optional: force filename
+    downloadBtn.style.display = "block"; // show it if hidden
+
     // Optional: fetch info.json
     fetch(`${album}/info.json`)
         .then((res) => res.json())
@@ -117,8 +125,11 @@ function loadAlbumImage() {
             document.getElementById("image-title").innerText = info.title || "";
             document.getElementById("image-caption").innerText = info.caption || "";
             document.getElementById("image-lore").innerText = info.lore || "";
+
+            document.title = info.title;
         })
         .catch(() => {
             console.warn("No info.json or failed to load.");
+            document.title = img;
         });
 }
