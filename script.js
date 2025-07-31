@@ -49,7 +49,7 @@ function setRandomAlbumBackgrounds() {
                 if (images.length === 0) return;
 
                 const randomImage = images[Math.floor(Math.random() * images.length)];
-                const imagePath = `${album}/${randomImage}`;
+                const imagePath = `${album}/thumbs/${randomImage}`;
 
                 // Set background image styles
                 button.style.backgroundImage = `url(${encodeURI(imagePath)})`;
@@ -88,7 +88,7 @@ function populateAlbumGrid() {
         .then((data) => {
             for (const filename in data) {
                 const img = document.createElement("img");
-                img.src = `${album}/${filename}`;
+                img.src = `${album}/thumbs/${filename}`;
                 img.alt = filename;
                 img.classList.add("album-image");
 
@@ -108,14 +108,12 @@ function loadAlbumImage() {
     const { album, img } = getQueryParams();
     if (!album || !img) return;
 
-    const imgPath = `${album}/${img}`;
+    const imgPath = `${album}/thumbs/${img}`;
     document.getElementById("album-img").src = imgPath;
 
-    // ⬇️ Set download link dynamically
     const downloadBtn = document.getElementById("download-btn");
-    downloadBtn.href = imgPath;
-    downloadBtn.download = img; // optional: force filename
-    downloadBtn.style.display = "block"; // show it if hidden
+    downloadBtn.href = `${album}/${img}`;
+    downloadBtn.download = img;
 
     // Optional: fetch info.json
     fetch(`${album}/info.json`)
