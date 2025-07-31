@@ -33,7 +33,7 @@
     transform: scale(1.05);
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1450px) {
     .photos-grid {
         gap: 14px;
         padding: 14px;
