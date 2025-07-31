@@ -33,6 +33,22 @@
     transform: scale(1.05);
 }
 
+@media (max-width: 1300px) {
+    .photos-grid {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .photos-grid img {
+        width: 90px;
+        height: 115px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.2s ease, border 0.2s ease;
+    }
+}
+
 @media (max-width: 600px) {
     .photos-grid {
         grid-template-columns: repeat(3, 1fr);
