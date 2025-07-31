@@ -61,8 +61,8 @@ function setRandomAlbumBackgrounds() {
 }
 
 function album_selected(album) {
-    console.log("Travelling to guayabr.com/album.html?album=", album);
-    window.location.href = `album.html?album=${encodeURIComponent(album)}`;
+    console.log("Travelling to guayabr.com/album?album=", album);
+    window.location.href = `album?album=${encodeURIComponent(album)}`;
 }
 
 function getQueryParams() {
@@ -93,7 +93,7 @@ function populateAlbumGrid() {
                 img.classList.add("album-image");
 
                 img.onclick = () => {
-                    window.location.href = `image.html?album=${encodeURIComponent(album)}&img=${encodeURIComponent(filename)}`;
+                    window.location.href = `image?album=${encodeURIComponent(album)}&img=${encodeURIComponent(filename)}`;
                 };
 
                 grid.appendChild(img);

@@ -94,11 +94,7 @@
     width: 180px;
     height: auto;
     margin-top: 8px;
-    transition: transform 0.3s ease;
-}
-
-.logo-img:hover {
-    transform: scale(1.05);
+    transition: all 0.3s ease;
 }
 
 #people {
