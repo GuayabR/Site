@@ -1,3 +1,19 @@
+@font-face {
+    font-family: "Helvetica-Bold";
+    src: url("Assets/helvetica-255/Helvetica-Bold.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap; /* Optional, improves loading behavior */
+}
+
+@font-face {
+    font-family: "Helvetica";
+    src: url("Assets/helvetica-255/Helvetica.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap; /* Optional, improves loading behavior */
+}
+
 * {
     font-family: "Quicksand", sans-serif;
     margin: 0;
@@ -17,13 +33,13 @@ body {
     justify-content: flex-start;
     text-align: center;
     color: white;
-    background-color: rgb(19, 19, 19);
+    background: linear-gradient(to bottom, rgb(10, 10, 10), rgb(19, 19, 19));
     overflow-x: hidden;
 }
 
 button {
     transition: all 0.5s;
-    padding: 8px;
+    padding: 12px;
     font-weight: 400;
     color: white;
     background-color: rgba(255, 255, 255, 0.068);
@@ -34,16 +50,13 @@ button {
 }
 
 button:not(:disabled):hover {
-    padding: 12px;
-    font-size: 90%;
-    font-weight: 800;
+    font-weight: 700;
     background-color: rgba(0, 209, 17, 0.137);
 }
 
 button:not(:disabled):active {
     transition: all 0.1s ease-out;
-    font-size: 105%;
-    font-weight: 1200;
+    font-weight: 800;
     background-color: rgba(17, 209, 0, 0.308);
 }
 
@@ -79,16 +92,12 @@ button:disabled {
 }
 
 .download-btn:hover:not(:disabled) {
-    padding: 12px;
-    font-size: 90%;
     font-weight: 800;
     background-color: rgba(0, 209, 17, 0.137);
 }
 
 .download-btn:active:not(:disabled) {
     transition: all 0.1s ease-out;
-    font-size: 105%;
-    font-weight: 1200;
     background-color: rgba(17, 209, 0, 0.308);
 }
 
@@ -113,6 +122,24 @@ button:disabled {
     cursor: pointer;
     scale: 1.08;
     filter: brightness(50%);
+}
+
+.copyright {
+    font-family: Helvetica;
+    font-weight: 500;
+    font-size: 0.9em;
+    color: rgb(73, 73, 73);
+}
+
+.license {
+    font-family: "Helvetica";
+    font-weight: 400;
+    text-decoration: none;
+    color: rgb(116, 116, 116);
+}
+
+#people {
+    color: rgba(255, 255, 255, 0.185);
 }
 
 .fade-in {

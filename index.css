@@ -33,15 +33,15 @@ body {
 
 .albums-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
     justify-items: center;
     margin-bottom: 24px;
 }
 
 .album-btn {
-    width: 150px;
-    height: 160px;
+    width: 200px;
+    height: 225px;
     border: 3px solid rgba(255, 255, 255, 0.63);
     border-radius: 12px;
     background-color: #6868681e;
@@ -100,8 +100,4 @@ body {
     height: auto;
     margin-top: 8px;
     transition: all 0.3s ease;
-}
-
-#people {
-    color: rgba(255, 255, 255, 0.185);
 }

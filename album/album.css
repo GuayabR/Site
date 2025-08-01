@@ -2,15 +2,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     max-width: calc(150px * 7 + 20px * 5); /* 6 columns max + 5 gaps */
-    gap: 20px;
+    gap: 18px;
     justify-items: center;
     padding: 20px;
     margin: 0 auto;
 }
 
 .photos-grid img {
-    width: 150px;
-    height: 200px;
+    width: 175px;
+    height: 225px;
     object-fit: cover;
     border-radius: 10px;
     border: 4px solid rgba(255, 255, 255, 0.1);

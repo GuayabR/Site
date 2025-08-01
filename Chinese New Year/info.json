@@ -1,23 +1,29 @@
 {
     "Stands Out.jpg": {
         "title": "Stands Out",
-        "caption": ""
+        "caption": "",
+        "date": "2/22/2025 6:40 PM"
     },
     "Red Lantern.jpg": {
         "title": "Red Lantern",
-        "caption": "Chinese New Year"
+        "caption": "",
+        "date": "2/22/2025 8:05 PM",
+        "color": "rgb(255, 0, 20)"
     },
     "Of The Snake.jpg": {
         "title": "Of The Snake",
         "caption": "",
-        "lore": "(chinese new year of the snake)"
+        "date": "2/22/2025 8:17 PM"
     },
     "Night Glows.jpg": {
         "title": "Night Glows",
-        "caption": ""
+        "caption": "",
+        "date": "2/22/2025 9:45 PM"
     },
     "Red Lanterns.jpg": {
         "title": "Red Lanterns",
-        "caption": "Garden Glows with Red"
+        "caption": "Garden Glows with Red",
+        "date": "2/22/2025 9:13 PM",
+        "color": "rgb(200, 0, 0)"
     }
 }

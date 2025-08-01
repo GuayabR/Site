@@ -1,46 +1,73 @@
 {
     "Rosa.jpg": {
         "title": "Rosa",
-        "caption": "Pink."
+        "caption": "",
+        "lore": "That is how the sky looked.",
+        "date": "1/30/2025 8:52 PM"
     },
     "THANK YOU.jpg": {
         "title": "THANK YOU.",
-        "caption": "Do you remember?"
+        "caption": "Do you remember?",
+        "lore": "AA AM aa AS aE AL AT AF",
+        "date": "12/12/2024 12:14 PM"
     },
     "Haze.jpg": {
         "title": "Haze",
-        "caption": "Purple skies"
+        "caption": "Purple skies",
+        "lore": "Took this right after going to zeal, they were having an event where people could set up stands to either sell their stuff or showcase, I decided to showcase my photos, didn't sell cuz I thought the payment process was gonna be annoying. This is one of the photos I submitted. Unedited.",
+        "date": "5/21/2025 5:32 PM"
     },
     "Ignite.jpg": {
         "title": "Ignite",
-        "caption": "Eventually extinguishes."
+        "caption": "Eventually extinguishes.",
+        "date": "6/24/2025 4:36 PM"
     },
     "Red Tide.jpg": {
         "title": "Red Tide.",
-        "caption": ""
+        "caption": "",
+        "lore": "Missed first 30 minutes of muay thai on the same day.",
+        "date": "5/13/2025 5:27 PM",
+        "color": "rgb(255, 0, 106)"
     },
     "Como Tu.jpg": {
         "title": "Como Tu",
-        "caption": "It's sad really, but at the end there isn't much I can do."
+        "caption": "It's sad really, but at the end there isn't much I can do.",
+        "date": "2/8/2025 8:29 PM"
+    },
+    "GYAAAT.jpg": {
+        "title": "\"GYAAT\"",
+        "caption": "The cars license plate.",
+        "lore": "Thought it was funny",
+        "date": "4/29/2025 8:07 PM",
+        "color": "rgb(142, 0, 224)"
     },
     "Red Lantern.jpg": {
         "title": "Red Lantern",
-        "caption": "Chinese New Year"
+        "caption": "Chinese New Year",
+        "date": "2/22/2025 8:05 PM",
+        "color": "rgb(255, 0, 60)"
     },
     "LIGHT RAY.jpg": {
         "title": "LIGHT RAY",
-        "caption": "RAY OF HOPE"
+        "caption": "RAY OF HOPE",
+        "lore": "First ever photo I took of this church.",
+        "date": "2/28/2025 8:40 PM"
     },
     "Mixture in the Sky.jpg": {
         "title": "Mixture in the Sky.",
-        "caption": "Mixture"
+        "caption": "Mixture",
+        "date": "2/5/2025 8:41 PM"
     },
     "Flow.jpg": {
         "title": "Flow",
-        "caption": "Neverending"
+        "caption": "Neverending",
+        "lore": "https://open.spotify.com/track/67GRnFA7CQVQlyYQfgZuzj?si=a4bde326cf584c0d",
+        "date": "11/24/2024 3:27 PM"
     },
     "Someone Said Goodbye.jpg": {
         "title": "Someone Said Goodbye",
-        "caption": "I hate saying a final goodbye."
+        "caption": "I hate saying a final goodbye.",
+        "lore": "Took this right after muay thai, the plane does look kinda small but bro what can i do",
+        "date": "3/11/2025 7:43 PM"
     }
 }

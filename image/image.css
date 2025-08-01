@@ -36,7 +36,7 @@ body {
     justify-content: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 675px) {
     .image-view-container {
         flex-direction: column;
         align-items: center;
@@ -69,7 +69,7 @@ body {
 }
 
 .info-content {
-    text-align: left;
+    text-align: justify;
     max-width: 600px;
     width: 100%;
 }
@@ -85,8 +85,38 @@ body {
 }
 
 #image-lore {
-    font-size: 16px;
+    font-size: 1.05rem;
     color: rgb(156, 156, 156);
+}
+
+#image-date {
+    font-size: 0.9rem;
+    color: rgb(125, 125, 125);
+}
+
+#back-btn {
+    white-space: pre-wrap;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.download-btn {
+    flex: 1 1 45%;
+    min-width: 120px;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .image-side {
