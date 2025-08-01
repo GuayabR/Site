@@ -9,21 +9,24 @@
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="image.css" />
         <link rel="stylesheet" href="/styles.css" />
-        <link rel="icon" type="image/png" href="/Assets/gr_logo_big.png" />
+        <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
     </head>
-
     <body>
+        <main class="page-wrapper">
         <div class="image-view-container">
             <div class="fade-in fade-delay-1 image-side">
                 <img id="album-img" src="" alt="Album Image" />
             </div>
             <div class="fade-in fade-delay-3 info-side">
                 <div class="info-content">
-                    <h1 id="image-title">Title Placeholder</h1>
-                    <p id="image-caption">Caption goes here.</p>
-                    <p id="image-lore">Lore goes here.</p>
-                    </br>
+                    <h1 id="image-title">Title</h1>
+                    <p id="image-caption">Caption</p>
+                    <p id="image-lore">Lore</p>
+                    <br></br>
                     <a id="download-btn" class="download-btn" download role="button" href="#">Download Image</a>
+                    <br></br></br>
+                    <a id="view-img-btn" class="download-btn" role="button" href="#">View Image</a><br></br></br>
+                    <a id="back--btn" class="download-btn" role="button" href="#">Back to Album</a>
                 </div>
             </div>
         </div>
@@ -32,10 +35,15 @@
             src="https://guayabr.com/Assets/gr_logo_big.png"
             alt="GuayabR Logo"
             id="gr_logo"
-            title="Instagram (https://guayabr.com)"
+            title="Home (https://guayabr.com)"
             onclick="window.location.href = '/'"
-            class="fade-in fade-delay-5 logo-img"/>
+            class="fade-in fade-delay-4 logo-img"/>
+        <p class="fade-in fade-delay-5" style="font-size: 0.9em; color: rgb(90, 90, 90);">
+            © 2025 GuayabR. All photos licensed under <a style="text-decoration: none; color: rgb(128, 128, 128);" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>.<br>
+            You are free to download and use these photos for personal and non-commercial projects, as long as proper credit is given. <br>Commercial use is not permitted without explicit permission.
+        </p>
+    <p></p>
+    </main>
     </body>
-
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </html>

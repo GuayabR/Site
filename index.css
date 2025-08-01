@@ -1,3 +1,7 @@
+body {
+    align-items: center;
+}
+
 .info-section {
     max-width: 1000px;
     margin-top: 40px;
@@ -42,7 +46,8 @@
     border-radius: 12px;
     background-color: #6868681e;
     color: white;
-    font-weight: 400;
+    font-weight: 500;
+    text-shadow: 0px 0px 6px rgb(0, 0, 0), 0px 0px 8px rgba(0, 0, 0), 0px 0px 8px rgba(0, 0, 0), 0px 0px 10px rgba(0, 0, 0), 0px 0px 12px rgba(0, 0, 0);
     overflow: hidden;
     position: relative;
     padding: 0.5em;

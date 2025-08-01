@@ -1,6 +1,19 @@
 window.addEventListener("DOMContentLoaded", () => {
-    console.log("Loaded");
-    const { img } = getQueryParams();
+    const { img, album } = getQueryParams();
+
+    // Determine which back button is present
+    const backBtn = document.getElementById("back--btn");
+    if (backBtn) {
+        if (img && album) {
+            // You're on the image view → back to album
+            backBtn.href = `/album/?album=${encodeURIComponent(album)}`;
+            backBtn.innerText = `Back to "${album}"`;
+        } else {
+            // You're on the album view → back to home
+            backBtn.href = "/";
+            backBtn.innerText = "Back to Home";
+        }
+    }
 
     if (img) {
         loadAlbumImage();
@@ -62,7 +75,7 @@ function setRandomAlbumBackgrounds() {
 
 function album_selected(album) {
     console.log("Travelling to guayabr.com/album?album=", album);
-    window.location.href = `album?album=${encodeURIComponent(album)}`;
+    window.location.href = `album/?album=${encodeURIComponent(album)}`;
 }
 
 function getQueryParams() {
@@ -77,23 +90,25 @@ function populateAlbumGrid() {
     const { album } = getQueryParams();
     if (!album) return;
 
+    console.log("populating");
+
     document.title = album;
 
     const grid = document.querySelector(".photos-grid");
     const albumTitle = document.querySelector("h1");
     albumTitle.textContent = decodeURIComponent(album);
 
-    fetch(`${album}/info.json`)
+    fetch(`/${album}/info.json`)
         .then((res) => res.json())
         .then((data) => {
             for (const filename in data) {
                 const img = document.createElement("img");
-                img.src = `${album}/thumbs/${filename}`;
+                img.src = `/${album}/thumbs/${filename}`;
                 img.alt = filename;
                 img.classList.add("album-image");
 
                 img.onclick = () => {
-                    window.location.href = `image?album=${encodeURIComponent(album)}&img=${encodeURIComponent(filename)}`;
+                    window.location.href = `/image/?album=${album}&img=${filename}`;
                 };
 
                 grid.appendChild(img);
@@ -108,15 +123,18 @@ function loadAlbumImage() {
     const { album, img } = getQueryParams();
     if (!album || !img) return;
 
-    const imgPath = `${album}/thumbs/${img}`;
+    const imgPath = `/${album}/thumbs/${img}`;
     document.getElementById("album-img").src = imgPath;
 
     const downloadBtn = document.getElementById("download-btn");
-    downloadBtn.href = `${album}/${img}`;
+    downloadBtn.href = `/${album}/${img}`;
     downloadBtn.download = img;
 
-    // Optional: fetch info.json
-    fetch(`${album}/info.json`)
+    const viewBtn = document.getElementById("view-img-btn");
+    viewBtn.href = `/${album}/${img}`;
+    viewBtn.target = "_blank";
+
+    fetch(`/${album}/info.json`)
         .then((res) => res.json())
         .then((data) => {
             const info = data[img] || {};
