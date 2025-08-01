@@ -2,27 +2,33 @@
     "I SWEAR THATS WILLOW.jpg": {
         "title": "Wandering",
         "caption": "",
-        "lore": "After about 1 week after this class trip. I temporarily moved to a new house, only reason for this was because the home owners were going on vacation for a while, and wanted us to take care of their cat. Said cat looks a lot like this cat."
+        "lore": "After about 1 week after this class trip. I temporarily moved to a new house, only reason for this was because the home owners were going on vacation for a while, and wanted us to take care of their cat. Said cat looks a lot like this cat.",
+        "date": "12/12/2024 3:09 PM"
     },
     "Street.jpg": {
         "title": "Not even close",
         "caption": "",
-        "lore": "\"Not even close\" I remember the place where i took this photo, we were going through a little passage, where it was very easy to fall down. When i took this photo I stumbled on something and I almost fell down. Anything for the memory."
+        "lore": "\"Not even close\" I remember the place where i took this photo, we were going through a little passage, where it was very easy to fall down. When i took this photo I stumbled on something and I almost fell down. Anything for the memory.",
+        "date": "12/12/2024 11:36 AM"
     },
     "Mountain.jpg": {
         "title": "Mountain",
-        "caption": "Probably not a mountain."
+        "caption": "Probably not a mountain.",
+        "date": "12/12/2024 12:11 PM"
     },
-    "Graffiti.jpg": {
-        "title": "Graffiti",
-        "caption": ""
+    "Little guy.jpg": {
+        "title": "Little guy",
+        "caption": "",
+        "date": "12/12/2024 2:58 PM"
     },
     "Graffiti 2.jpg": {
-        "title": "Graffiti 2",
-        "caption": ""
+        "title": "Graffiti",
+        "caption": "",
+        "date": "12/12/2024 12:31 PM"
     },
     "Graffiti 3.jpg": {
-        "title": "Graffiti 3",
-        "caption": ""
+        "title": "Graffiti 2",
+        "caption": "",
+        "date": "12/12/2024 12:20 PM"
     }
 }

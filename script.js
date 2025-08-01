@@ -1,3 +1,5 @@
+const DEVICE = detectDeviceType();
+
 window.addEventListener("DOMContentLoaded", () => {
     const { img, album } = getQueryParams();
 
@@ -90,8 +92,6 @@ function populateAlbumGrid() {
     const { album } = getQueryParams();
     if (!album) return;
 
-    console.log("populating");
-
     document.title = album;
 
     const grid = document.querySelector(".photos-grid");
@@ -101,6 +101,8 @@ function populateAlbumGrid() {
     fetch(`/${album}/info.json`)
         .then((res) => res.json())
         .then((data) => {
+            let count = 0;
+
             for (const filename in data) {
                 const img = document.createElement("img");
                 img.src = `/${album}/thumbs/${filename}`;
@@ -112,6 +114,25 @@ function populateAlbumGrid() {
                 };
 
                 grid.appendChild(img);
+                count++;
+            }
+
+            if (count > 9) {
+                const centerWrapper = document.querySelector(".center-wrapper");
+                if (centerWrapper) {
+                    // ➊ Insert the spacer div at the top of body
+                    const spacer = document.createElement("div");
+                    spacer.style.minHeight = "70px";
+                    document.body.insertBefore(spacer, document.body.firstChild);
+
+                    // ➋ Move all children of .center-wrapper up one level
+                    while (centerWrapper.firstChild) {
+                        document.body.insertBefore(centerWrapper.firstChild, centerWrapper);
+                    }
+
+                    // ➌ Remove the empty wrapper
+                    centerWrapper.remove();
+                }
             }
         })
         .catch((err) => {
