@@ -1,17 +1,24 @@
 const DEVICE = detectDeviceType();
 
 window.addEventListener("DOMContentLoaded", () => {
-    const { img, album } = getQueryParams();
+    const { img, album, from } = getQueryParams();
 
     // Determine which back button is present
     const backBtn = document.getElementById("back-btn");
+    const browseBtn = document.getElementById("back-browse-btn");
     if (backBtn) {
         if (img && album) {
-            // You're on the image view → back to album
-            backBtn.href = `/album/?album=${encodeURIComponent(album)}`;
-            backBtn.innerText = `Back to "${album}"`;
+            if (from === "browse") {
+                backBtn.href = `/album/?album=${encodeURIComponent(album)}`;
+                backBtn.innerText = `Go to Album (${album})`;
+                browseBtn.style.display = "block";
+                browseBtn.href = "/browse/";
+                browseBtn.innerText = "Back to Browsing";
+            } else {
+                backBtn.href = `/album/?album=${encodeURIComponent(album)}`;
+                backBtn.innerText = `Back to "${album}"`;
+            }
         } else {
-            // You're on the album view → back to home
             backBtn.href = "/";
             backBtn.innerText = "Back to Home";
         }
@@ -84,7 +91,8 @@ function getQueryParams() {
     const params = new URLSearchParams(window.location.search);
     return {
         album: params.get("album"),
-        img: params.get("img")
+        img: params.get("img"),
+        from: params.get("from")
     };
 }
 
