@@ -25,6 +25,7 @@
 html,
 body {
     height: 100%;
+    background-color: rgb(12, 12, 12);
 }
 
 body {
@@ -34,8 +35,21 @@ body {
     justify-content: flex-start;
     text-align: center;
     color: white;
-    background-color: rgb(12, 12, 12);
+    
     overflow-x: hidden;
+}
+
+a {
+    color: rgb(83, 126, 167);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a[role="button"]:hover {
+    text-decoration: none;
 }
 
 button {
@@ -130,6 +144,7 @@ button:disabled {
     font-weight: 500;
     font-size: 0.9em;
     color: rgb(73, 73, 73);
+    max-width: 90%;
 }
 
 .license {
@@ -141,6 +156,23 @@ button:disabled {
 
 #people {
     color: rgba(255, 255, 255, 0.185);
+}
+
+#custom-tooltip {
+	position: fixed;
+	pointer-events: none;
+	background: rgba(0, 0, 0, 0.87);
+	color: white;
+	padding: 6px 10px;
+	border-radius: 6px;
+    border: solid;
+    border-color: rgb(255, 255, 255);
+    border-width: 1.5px;
+	font-size: 14px;
+	z-index: 9999;
+	opacity: 0;
+	transition: opacity 0.1s ease;
+	white-space: nowrap;
 }
 
 .fade-in {

@@ -1,3 +1,8 @@
+/**
+ * GuayabR's
+ * Main website
+ */
+
 const DEVICE = detectDeviceType();
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -14,10 +19,19 @@ window.addEventListener("DOMContentLoaded", () => {
                 browseBtn.style.display = "block";
                 browseBtn.href = "/browse/";
                 browseBtn.innerText = "Back to Browsing";
+            } else if (from === "view" ) {
+                backBtn.href = `/album/?album=${encodeURIComponent(album)}&from=view`;
+                backBtn.innerText = `Back to "${album}"`;
+                browseBtn.style.display = "block";
+                browseBtn.href = "/view/";
+                browseBtn.innerText = "Back to All Albums";
             } else {
                 backBtn.href = `/album/?album=${encodeURIComponent(album)}`;
                 backBtn.innerText = `Back to "${album}"`;
             }
+        } else if (from === "view" ) {
+            backBtn.href = "/view";
+            backBtn.innerText = "Back to All Albums";
         } else {
             backBtn.href = "/";
             backBtn.innerText = "Back to Home";
@@ -59,32 +73,53 @@ function home() {
 }
 
 function setRandomAlbumBackgrounds() {
-    const buttons = document.querySelectorAll(".album-btn");
+	const buttons = document.querySelectorAll(".album-btn");
+	const isViewPage = window.location.pathname.startsWith("/view");
 
-    buttons.forEach((button) => {
-        const album = button.getAttribute("data-album");
+	buttons.forEach((button) => {
+		const album = button.getAttribute("data-album");
 
-        fetch(`${encodeURIComponent(album)}/info.json`)
-            .then((res) => res.json())
-            .then((data) => {
-                const images = Object.keys(data);
-                if (images.length === 0) return;
+		const fetchFrom = (isViewPage ? "/" : "") + `${encodeURIComponent(album)}/info.json`;
 
-                const randomImage = images[Math.floor(Math.random() * images.length)];
-                const imagePath = `${album}/thumbs/${randomImage}`;
+		fetch(fetchFrom)
+			.then((res) => res.json())
+			.then((data) => {
+				const images = Object.keys(data);
+				if (images.length === 0) return;
 
-                // Set background image styles
-                button.style.backgroundImage = `url(${encodeURI(imagePath)})`;
-            })
-            .catch((err) => {
-                console.warn(`Couldn't load info.json for ${album}`, err);
-            });
-    });
+				const randomImage = images[Math.floor(Math.random() * images.length)];
+				const imagePath = (isViewPage ? "/" : "") + `${album}/thumbs/${randomImage}`;
+
+				button.style.backgroundImage = `url("${encodeURI(imagePath)}")`;
+				//console.log("set bg as ", button.style.backgroundImage);
+				//console.log("set bg url as ", encodeURI(imagePath));
+			})
+			.catch((err) => {
+				console.warn(`Couldn't load info.json for ${album}`, err);
+			});
+	});
+
+	if (buttons.length > 5) {
+		const centerWrapper = document.querySelector(".center-wrapper");
+		if (centerWrapper) {
+			const spacer = document.createElement("div");
+			spacer.style.minHeight = "70px";
+			document.body.insertBefore(spacer, document.body.firstChild);
+
+			while (centerWrapper.firstChild) {
+				document.body.insertBefore(centerWrapper.firstChild, centerWrapper);
+			}
+
+			centerWrapper.remove();
+		}
+	}
 }
 
 function album_selected(album) {
     console.log("Travelling to guayabr.com/album?album=", album);
-    window.location.href = `album/?album=${encodeURIComponent(album)}`;
+
+    if (window.location.pathname.startsWith("/view")) window.location.href = `/album/?album=${encodeURIComponent(album)}&from=view`;
+    else window.location.href = `album/?album=${encodeURIComponent(album)}`;
 }
 
 function getQueryParams() {
@@ -97,7 +132,7 @@ function getQueryParams() {
 }
 
 function populateAlbumGrid() {
-    const { album } = getQueryParams();
+    const { album, from } = getQueryParams();
     if (!album) return;
 
     document.title = album;
@@ -110,35 +145,40 @@ function populateAlbumGrid() {
         .then((res) => res.json())
         .then((data) => {
             let count = 0;
-
+            
             for (const filename in data) {
+                const meta = data[filename];
+
                 const img = document.createElement("img");
                 img.src = `/${album}/thumbs/${filename}`;
                 img.alt = filename;
                 img.classList.add("album-image");
+                img.setAttribute("img-title", meta.title || filename);
+                img.setAttribute("img-date", meta.date);
+                img.setAttribute("img-caption", meta.caption);
 
                 img.onclick = () => {
-                    window.location.href = `/image/?album=${album}&img=${filename}`;
+                    if (from === "view") window.location.href = `/image/?album=${album}&img=${filename}&from=view`;
+                    else window.location.href = `/image/?album=${album}&img=${filename}`;
                 };
 
                 grid.appendChild(img);
                 count++;
             }
 
+            setupTooltipHover()
+
             if (count > 9) {
                 const centerWrapper = document.querySelector(".center-wrapper");
                 if (centerWrapper) {
-                    // ➊ Insert the spacer div at the top of body
                     const spacer = document.createElement("div");
                     spacer.style.minHeight = "70px";
                     document.body.insertBefore(spacer, document.body.firstChild);
 
-                    // ➋ Move all children of .center-wrapper up one level
                     while (centerWrapper.firstChild) {
                         document.body.insertBefore(centerWrapper.firstChild, centerWrapper);
                     }
 
-                    // ➌ Remove the empty wrapper
                     centerWrapper.remove();
                 }
             }
@@ -148,8 +188,48 @@ function populateAlbumGrid() {
         });
 }
 
+function setupTooltipHover() {
+	const tooltip = document.getElementById("custom-tooltip");
+	const images = document.querySelectorAll(".album-image");
+
+	images.forEach((img) => {
+		const title = img.getAttribute("img-title") || img.alt;
+        const date = img.getAttribute("img-date") || ""
+        const caption = img.getAttribute("img-caption") || ""
+
+		img.addEventListener("mouseenter", () => {
+            tooltip.innerHTML = `${title}<br>${caption}<br>${date}`;
+            if (!caption) tooltip.innerHTML = `${title}<br>${date}`;
+			if (!date) tooltip.innerHTML = `${title}<br>${caption}`;
+            
+			tooltip.style.opacity = "1";
+		});
+
+		img.addEventListener("mousemove", (e) => {
+            const offset = 15;
+            const tooltipWidth = tooltip.offsetWidth;
+            const pageWidth = window.innerWidth;
+
+            // Determine if there's enough space on the right
+            if (e.clientX + tooltipWidth + offset > pageWidth - 12) {
+                // Not enough space: position tooltip to the left
+                tooltip.style.left = `${e.clientX - tooltipWidth - offset}px`;
+            } else {
+                // Enough space: position tooltip to the right
+                tooltip.style.left = `${e.clientX + offset}px`;
+            }
+
+            tooltip.style.top = `${e.clientY + offset}px`;
+        });
+
+		img.addEventListener("mouseleave", () => {
+			tooltip.style.opacity = "0";
+		});
+	});
+}
+
 function loadAlbumImage() {
-    const { album, img } = getQueryParams();
+    const { album, img, from } = getQueryParams();
     if (!album || !img) return;
 
     const imgPath = `/${album}/thumbs/${img}`;
@@ -166,18 +246,35 @@ function loadAlbumImage() {
     viewBtn.target = "_blank";
 
     var color_els = true;
+    var color_a = false;
+    var extracted_rgb;
 
     fetch(`/${album}/info.json`)
         .then((res) => res.json())
         .then((data) => {
             const info = data[img] || {};
             document.getElementById("image-title").innerText = info.title || "";
-            document.getElementById("image-caption").innerText = info.caption || "";
+            const captionEl = document.getElementById("image-caption");
+            captionEl.innerHTML = parseCaption(info.caption || "");
+
             document.getElementById("image-lore").innerText = info.lore || "";
             document.getElementById("image-date").innerText = info.date || "";
+
             if (info.color) {
                 document.getElementById("image-title").style.color = info.color;
+
+                if (info.color_hyper) {
+                    color_as(captionEl.querySelectorAll("a"), info.color);
+                }
+
+                // Disable color extraction only if a fixed color is used
                 color_els = false;
+            } else if (info.color_hyper && !info.color) {
+                // Keep color_els = true so it extracts and applies to <a>
+                // Title color will be handled after image loads
+                color_els = true;
+                color_a = true;
+                color_as(document.getElementById("image-caption").querySelectorAll("a"), extracted_rgb);
             }
 
             document.title = info.title;
@@ -187,7 +284,6 @@ function loadAlbumImage() {
             document.title = img;
         });
 
-    // Only run Color Thief logic on /image/
     if (window.location.pathname !== "/image/") return;
 
     imageEl.addEventListener("load", () => {
@@ -203,9 +299,36 @@ function loadAlbumImage() {
 
             const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
             const rgb = `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`;
+            extracted_rgb = rgb;
             document.getElementById("image-title").style.color = rgb;
         }
     });
+}
+
+function color_as(links, col) {
+    for (const a of links) {
+        a.style.color = col;
+    }
+}
+
+function parseCaption(caption) {
+    const linkRegex = /\((https?:\/\/[^\s()]+)\)/;
+
+    const match = caption.match(linkRegex);
+    if (match) {
+        const url = match[1];
+        const textBefore = caption.slice(0, match.index).trim();
+        const linkTextMatch = textBefore.match(/(\S+)$/);
+        const linkText = linkTextMatch ? linkTextMatch[1] : url;
+
+        // Remove the linkText from before the match
+        const captionStart = textBefore.replace(new RegExp(linkText + "$"), "").trim();
+        const captionEnd = caption.slice(match.index + match[0].length).trim();
+
+        return `${captionStart} <a href="${url}" target="_blank" rel="noopener">${linkText}</a> ${captionEnd}`;
+    }
+
+    return caption; // No link found
 }
 
 function rgbToHsl(r, g, b) {
