@@ -189,6 +189,7 @@ function populateAlbumGrid() {
 }
 
 function setupTooltipHover() {
+ if (DEVICE != "Desktop") return;
 	const tooltip = document.getElementById("custom-tooltip");
 	const images = document.querySelectorAll(".album-image");
 
