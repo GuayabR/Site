@@ -1,65 +1,87 @@
 {
     "city.jpg": {
         "title": "city",
-        "caption": "",
-        "date": "7/16/2025 5:47 PM"
+        "date": "7/16/2025 5:47 PM",
+        "song": "https://open.spotify.com/embed/track/6V7mrQd5w1RLYLgpa0j1lh?utm_source=generator&theme=0",
+        "s-title": "The distance between two",
+        "s-artist": "Toby Fox"
     },
     "shine.jpg": {
         "title": "shine",
-        "caption": "",
-        "date": "7/3/2025 8:35 PM"
+        "date": "7/3/2025 8:35 PM",
+        "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
+        "s-title": "Prophecy",
+        "s-artist": "Creo"
     },
     "signal.jpg": {
         "title": "signal",
         "caption": "messages",
-        "date": "7/16/2025 8:39 PM"
+        "date": "7/16/2025 8:39 PM",
+        "song": "https://open.spotify.com/embed/track/70k7l4qtoQkKa7kS2xsEiA?utm_source=generator&theme=0",
+        "s-title": "NORTHERNLIGHT",
+        "s-artist": "Toby Fox"
     },
     "lucy.jpg": {
         "title": "where is she",
         "caption": "by lucy (https://instagram.com/lucyhawkins233)",
         "date": "2/16/2025 10:29 PM",
         "color": "rgb(120, 94, 70)",
-        "color_hyper": true
+        "color_hyper": true,
+        "song": "https://open.spotify.com/embed/track/03ukf04MOfpSzDk5EakIiv?utm_source=generator&theme=0",
+        "s-title": "GLACEIR",
+        "s-artist": "Toby Fox"
     },
     "nobody.jpg": {
-        "title": "nobody",
+        "title": ".",
         "caption": "nobody is waiting",
-        "date": "3/7/2025 9:26 PM"
+        "date": "3/7/2025 9:26 PM",
+        "song": "https://open.spotify.com/embed/track/2acj21k56lNshKpVAYF7DR?utm_source=generator&theme=0",
+        "s-title": "Premonition",
+        "s-artist": "Toby Fox",
+        "site-bg": "black"
     },
     "25.jpg": {
         "title": "twenty five",
-        "caption": "",
         "date": "6/6/2025 7:08 PM",
         "color": "rgb(255, 239, 90)"
     },
     "please tag off.jpg": {
         "title": "please tag off",
-        "caption": "",
         "date": "6/6/2025 7:04 PM"
     },
     "can you see past.jpg": {
         "title": "can you see past",
-        "caption": "",
-        "date": "7/31/2025 9:03 PM"
+        "date": "7/31/2025 9:03 PM",
+        "song": "https://open.spotify.com/embed/track/1eodgnlUYiH3s0q99vk18p?utm_source=generator&theme=0",
+        "s-title": "Darkness Falls",
+        "s-artist": "Toby Fox"
     },
     "peace.jpg": {
         "title": "peace",
-        "caption": "",
-        "date": "7/31/2025 8:55 PM"
+        "date": "7/31/2025 8:55 PM",
+        "song": "https://open.spotify.com/embed/track/2L5nTpQVL0uAOC3D9EAgOo?utm_source=generator&theme=0",
+        "s-title": "Fireplace",
+        "s-artist": "Toby Fox"
     },
     "plant.jpg": {
         "title": "plant",
-        "caption": "",
-        "date": "6/12/2025 4:13 PM"
+        "date": "6/12/2025 4:13 PM",
+        "song": "https://open.spotify.com/embed/track/5z4vmar50qPl80GjIrPBXm?utm_source=generator&theme=0",
+        "s-title": "It's Raining Somewhere Else",
+        "s-artist": "Toby Fox"
     },
     "calms you.jpg": {
         "title": "calms you",
-        "caption": "",
-        "date": "3/7/2025 9:29 PM"
+        "date": "3/7/2025 9:29 PM",
+        "song": "https://open.spotify.com/embed/track/5hsRssY21u2RnOzAaRPRPE?utm_source=generator&theme=0",
+        "s-title": "Flashback (Excerpt)",
+        "s-artist": "Toby Fox"
     },
     "the moon.jpg": {
         "title": "the moon",
-        "caption": "",
-        "date": "7/10/2025 8:40 PM"
+        "date": "7/10/2025 8:40 PM",
+        "song": "https://open.spotify.com/embed/track/3TIvMJwLPjWkZmdNjO33iU?utm_source=generator",
+        "s-title": "With Hope Crossed On Our Hearts",
+        "s-artist": "Toby Fox"
     }
 }

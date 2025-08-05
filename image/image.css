@@ -75,8 +75,6 @@ body {
         overflow: visible;
     }
 
-    
-
     html,
     body {
         height: auto;
@@ -168,21 +166,20 @@ body {
 }
 
 .image-side img {
-	max-width: 90%;
-	max-height: 70vh;
-	object-fit: contain;
-	border-radius: 10px;
-	border-width: 4px;
-	border-color: rgb(54, 54, 54);
-	border-style: solid;
-	animation: pulseImg 1.5s ease forwards;
+    max-width: 90%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 10px;
+    border-width: 4px;
+    border-style: solid;
+    animation: pulseImg 1.5s ease forwards;
 }
 
 @keyframes pulseImg {
-	from {
-		border-width: 30px;
-	}
-	to {
-		border-width: 4px;
-	}
+    from {
+        border-width: 30px;
+    }
+    to {
+        border-width: 4px;
+    }
 }

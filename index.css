@@ -43,7 +43,7 @@ body {
 .album-btn {
     width: 200px;
     height: 225px;
-    border: 3px solid rgba(255, 255, 255, 0.63);
+    border: 3px solid rgba(53, 53, 53);
     border-radius: 12px;
     background-color: #6868681e;
     color: white;
@@ -93,6 +93,7 @@ body {
 
 .album-btn:hover {
     transform: scale(1.05);
+    border-color: rgb(120, 120, 120);
 }
 
 .browse-btn {

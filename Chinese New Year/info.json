@@ -1,29 +1,41 @@
 {
     "Stands Out.jpg": {
         "title": "Stands Out",
-        "caption": "",
-        "date": "2/22/2025 6:40 PM"
+        "date": "2/22/2025 6:40 PM",
+        "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator",
+        "s-title": "Borderline",
+        "s-artist": "Tame Impala"
     },
     "Red Lantern.jpg": {
         "title": "Red Lantern",
-        "caption": "",
         "date": "2/22/2025 8:05 PM",
-        "color": "rgb(255, 0, 20)"
+        "color": "rgb(255, 0, 20)",
+        "album": "Chinese New Year",
+        "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator",
+        "s-title": "Borderline",
+        "s-artist": "Tame Impala"
     },
     "Of The Snake.jpg": {
         "title": "Of The Snake",
-        "caption": "",
-        "date": "2/22/2025 8:17 PM"
+        "date": "2/22/2025 8:17 PM",
+        "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator",
+        "s-title": "Borderline",
+        "s-artist": "Tame Impala"
     },
     "Night Glows.jpg": {
         "title": "Night Glows",
-        "caption": "",
-        "date": "2/22/2025 9:45 PM"
+        "date": "2/22/2025 9:45 PM",
+        "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator",
+        "s-title": "Borderline",
+        "s-artist": "Tame Impala"
     },
     "Red Lanterns.jpg": {
         "title": "Red Lanterns",
         "caption": "Garden Glows with Red",
         "date": "2/22/2025 9:13 PM",
-        "color": "rgb(200, 0, 0)"
+        "color": "rgb(200, 0, 0)",
+        "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator",
+        "s-title": "Borderline",
+        "s-artist": "Tame Impala"
     }
 }

@@ -72,7 +72,7 @@
     }
 }
 
-@media (max-width: 1320px) {
+@media (max-width: 1200px) {
     .photos-grid {
         grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
         max-width: calc(135px * 5 + 14px * 4); /* 5 columns + 4 gaps */

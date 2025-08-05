@@ -5,6 +5,8 @@
 
 const DEVICE = detectDeviceType();
 
+console.log(DEVICE);
+
 window.addEventListener("DOMContentLoaded", () => {
     const { img, album, from } = getQueryParams();
 
@@ -19,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 browseBtn.style.display = "block";
                 browseBtn.href = "/browse/";
                 browseBtn.innerText = "Back to Browsing";
-            } else if (from === "view" ) {
+            } else if (from === "view") {
                 backBtn.href = `/album/?album=${encodeURIComponent(album)}&from=view`;
                 backBtn.innerText = `Back to "${album}"`;
                 browseBtn.style.display = "block";
@@ -29,7 +31,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 backBtn.href = `/album/?album=${encodeURIComponent(album)}`;
                 backBtn.innerText = `Back to "${album}"`;
             }
-        } else if (from === "view" ) {
+        } else if (from === "view") {
             backBtn.href = "/view";
             backBtn.innerText = "Back to All Albums";
         } else {
@@ -65,6 +67,7 @@ function detectDeviceType() {
     if (/Mobile|iP(hone|od)|IEMobile|Windows Phone|kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(userAgent)) {
         return "Mobile";
     }
+
     return "Windows";
 }
 
@@ -73,46 +76,46 @@ function home() {
 }
 
 function setRandomAlbumBackgrounds() {
-	const buttons = document.querySelectorAll(".album-btn");
-	const isViewPage = window.location.pathname.startsWith("/view");
+    const buttons = document.querySelectorAll(".album-btn");
+    const isViewPage = window.location.pathname.startsWith("/view");
 
-	buttons.forEach((button) => {
-		const album = button.getAttribute("data-album");
+    buttons.forEach((button) => {
+        const album = button.getAttribute("data-album");
 
-		const fetchFrom = (isViewPage ? "/" : "") + `${encodeURIComponent(album)}/info.json`;
+        const fetchFrom = (isViewPage ? "/" : "") + `${encodeURIComponent(album)}/info.json`;
 
-		fetch(fetchFrom)
-			.then((res) => res.json())
-			.then((data) => {
-				const images = Object.keys(data);
-				if (images.length === 0) return;
+        fetch(fetchFrom)
+            .then((res) => res.json())
+            .then((data) => {
+                const images = Object.keys(data);
+                if (images.length === 0) return;
 
-				const randomImage = images[Math.floor(Math.random() * images.length)];
-				const imagePath = (isViewPage ? "/" : "") + `${album}/thumbs/${randomImage}`;
+                const randomImage = images[Math.floor(Math.random() * images.length)];
+                const imagePath = (isViewPage ? "/" : "") + `${album}/thumbs/${randomImage}`;
 
-				button.style.backgroundImage = `url("${encodeURI(imagePath)}")`;
-				//console.log("set bg as ", button.style.backgroundImage);
-				//console.log("set bg url as ", encodeURI(imagePath));
-			})
-			.catch((err) => {
-				console.warn(`Couldn't load info.json for ${album}`, err);
-			});
-	});
+                button.style.backgroundImage = `url("${encodeURI(imagePath)}")`;
+                //console.log("set bg as ", button.style.backgroundImage);
+                //console.log("set bg url as ", encodeURI(imagePath));
+            })
+            .catch((err) => {
+                console.warn(`Couldn't load info.json for ${album}`, err);
+            });
+    });
 
-	if (buttons.length > 5) {
-		const centerWrapper = document.querySelector(".center-wrapper");
-		if (centerWrapper) {
-			const spacer = document.createElement("div");
-			spacer.style.minHeight = "70px";
-			document.body.insertBefore(spacer, document.body.firstChild);
+    if (buttons.length > 5) {
+        const centerWrapper = document.querySelector(".center-wrapper");
+        if (centerWrapper) {
+            const spacer = document.createElement("div");
+            spacer.style.minHeight = "70px";
+            document.body.insertBefore(spacer, document.body.firstChild);
 
-			while (centerWrapper.firstChild) {
-				document.body.insertBefore(centerWrapper.firstChild, centerWrapper);
-			}
+            while (centerWrapper.firstChild) {
+                document.body.insertBefore(centerWrapper.firstChild, centerWrapper);
+            }
 
-			centerWrapper.remove();
-		}
-	}
+            centerWrapper.remove();
+        }
+    }
 }
 
 function album_selected(album) {
@@ -145,7 +148,7 @@ function populateAlbumGrid() {
         .then((res) => res.json())
         .then((data) => {
             let count = 0;
-            
+
             for (const filename in data) {
                 const meta = data[filename];
 
@@ -156,17 +159,43 @@ function populateAlbumGrid() {
                 img.setAttribute("img-title", meta.title || filename);
                 img.setAttribute("img-date", meta.date);
                 img.setAttribute("img-caption", meta.caption);
+                img.setAttribute("img-song", meta["s-title"]);
+                img.setAttribute("img-song-artist", meta["s-artist"]);
 
                 img.onclick = () => {
                     if (from === "view") window.location.href = `/image/?album=${album}&img=${filename}&from=view`;
                     else window.location.href = `/image/?album=${album}&img=${filename}`;
                 };
 
+                var extract = true;
+
+                //if (meta.color) {
+                //    img.style.borderColor = meta.color;
+                //    extract = false;
+                //}
+
+                img.addEventListener("load", () => {
+                    return;
+                    const colorThief = new ColorThief();
+                    if (img.complete) {
+                        const color = colorThief.getColor(img); // [r, g, b]
+                        const hsl = rgbToHsl(color[0], color[1], color[2]);
+
+                        // Boost saturation and lightness to force brightness
+                        hsl[1] = Math.min(1, hsl[1] * 1.2); // Saturation
+                        hsl[2] = Math.max(0.65, hsl[2]); // Lightness floor
+
+                        const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
+                        const rgb = `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`;
+                        img.style.borderColor = rgb;
+                    }
+                });
+
                 grid.appendChild(img);
                 count++;
             }
 
-            setupTooltipHover()
+            setupTooltipHover();
 
             if (count > 9) {
                 const centerWrapper = document.querySelector(".center-wrapper");
@@ -189,24 +218,31 @@ function populateAlbumGrid() {
 }
 
 function setupTooltipHover() {
- if (DEVICE != "Desktop") return;
-	const tooltip = document.getElementById("custom-tooltip");
-	const images = document.querySelectorAll(".album-image");
+    if (DEVICE != "Windows") return;
+    const tooltip = document.getElementById("custom-tooltip");
+    const images = document.querySelectorAll(".album-image");
 
-	images.forEach((img) => {
-		const title = img.getAttribute("img-title") || img.alt;
-        const date = img.getAttribute("img-date") || ""
-        const caption = img.getAttribute("img-caption") || ""
+    images.forEach((img) => {
+        const title = img.getAttribute("img-title") || img.alt;
+        const date = img.getAttribute("img-date");
+        const caption = img.getAttribute("img-caption");
+        const song = img.getAttribute("img-song");
+        const song_a = img.getAttribute("img-song-artist");
 
-		img.addEventListener("mouseenter", () => {
-            tooltip.innerHTML = `${title}<br>${caption}<br>${date}`;
-            if (!caption) tooltip.innerHTML = `${title}<br>${date}`;
-			if (!date) tooltip.innerHTML = `${title}<br>${caption}`;
-            
-			tooltip.style.opacity = "1";
-		});
+        img.addEventListener("mouseenter", () => {
+            const lines = [];
 
-		img.addEventListener("mousemove", (e) => {
+            if (title != "undefined" || "") lines.push(`${title}`);
+            if (caption != "undefined" || "") lines.push(`<br>${caption}`);
+            if (date != "undefined" || "") lines.push(`<br>${date}`);
+            if (song != "undefined" || "") lines.push(`<br><i style="color: rgba(158, 158, 158, 1)">${song}</i>`);
+            if (song_a != "undefined" || "") lines.push(`<br><i style="color: rgba(158, 158, 158, 1)">${song_a}</i>`);
+
+            tooltip.innerHTML = lines.join("");
+            tooltip.style.opacity = "1";
+        });
+
+        img.addEventListener("mousemove", (e) => {
             const offset = 15;
             const tooltipWidth = tooltip.offsetWidth;
             const pageWidth = window.innerWidth;
@@ -223,14 +259,14 @@ function setupTooltipHover() {
             tooltip.style.top = `${e.clientY + offset}px`;
         });
 
-		img.addEventListener("mouseleave", () => {
-			tooltip.style.opacity = "0";
-		});
-	});
+        img.addEventListener("mouseleave", () => {
+            tooltip.style.opacity = "0";
+        });
+    });
 }
 
 function loadAlbumImage() {
-    const { album, img, from } = getQueryParams();
+    const { album, img } = getQueryParams();
     if (!album || !img) return;
 
     const imgPath = `/${album}/thumbs/${img}`;
@@ -248,7 +284,7 @@ function loadAlbumImage() {
 
     var color_els = true;
     var color_a = false;
-    var extracted_rgb;
+    var extracted_rgb, extracted_arr;
 
     fetch(`/${album}/info.json`)
         .then((res) => res.json())
@@ -268,8 +304,12 @@ function loadAlbumImage() {
                     color_as(captionEl.querySelectorAll("a"), info.color);
                 }
 
+                imageEl.style.borderColor = info.color;
+
                 // Disable color extraction only if a fixed color is used
                 color_els = false;
+
+                setLowColor(imageEl, parseRgbString(info.color));
             } else if (info.color_hyper && !info.color) {
                 // Keep color_els = true so it extracts and applies to <a>
                 // Title color will be handled after image loads
@@ -278,7 +318,21 @@ function loadAlbumImage() {
                 color_as(document.getElementById("image-caption").querySelectorAll("a"), extracted_rgb);
             }
 
+            if (info["site-bg"]) {
+                document.documentElement.style.backgroundColor = info["site-bg"];
+                document.body.style.backgroundColor = info["site-bg"];
+            }
+
             document.title = info.title;
+
+            // Add Spotify embed if song exists
+            const iframe = document.querySelector('iframe[data-testid="embed-iframe"]');
+            if (iframe && info.song && info.song.includes("open.spotify.com/embed/track/")) {
+                iframe.src = info.song;
+                iframe.style.display = "block";
+            } else if (iframe) {
+                iframe.style.display = "none";
+            }
         })
         .catch(() => {
             console.warn("No info.json or failed to load.");
@@ -301,9 +355,25 @@ function loadAlbumImage() {
             const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
             const rgb = `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`;
             extracted_rgb = rgb;
+            extracted_arr = brightRgb;
             document.getElementById("image-title").style.color = rgb;
+            imageEl.style.borderColor = rgb;
+            setLowColor(imageEl, extracted_arr);
         }
     });
+}
+
+function setLowColor(elem, color) {
+    setTimeout(() => {
+        elem.style.transition = "border 3s ease";
+        const hsl = rgbToHsl(color[0], color[1], color[2]);
+        hsl[1] = Math.min(0.1, hsl[1]); // Saturation
+        hsl[2] = Math.max(0.1, hsl[2] * 0.5); // Lightness floor
+
+        const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
+        const rgb = `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`;
+        elem.style.borderColor = rgb;
+    }, 500);
 }
 
 function color_as(links, col) {
@@ -330,6 +400,12 @@ function parseCaption(caption) {
     }
 
     return caption; // No link found
+}
+
+function parseRgbString(rgbStr) {
+    const match = rgbStr.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    if (!match) return [0, 0, 0]; // fallback
+    return [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
 }
 
 function rgbToHsl(r, g, b) {
