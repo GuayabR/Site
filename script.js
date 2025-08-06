@@ -297,7 +297,7 @@ function loadAlbumImage() {
     var color_a = false;
     var extracted_rgb, extracted_arr;
 
-    const notFoundMessage = 'Error (404 Not Found)<br>The album you are trying to look for was not found.';
+    const notFoundMessage = `Error (404 Not Found)<br>"${img}" from ${album} was not found.`;
 
     // If the image fails to load (404), hide the image element and show the error title
 	imageEl.addEventListener("error", () => {
