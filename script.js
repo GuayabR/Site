@@ -144,9 +144,20 @@ function populateAlbumGrid() {
     const albumTitle = document.querySelector("h1");
     albumTitle.textContent = decodeURIComponent(album);
 
+    const notFoundMessage = `Error (404 Not Found)<br>${album} was not found.`;
+
     fetch(`/${album}/info.json`)
         .then((res) => res.json())
         .then((data) => {
+            // If data is empty or has no keys, treat as not found
+			if (!data || Object.keys(data).length === 0) {
+				// Hide grid and show error in title
+				if (grid) grid.style.display = "none";
+				albumTitle.innerHTML = notFoundMessage;
+				document.title = "404 Not Found";
+				return;
+			}
+
             let count = 0;
 
             for (const filename in data) {
@@ -286,6 +297,32 @@ function loadAlbumImage() {
     var color_a = false;
     var extracted_rgb, extracted_arr;
 
+    const notFoundMessage = 'Error (404 Not Found)<br>The album you are trying to look for was not found.';
+
+    // If the image fails to load (404), hide the image element and show the error title
+	imageEl.addEventListener("error", () => {
+		// Hide image element
+		imageEl.style.display = "none";
+
+		// Hide download/view buttons if present
+		if (downloadBtn) downloadBtn.style.display = "none";
+		if (viewBtn) viewBtn.style.display = "none";
+
+		// Show error in title (use innerHTML so <br> works)
+		const titleEl = document.getElementById("image-title");
+		if (titleEl) titleEl.innerHTML = notFoundMessage;
+
+		// Also clear caption/lore/date
+		const captionEl = document.getElementById("image-caption");
+		if (captionEl) captionEl.innerHTML = "";
+		const loreEl = document.getElementById("image-lore");
+		if (loreEl) loreEl.innerText = "";
+		const dateEl = document.getElementById("image-date");
+		if (dateEl) dateEl.innerText = "";
+
+		document.title = "404 Not Found";
+	});
+
     fetch(`/${album}/info.json`)
         .then((res) => res.json())
         .then((data) => {
@@ -334,10 +371,29 @@ function loadAlbumImage() {
                 iframe.style.display = "none";
             }
         })
-        .catch(() => {
-            console.warn("No info.json or failed to load.");
-            document.title = img;
-        });
+        .catch((err) => {
+			// Failed to load album info.json -> treat as album not found
+			console.warn("No info.json or failed to load.", err);
+
+			// Hide image and related controls
+			if (imageEl) imageEl.style.display = "none";
+			if (downloadBtn) downloadBtn.style.display = "none";
+			if (viewBtn) viewBtn.style.display = "none";
+
+			// Show friendly 404 message in the title area
+			const titleEl = document.getElementById("image-title");
+			if (titleEl) titleEl.innerHTML = notFoundMessage;
+
+			// Clear other fields
+			const captionEl = document.getElementById("image-caption");
+			if (captionEl) captionEl.innerHTML = "";
+			const loreEl = document.getElementById("image-lore");
+			if (loreEl) loreEl.innerText = "";
+			const dateEl = document.getElementById("image-date");
+			if (dateEl) dateEl.innerText = "";
+
+			document.title = "404 Not Found";
+		});
 
     if (window.location.pathname !== "/image/") return;
 
