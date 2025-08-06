@@ -229,7 +229,7 @@ function populateAlbumGrid() {
 }
 
 function setupTooltipHover() {
-    if (DEVICE != "Windows") return;
+    if (DEVICE === "Mobile" || "iOS" || "Android") return;
     const tooltip = document.getElementById("custom-tooltip");
     const images = document.querySelectorAll(".album-image");
 
