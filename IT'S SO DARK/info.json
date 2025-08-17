@@ -2,6 +2,7 @@
     "city.jpg": {
         "title": "city",
         "date": "7/16/2025 5:47 PM",
+        "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/6V7mrQd5w1RLYLgpa0j1lh?utm_source=generator&theme=0",
         "s-title": "The distance between two",
         "s-artist": "Toby Fox"
@@ -17,6 +18,7 @@
         "title": "signal",
         "caption": "messages",
         "date": "7/16/2025 8:39 PM",
+        "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/70k7l4qtoQkKa7kS2xsEiA?utm_source=generator&theme=0",
         "s-title": "NORTHERNLIGHT",
         "s-artist": "Toby Fox"
@@ -26,6 +28,7 @@
         "caption": "by lucy (https://instagram.com/lucyhawkins233)",
         "date": "2/16/2025 10:29 PM",
         "color": "rgb(120, 94, 70)",
+        "tint-bg": "gradient",
         "color_hyper": true,
         "song": "https://open.spotify.com/embed/track/03ukf04MOfpSzDk5EakIiv?utm_source=generator&theme=0",
         "s-title": "GLACEIR",
@@ -35,10 +38,11 @@
         "title": ".",
         "caption": "nobody is waiting",
         "date": "3/7/2025 9:26 PM",
+        "color": "rgb(60, 60, 75)",
+        "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/2acj21k56lNshKpVAYF7DR?utm_source=generator&theme=0",
         "s-title": "Premonition",
-        "s-artist": "Toby Fox",
-        "site-bg": "black"
+        "s-artist": "Toby Fox"
     },
     "25.jpg": {
         "title": "twenty five",
@@ -59,6 +63,7 @@
     "peace.jpg": {
         "title": "peace",
         "date": "7/31/2025 8:55 PM",
+        "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/2L5nTpQVL0uAOC3D9EAgOo?utm_source=generator&theme=0",
         "s-title": "Fireplace",
         "s-artist": "Toby Fox"
@@ -66,6 +71,7 @@
     "plant.jpg": {
         "title": "plant",
         "date": "6/12/2025 4:13 PM",
+        "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5z4vmar50qPl80GjIrPBXm?utm_source=generator&theme=0",
         "s-title": "It's Raining Somewhere Else",
         "s-artist": "Toby Fox"
@@ -80,6 +86,7 @@
     "the moon.jpg": {
         "title": "the moon",
         "date": "7/10/2025 8:40 PM",
+        "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/3TIvMJwLPjWkZmdNjO33iU?utm_source=generator",
         "s-title": "With Hope Crossed On Our Hearts",
         "s-artist": "Toby Fox"
