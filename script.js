@@ -144,9 +144,20 @@ function populateAlbumGrid() {
     const albumTitle = document.querySelector("h1");
     albumTitle.textContent = decodeURIComponent(album);
 
+    const notFoundMessage = `Error (404 Not Found)<br>${album} was not found.`;
+
     fetch(`/${album}/info.json`)
         .then((res) => res.json())
         .then((data) => {
+            // If data is empty or has no keys, treat as not found
+            if (!data || Object.keys(data).length === 0) {
+                // Hide grid and show error in title
+                if (grid) grid.style.display = "none";
+                albumTitle.innerHTML = notFoundMessage;
+                document.title = "404 Not Found";
+                return;
+            }
+
             let count = 0;
 
             for (const filename in data) {
@@ -449,6 +460,51 @@ function applyGradientBackground(rgbArr) {
 
     document.documentElement.style.background = `linear-gradient(to bottom, black, rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
     document.body.style.background = `linear-gradient(to bottom, black, rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
+}
+
+function color_as(links, col) {
+    for (const a of links) {
+        a.style.color = col;
+    }
+}
+
+function parseCaption(caption) {
+    const linkRegex = /\((https?:\/\/[^\s()]+)\)/;
+
+    const match = caption.match(linkRegex);
+    if (match) {
+        const url = match[1];
+        const textBefore = caption.slice(0, match.index).trim();
+        const linkTextMatch = textBefore.match(/(\S+)$/);
+        const linkText = linkTextMatch ? linkTextMatch[1] : url;
+
+        // Remove the linkText from before the match
+        const captionStart = textBefore.replace(new RegExp(linkText + "$"), "").trim();
+        const captionEnd = caption.slice(match.index + match[0].length).trim();
+
+        return `${captionStart} <a href="${url}" target="_blank" rel="noopener">${linkText}</a> ${captionEnd}`;
+    }
+
+    return caption; // No link found
+}
+
+function parseRgbString(rgbStr) {
+    const match = rgbStr.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    if (!match) return [0, 0, 0]; // fallback
+    return [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
+}
+
+function setLowColor(elem, color) {
+    setTimeout(() => {
+        elem.style.transition = "border 3s ease";
+        const hsl = rgbToHsl(color[0], color[1], color[2]);
+        hsl[1] = Math.min(0.1, hsl[1]); // Saturation
+        hsl[2] = Math.max(0.1, hsl[2] * 0.5); // Lightness floor
+
+        const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
+        const rgb = `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`;
+        elem.style.borderColor = rgb;
+    }, 500);
 }
 
 function color_as(links, col) {

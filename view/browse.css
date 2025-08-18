@@ -14,7 +14,9 @@
     object-fit: cover;
     border-radius: 10px;
     border: 4px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.2s ease, border 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        border 0.2s ease;
 }
 
 .photos-grid img:hover {
@@ -53,7 +55,9 @@
         object-fit: cover;
         border-radius: 10px;
         border: 4px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.2s ease, border 0.2s ease;
+        transition:
+            transform 0.2s ease,
+            border 0.2s ease;
     }
 }
 
@@ -71,7 +75,9 @@
         object-fit: cover;
         border-radius: 10px;
         border: 4px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.2s ease, border 0.2s ease;
+        transition:
+            transform 0.2s ease,
+            border 0.2s ease;
     }
 }
 
@@ -89,7 +95,9 @@
         object-fit: cover;
         border-radius: 10px;
         border: 4px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.2s ease, border 0.2s ease;
+        transition:
+            transform 0.2s ease,
+            border 0.2s ease;
     }
 }
 
@@ -107,6 +115,8 @@
         object-fit: cover;
         border-radius: 10px;
         border: 4px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.2s ease, border 0.2s ease;
+        transition:
+            transform 0.2s ease,
+            border 0.2s ease;
     }
 }
