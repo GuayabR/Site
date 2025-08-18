@@ -12,7 +12,7 @@
         <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
     </head>
     <body>
-        <main class="center-wrapper">
+        <div style="min-height: 20px;"></div>
         <div class="info-section fade-in fade-delay-1">
             <h1 style="font-family: Helvetica;">GuayabR</h1>
             <p class="quote">"Art is everyone, everything, everywhere and anything."</p>
@@ -23,17 +23,19 @@
                 <button onclick="album_selected('Explosion of Colours')" data-album = "Explosion of Colours" class="album-btn">Explosion of Colours</button>
                 <button onclick="album_selected('Chinese New Year')" data-album = "Chinese New Year" class="album-btn">Chinese New Year</button>
                 <button onclick="album_selected('December 2024')" data-album = "December 2024" class="album-btn">December 2024</button>
-                <!--<button onclick="album_selected('Edited Photos')" data-album="Edited Photos" class="album-btn">Edited Photos</button>
-                <button onclick="album_selected('Star in the middle')" data-album = "Star in the middle" class="album-btn">Star in the middle</button>
-            -->
+                <button onclick="album_selected(`IT'S SO DARK`)" data-album="IT'S SO DARK" class="album-btn">IT'S SO DARK</button>
+                <button onclick="album_selected(`IT'S SO COLOURFUL`)" data-album="IT'S SO COLOURFUL" class="album-btn">IT'S SO COLOURFUL</button>
+                <button onclick="album_selected(`canon`)" data-album="CANON" class="album-btn">CANON</button>
+                <button onclick="album_selected(`canon_mine`)" data-album="canon_mine" class="album-btn">CANON 2</button>
             </div>
 
             <br />
-            <button class="browse-btn" onclick="window.location.href = '/browse'">Browse</button>
+            <button class="browse-btn" onclick="window.location.href = '/view'">Browse Albums</button>
+            <br><br>
+            <button class="browse-btn" onclick="window.location.href = '/browse'">Browse Photos</button>
             <br><br>
             <button style="padding: 8px 30px;" onclick="document.location.href = 'links'" class="links-btn">Links</button>
         </div>
-
         <br></br>
 
         <img
@@ -51,7 +53,7 @@
             You are free to download and use these photos for personal and non-commercial projects, as long as proper credit is given.
             <br>Commercial use is not permitted without explicit permission.
         </p>
-    </main>
+    
     </body>
     <script src="script.js"></script>
 </html>

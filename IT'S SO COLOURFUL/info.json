@@ -1,0 +1,41 @@
+{
+    "NEW YEAR.jpg": {
+        "title": "2024.",
+        "lore": "Skyfall was the song playing when I took this photo.",
+        "date": "1/1/2024 12:01 AM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6VObnIkLVruX4UVyxWhlqm?utm_source=generator",
+        "s-title": "Skyfall",
+        "s-artist": "Adele"
+    },
+    "view.jpg": {
+        "title": "view",
+        "date": "06/08/2024 4:41 PM"
+    },
+    "Was fun.jpg": {
+        "title": "Was fun",
+        "lore": "What happened to him?",
+        "date": "06/08/2024 4:20 PM"
+    },
+    "adore yourself.jpg": {
+        "title": "adore yourself",
+        "date": "23/05/2025 9:28 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/1lTqq0aC6r2bXLviQ3oaVt?utm_source=generator",
+        "s-title": "Ring Ring Ring",
+        "s-artist": "Tyler, The Creator"
+    },
+    "moon in the middle.jpg": {
+        "title": "moon in the middle",
+        "date": "08/06/2025 4:39 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5ZI2uKHpKza44XVsRZy7lM?utm_source=generator",
+        "s-title": "For Me - VIP",
+        "s-artist": "Throttle"
+    },
+    "rainbow rain.jpg": {
+        "title": "rainbow rain",
+        "date": "23/06/2025 7:57 PM",
+        "tint-bg": "gradient"
+    }
+}

@@ -22,7 +22,6 @@ body {
     font-size: 0.9em;
     color: rgb(90, 90, 90);
     text-align: center;
-    max-width: 90%;
     margin-top: 10px;
 }
 
@@ -31,12 +30,43 @@ body {
     flex-direction: row;
     width: 100%;
     flex: 1;
-    overflow: hidden;
+    overflow: visible;
     align-items: center;
     justify-content: center;
 }
 
-@media (max-width: 675px) {
+@media (max-width: 1200px) {
+    .image-view-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 0.8rem;
+        overflow: visible;
+    }
+    .image-side {
+        max-width: 770px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+    }
+    html,
+    body {
+        height: auto;
+    }
+
+    .page-wrapper {
+        height: auto;
+    }
+
+    .info-side {
+        width: 100%;
+    }
+}
+
+@media (max-width: 790px) {
     .image-view-container {
         flex-direction: column;
         align-items: center;
@@ -60,8 +90,8 @@ body {
 }
 
 .info-side {
-    width: 75%;
-    padding: 2rem;
+    width: 100%;
+    padding: 3rem;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -69,18 +99,18 @@ body {
 }
 
 .info-content {
-    text-align: justify;
-    max-width: 600px;
+    text-align: left;
+    max-width: 700px;
     width: 100%;
 }
 
 .info-content h1 {
-    font-size: 2rem;
+    font-size: 2.3rem;
     margin-bottom: 1rem;
 }
 
 .info-content p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     line-height: 1.5;
 }
 
@@ -104,7 +134,7 @@ body {
     gap: 0.5rem;
     margin-top: 1rem;
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .download-btn {
@@ -120,7 +150,7 @@ body {
 }
 
 .image-side {
-    width: 80%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,19 +158,28 @@ body {
     padding-bottom: 1rem;
 }
 
-.image-side img {
-    max-width: 80%;
-    max-height: 60vh;
-    object-fit: contain;
-    border-radius: 10px;
-    border-width: 4px;
-    border-color: rgb(54, 54, 54);
-    border-style: solid;
-}
-
 .logo-img {
     width: 80px;
     padding-top: 25px;
     margin-bottom: 20px;
     cursor: pointer;
+}
+
+.image-side img {
+    max-width: 90%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 10px;
+    border-width: 4px;
+    border-style: solid;
+    animation: pulseImg 1.5s ease forwards;
+}
+
+@keyframes pulseImg {
+    from {
+        border-width: 30px;
+    }
+    to {
+        border-width: 4px;
+    }
 }

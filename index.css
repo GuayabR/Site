@@ -3,7 +3,7 @@ body {
 }
 
 .info-section {
-    max-width: 1000px;
+    max-width: 1600px;
     margin-top: 40px;
     text-align: center;
 }
@@ -33,8 +33,9 @@ body {
 
 .albums-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    max-width: calc(200px * 8 + 20px * 5); /* 6 columns max + 5 gaps */
+    gap: 20px;
     justify-items: center;
     margin-bottom: 24px;
 }
@@ -42,12 +43,17 @@ body {
 .album-btn {
     width: 200px;
     height: 225px;
-    border: 3px solid rgba(255, 255, 255, 0.63);
+    border: 3px solid rgba(53, 53, 53);
     border-radius: 12px;
     background-color: #6868681e;
     color: white;
     font-weight: 500;
-    text-shadow: 0px 0px 6px rgb(0, 0, 0), 0px 0px 8px rgba(0, 0, 0), 0px 0px 8px rgba(0, 0, 0), 0px 0px 10px rgba(0, 0, 0), 0px 0px 12px rgba(0, 0, 0);
+    text-shadow:
+        0px 0px 6px rgb(0, 0, 0),
+        0px 0px 8px rgba(0, 0, 0),
+        0px 0px 8px rgba(0, 0, 0),
+        0px 0px 10px rgba(0, 0, 0),
+        0px 0px 12px rgba(0, 0, 0);
     overflow: hidden;
     position: relative;
     padding: 0.5em;
@@ -57,10 +63,25 @@ body {
     background-repeat: no-repeat;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1100px) {
     .albums-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(4, minmax(100px, 1fr));
+        gap: 10px;
+        padding: 50px;
+    }
+
+    .album-btn {
+        width: 125px;
+        height: 140px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 630px) {
+    .albums-grid {
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+        gap: 15px;
+        padding: 20px;
     }
 
     .album-btn {
@@ -72,6 +93,7 @@ body {
 
 .album-btn:hover {
     transform: scale(1.05);
+    border-color: rgb(120, 120, 120);
 }
 
 .browse-btn {

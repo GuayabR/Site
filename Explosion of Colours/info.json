@@ -1,73 +1,117 @@
 {
     "Rosa.jpg": {
         "title": "Rosa",
-        "caption": "",
         "lore": "That is how the sky looked.",
-        "date": "1/30/2025 8:52 PM"
+        "date": "1/30/2025 8:52 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5TRPicyLGbAF2LGBFbHGvO?utm_source=generator"
     },
     "THANK YOU.jpg": {
         "title": "THANK YOU.",
         "caption": "Do you remember?",
         "lore": "AA AM aa AS aE AL AT AF",
-        "date": "12/12/2024 12:14 PM"
+        "date": "12/12/2024 12:14 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5kDgJffgJ0lYHTSiaXFWNw?utm_source=generator&theme=0",
+        "s-title": "BABY I'M BACK",
+        "s-artist": "The Kid LAROI"
     },
     "Haze.jpg": {
         "title": "Haze",
         "caption": "Purple skies",
         "lore": "Took this right after going to zeal, they were having an event where people could set up stands to either sell their stuff or showcase, I decided to showcase my photos, didn't sell cuz I thought the payment process was gonna be annoying. This is one of the photos I submitted. Unedited.",
-        "date": "5/21/2025 5:32 PM"
+        "date": "5/21/2025 5:32 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/3bhG8TYIHgElq7wWf8VVOn?utm_source=generator",
+        "s-title": "Red Haze",
+        "s-artist": "Creo"
     },
     "Ignite.jpg": {
         "title": "Ignite",
         "caption": "Eventually extinguishes.",
-        "date": "6/24/2025 4:36 PM"
+        "date": "6/24/2025 4:36 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
+        "s-title": "Prophecy",
+        "s-artist": "Creo"
     },
     "Red Tide.jpg": {
         "title": "Red Tide.",
-        "caption": "",
-        "lore": "Missed first 30 minutes of muay thai on the same day.",
         "date": "5/13/2025 5:27 PM",
-        "color": "rgb(255, 0, 106)"
+        "color": "rgb(255, 0, 106)",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2xoGJODoaiCGLb8WC6GEH3?utm_source=generator&theme=0",
+        "s-title": "Dark Tides",
+        "s-artist": "Creo"
     },
     "Como Tu.jpg": {
         "title": "Como Tu",
-        "caption": "It's sad really, but at the end there isn't much I can do.",
-        "date": "2/8/2025 8:29 PM"
+        "lore": "i just want to go back",
+        "date": "2/8/2025 8:29 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6jYBc8V2b4rVCyua0xMdvH?utm_source=generator",
+        "s-title": "Epilogue",
+        "s-artist": "Creo"
     },
     "GYAAAT.jpg": {
         "title": "\"GYAAAT\"",
         "caption": "The cars license plate.",
         "lore": "Thought it was funny",
         "date": "4/29/2025 8:07 PM",
-        "color": "rgb(142, 0, 224)"
+        "color": "rgb(142, 0, 224)",
+        "tint-bg": "gradient",
+        "album": "Explosion of Colours",
+        "song": "https://open.spotify.com/embed/track/4HeNCz1NePOW4X2iEtOU4Y?utm_source=generator",
+        "s-title": "Aura",
+        "s-artist": "Creo"
     },
     "Red Lantern.jpg": {
         "title": "Red Lantern",
         "caption": "Chinese New Year",
         "date": "2/22/2025 8:05 PM",
-        "color": "rgb(255, 0, 60)"
+        "color": "rgb(255, 0, 60)",
+        "tint-bg": "gradient",
+        "album": "Chinese New Year",
+        "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator",
+        "s-title": "Borderline",
+        "s-artist": "Tame Impala"
     },
     "LIGHT RAY.jpg": {
         "title": "LIGHT RAY",
         "caption": "RAY OF HOPE",
         "lore": "First ever photo I took of this church.",
-        "date": "2/28/2025 8:40 PM"
+        "date": "2/28/2025 8:40 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/3McDEIMFeXy8mTtJsKm85X?utm_source=generator",
+        "s-title": "Slow down",
+        "s-artist": "Creo"
     },
     "Mixture in the Sky.jpg": {
         "title": "Mixture in the Sky.",
         "caption": "Mixture",
-        "date": "2/5/2025 8:41 PM"
+        "date": "2/5/2025 8:41 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
+        "s-title": "Prophecy",
+        "s-artist": "Creo"
     },
     "Flow.jpg": {
         "title": "Flow",
         "caption": "Neverending",
-        "lore": "https://open.spotify.com/track/67GRnFA7CQVQlyYQfgZuzj?si=a4bde326cf584c0d",
-        "date": "11/24/2024 3:27 PM"
+        "date": "11/24/2024 3:27 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/67GRnFA7CQVQlyYQfgZuzj?utm_source=generator",
+        "s-title": "Flow",
+        "s-artist": "Creo"
     },
     "Someone Said Goodbye.jpg": {
         "title": "Someone Said Goodbye",
         "caption": "I hate saying a final goodbye.",
         "lore": "Took this right after muay thai, the plane does look kinda small but bro what can i do",
-        "date": "3/11/2025 7:43 PM"
+        "date": "3/11/2025 7:43 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
+        "s-title": "Prophecy",
+        "s-artist": "Creo"
     }
 }

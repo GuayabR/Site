@@ -12,6 +12,10 @@
         <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
     </head>
     <body>
+        <div id="loading-screen">
+            <div class="spinner" id="loader"></div>
+        </div>
+
         <div style="min-height: 50px;"></div>
         <div class="info-section fade-in fade-delay-1">
             <h1 style="font-family: Helvetica;">Browse</h1>
@@ -40,8 +44,10 @@
             You are free to download and use these photos for personal and non-commercial projects, as long as proper credit is given.
             <br>Commercial use is not permitted without explicit permission.
         </p>
-    
+
+    <div id="custom-tooltip"></div>
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
     <script src="browse.js"></script>
     <script src="/script.js"></script>
 </html>
