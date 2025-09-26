@@ -1,4 +1,15 @@
-const albums = ["Explosion of Colours", "Chinese New Year", "December 2024", "IT'S SO DARK", "IT'S SO COLOURFUL", "Animals", "Cars", "CANON", "canon_mine"];
+const albums = [
+    "Explosion of Colours",
+    "Chinese New Year",
+    "December 2024",
+    "IT'S SO DARK",
+    "IT'S SO COLOURFUL",
+    "AS^",
+    "Animals",
+    "Cars",
+    "CANON",
+    "canon_mine"
+];
 
 const grid = document.getElementById("all-photos-grid");
 const seenFilenames = new Set();
