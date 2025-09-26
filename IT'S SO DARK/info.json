@@ -23,13 +23,10 @@
         "s-title": "NORTHERNLIGHT",
         "s-artist": "Toby Fox"
     },
-    "lucy.jpg": {
-        "title": "where is she",
-        "caption": "by lucy (https://instagram.com/lucyhawkins233)",
-        "date": "2/16/2025 10:29 PM",
-        "color": "rgb(120, 94, 70)",
+    "no one.jpg": {
+        "title": "no one",
+        "date": "7/13/2025 7:28 AM PM",
         "tint-bg": "gradient",
-        "color_hyper": true,
         "song": "https://open.spotify.com/embed/track/03ukf04MOfpSzDk5EakIiv?utm_source=generator&theme=0",
         "s-title": "GLACEIR",
         "s-artist": "Toby Fox"
