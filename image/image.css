@@ -126,6 +126,27 @@ body {
 
 #back-btn {
     white-space: pre-wrap;
+    border-radius: 4px 4px 4px 4px;
+}
+
+#download-btn {
+    border-radius: 16px 4px 4px 4px;
+}
+
+#view-img-btn {
+    border-radius: 4px 16px 4px 4px;
+}
+
+#back-browse-btn {
+    border-radius: 4px 4px 16px 4px;
+}
+
+#home-btn {
+    border-radius: 4px 4px 16px 16px;
+}
+
+#s-embed {
+    border-radius: 4px;
 }
 
 .button-group {

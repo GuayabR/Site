@@ -59,7 +59,7 @@ button {
     background-color: rgba(255, 255, 255, 0.068);
     border-radius: 8px;
     border-color: white;
-    border: 3px solid;
+    border: 2px solid;
     cursor: pointer;
 }
 
@@ -101,7 +101,7 @@ button:disabled {
     color: white;
     background-color: rgba(255, 255, 255, 0.068);
     border-radius: 8px;
-    border: 3px solid white;
+    border: 2px solid white;
     cursor: pointer;
 }
 

@@ -284,10 +284,11 @@ function setupTooltipHover() {
 }
 
 function loadAlbumImage() {
-    const { album, img } = getQueryParams();
+    const { album, img, from } = getQueryParams();
     if (!album || !img) return;
 
     console.log("Loading image:", img, "from album:", album);
+    console.log("From", from);
 
     const imgPath = `/${album}/thumbs/${img}`;
     const imageEl = document.getElementById("album-img");
@@ -373,15 +374,28 @@ function loadAlbumImage() {
 
             document.title = info.title;
 
+            if (from == null) {
+                document.getElementById("back-btn").style.borderRadius = "4px 4px 4px 16px";
+                document.getElementById("home-btn").style.borderRadius = "4px 4px 16px 4px";
+            }
+
             // Add Spotify embed if song exists
             const iframe = document.querySelector('iframe[data-testid="embed-iframe"]');
             if (iframe && info.song && info.song.includes("open.spotify.com/embed/track/")) {
                 console.log("Showing Spotify embed iframe with src:", info.song);
                 iframe.src = info.song;
                 iframe.style.display = "block";
-            } else if (iframe) {
-                console.log("Hiding Spotify embed iframe");
-                iframe.style.display = "none";
+                document.getElementById("back-btn").style.borderRadius = "4px 4px 16px 16px";
+                document.getElementById("home-btn").style.borderRadius = "16px";
+            }
+
+            if (from == "view" || from == "browse") {
+                console.log("view or brosw");
+                document.getElementById("back-btn").style.borderRadius = "4px 4px 4px 16px";
+                if (!info.song) {
+                    document.getElementById("back-btn").style.borderRadius = "4px";
+                    document.getElementById("back-browse-btn").style.borderRadius = "4px";
+                }
             }
 
             // Add image load event listener here (inside fetch block)
@@ -414,6 +428,7 @@ function loadAlbumImage() {
 
                     document.getElementById("image-title").style.color = rgb;
                     imageEl.style.borderColor = rgb;
+
                     setLowColor(imageEl, extracted_arr);
 
                     if (fetched_info?.["tint-bg"] === "gradient" && !fetched_info.color) {
@@ -511,26 +526,6 @@ function color_as(links, col) {
     for (const a of links) {
         a.style.color = col;
     }
-}
-
-function parseCaption(caption) {
-    const linkRegex = /\((https?:\/\/[^\s()]+)\)/;
-
-    const match = caption.match(linkRegex);
-    if (match) {
-        const url = match[1];
-        const textBefore = caption.slice(0, match.index).trim();
-        const linkTextMatch = textBefore.match(/(\S+)$/);
-        const linkText = linkTextMatch ? linkTextMatch[1] : url;
-
-        // Remove the linkText from before the match
-        const captionStart = textBefore.replace(new RegExp(linkText + "$"), "").trim();
-        const captionEnd = caption.slice(match.index + match[0].length).trim();
-
-        return `${captionStart} <a href="${url}" target="_blank" rel="noopener">${linkText}</a> ${captionEnd}`;
-    }
-
-    return caption; // No link found
 }
 
 function parseRgbString(rgbStr) {
