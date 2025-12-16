@@ -1,9 +1,25 @@
-const albums = ["Explosion of Colours", "Chinese New Year", "December 2024", "IT'S SO DARK", "IT'S SO COLOURFUL", "AS^", "Animals", "Cars"];
+const albums = [
+    "Explosion of Colours",
+    "Chinese New Year",
+    "December 2024",
+    "A Different Time",
+    "IT'S SO DARK",
+    "IT'S SO COLOURFUL",
+    "AS^",
+    "canon",
+    "canon_mine",
+    "Blossom",
+    "Mihir Blossom",
+    "Animals",
+    "Cars"
+];
 
 const grid = document.getElementById("all-photos-grid");
 const seenFilenames = new Set();
 
 async function loadAlbumsInOrder() {
+    const { searchTerm } = getQueryParams();
+
     for (const album of albums) {
         try {
             const res = await fetch(`/${encodeURIComponent(album)}/info.json`);
@@ -23,9 +39,14 @@ async function loadAlbumsInOrder() {
                 img.src = `/${encodeURIComponent(album)}/thumbs/${filename}`;
                 img.alt = filename;
                 img.classList.add("album-image");
+                img.setAttribute("img-data-url", `/${encodeURIComponent(album)}/${filename}`);
+
+                img.setAttribute("img-data-onclick", `/image/?album=${encodeURIComponent(album)}&img=${filename}&from=browse&searched=${searched}`);
+
                 img.setAttribute("img-title", meta.title || filename);
                 img.setAttribute("img-date", meta.date);
                 img.setAttribute("img-caption", meta.caption);
+                img.setAttribute("img-lore", meta.lore);
                 img.setAttribute("img-song", meta["s-title"]);
                 img.setAttribute("img-song-artist", meta["s-artist"]);
 
@@ -34,7 +55,8 @@ async function loadAlbumsInOrder() {
                 }
 
                 img.onclick = () => {
-                    window.location.href = `/image/?album=${encodeURIComponent(album)}&img=${filename}&from=browse`;
+                    console.log(`/image/?album=${encodeURIComponent(album)}&img=${filename}&from=browse&searched=${searched}`);
+                    window.location.href = `/image/?album=${encodeURIComponent(album)}&img=${filename}&from=browse&searched=${searched}`;
                 };
 
                 img.addEventListener("load", () => {
@@ -46,13 +68,20 @@ async function loadAlbumsInOrder() {
 
                 //console.log("added item", img.src);
 
-                await new Promise((res) => setTimeout(res, 10));
+                await new Promise((res) => setTimeout(res, 5));
             }
         } catch (err) {
             console.error(`Failed to load ${album}/info.json`, err);
         }
     }
 
+    if (searchBox && searchTerm && searchTerm != "null" && searchTerm != "undefined") {
+        searchBox.value = searchTerm;
+        searched = searchTerm;
+        search({ target: searchBox });
+    }
+
+    setupContextMenus();
     // Tooltip hover effects after all images are loaded
     setupTooltipHover();
 
@@ -94,6 +123,6 @@ function processColorThiefQueue() {
         isProcessingColorThief = false;
 
         // Slow down the loop to avoid overloading
-        setTimeout(processColorThiefQueue, 40);
+        setTimeout(processColorThiefQueue, 5);
     });
 }

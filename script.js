@@ -5,30 +5,36 @@
 
 const DEVICE = detectDeviceType();
 
+const menu = document.getElementById("customMenu");
+const openBtn = document.getElementById("openFull");
+const openTabBtn = document.getElementById("openTab");
+const quickDown = document.getElementById("quickDown");
+
 console.log(DEVICE);
 
 window.addEventListener("DOMContentLoaded", () => {
-    const { img, album, from } = getQueryParams();
+    const { img, album, from, searchTerm } = getQueryParams();
 
     // Determine which back button is present
     const backBtn = document.getElementById("back-btn");
     const browseBtn = document.getElementById("back-browse-btn");
+
     if (backBtn) {
         if (img && album) {
             if (from === "browse") {
-                backBtn.href = `/album/?album=${encodeURIComponent(album)}`;
+                backBtn.href = `/album/?album=${encodeURIComponent(album)}&searched=${searchTerm}`;
                 backBtn.innerText = `Go to Album (${album})`;
                 browseBtn.style.display = "block";
-                browseBtn.href = "/browse/";
+                browseBtn.href = `/browse/?&searched=${searchTerm}`;
                 browseBtn.innerText = "Back to Browsing";
             } else if (from === "view") {
-                backBtn.href = `/album/?album=${encodeURIComponent(album)}&from=view`;
+                backBtn.href = `/album/?album=${encodeURIComponent(album)}&from=view&searched=${searchTerm}`;
                 backBtn.innerText = `Back to "${album}"`;
                 browseBtn.style.display = "block";
                 browseBtn.href = "/view/";
                 browseBtn.innerText = "Back to All Albums";
             } else {
-                backBtn.href = `/album/?album=${encodeURIComponent(album)}`;
+                backBtn.href = `/album/?album=${encodeURIComponent(album)}&searched=${searchTerm}`;
                 backBtn.innerText = `Back to "${album}"`;
             }
         } else if (from === "view") {
@@ -45,6 +51,8 @@ window.addEventListener("DOMContentLoaded", () => {
     } else {
         populateAlbumGrid();
     }
+
+    removeQueryParam("searched");
 
     setRandomAlbumBackgrounds();
 });
@@ -106,7 +114,7 @@ function setRandomAlbumBackgrounds() {
         const centerWrapper = document.querySelector(".center-wrapper");
         if (centerWrapper) {
             const spacer = document.createElement("div");
-            spacer.style.minHeight = "70px";
+            spacer.style.minHeight = "40px";
             document.body.insertBefore(spacer, document.body.firstChild);
 
             while (centerWrapper.firstChild) {
@@ -130,12 +138,21 @@ function getQueryParams() {
     return {
         album: params.get("album"),
         img: params.get("img"),
-        from: params.get("from")
+        from: params.get("from"),
+        searchTerm: params.get("searched")
     };
 }
 
+function removeQueryParam(param) {
+    const url = new URL(window.location);
+    url.searchParams.delete(param);
+
+    // Update URL in address bar without reload
+    window.history.replaceState({}, "", url);
+}
+
 function populateAlbumGrid() {
-    const { album, from } = getQueryParams();
+    const { album, from, searchTerm } = getQueryParams();
     if (!album) return;
 
     document.title = album;
@@ -144,19 +161,45 @@ function populateAlbumGrid() {
     const albumTitle = document.querySelector("h1");
     albumTitle.textContent = decodeURIComponent(album);
 
-    const notFoundMessage = `Error (404 Not Found)<br>${album} was not found.`;
+    const notFoundMessage = `<span style="color: red; font-family: Helvetica;">Error (404 Not Found)</span><br>Album "${album}" was not found.<br><span style="font-size: 20px; font-family: Helvetica; font-weight: 400; color: gray;">${window.location}</span>`;
+
+    const noDataMessage = `<span style="color: red; font-family: Helvetica;">Error (NaN No Data)</span><br>Album "${album}" was searched but no data recieved.<br><span style="font-size: 20px; font-family: Helvetica; font-weight: 400; color: gray;">${window.location}</span>`;
 
     fetch(`/${album}/info.json`)
-        .then((res) => res.json())
-        .then((data) => {
-            // If data is empty or has no keys, treat as not found
-            if (!data || Object.keys(data).length === 0) {
-                // Hide grid and show error in title
-                if (grid) grid.style.display = "none";
-                albumTitle.innerHTML = notFoundMessage;
-                document.title = "404 Not Found";
-                return;
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP ${res.status}`);
             }
+            return res.text();
+        })
+        .then((text) => {
+            if (!text.trim()) {
+                // Empty JSON file → show "no data"
+                if (grid) grid.style.display = "none";
+                albumTitle.innerHTML = noDataMessage;
+                document.title = "NaN No Data";
+                return null;
+            }
+
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                throw new Error("Invalid JSON");
+            }
+
+            if (!data || Object.keys(data).length === 0) {
+                // JSON parsed but no content
+                if (grid) grid.style.display = "none";
+                albumTitle.innerHTML = noDataMessage;
+                document.title = "NaN No Data";
+                return null;
+            }
+
+            return data;
+        })
+        .then((data) => {
+            if (!data) return; // already handled empty cases
 
             let count = 0;
 
@@ -167,21 +210,28 @@ function populateAlbumGrid() {
                 img.src = `/${album}/thumbs/${filename}`;
                 img.alt = filename;
                 img.classList.add("album-image");
+                img.setAttribute("img-data-url", `/${album}/${filename}`);
+                if (from === "view") img.setAttribute("img-data-onclick", `/image/?album=${album}&img=${filename}&from=view`);
+                else img.setAttribute("img-data-onclick", `/image/?album=${album}&img=${filename}&searched=${searched}`);
+
                 img.setAttribute("img-title", meta.title || filename);
                 img.setAttribute("img-date", meta.date);
                 img.setAttribute("img-caption", meta.caption);
+                img.setAttribute("img-lore", meta.lore);
                 img.setAttribute("img-song", meta["s-title"]);
                 img.setAttribute("img-song-artist", meta["s-artist"]);
 
                 img.onclick = () => {
                     if (from === "view") window.location.href = `/image/?album=${album}&img=${filename}&from=view`;
-                    else window.location.href = `/image/?album=${album}&img=${filename}`;
+                    else window.location.href = `/image/?album=${album}&img=${filename}&searched=${searched}`;
                 };
+
 
                 img.addEventListener("load", () => {
                     const colorThief = new ColorThief();
                     if (img.complete) {
-                        if (!extract) return;
+                        if (img.hasAttribute("col")) return;
+
                         const color = colorThief.getColor(img); // [r, g, b]
                         const hsl = rgbToHsl(color[0], color[1], color[2]);
 
@@ -191,44 +241,151 @@ function populateAlbumGrid() {
 
                         const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
                         const rgb = `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`;
-                        if (!extract) return;
-                        if (!img.hasAttribute("col")) {
-                            img.setAttribute("col", rgb);
-                        }
+                        img.setAttribute("col", rgb);
+
                     }
                 });
 
-                var extract = true;
-
-                if (meta.color) {
+                if (meta.color && meta.color != "") {
                     img.setAttribute("col", meta.color);
-                    extract = false;
                 }
 
                 grid.appendChild(img);
                 count++;
             }
 
+            setupContextMenus();
+
             setupTooltipHover();
 
-            if (count > 12) {
-                const centerWrapper = document.querySelector(".center");
-                if (centerWrapper) {
-                    const spacer = document.createElement("div");
-                    spacer.style.minHeight = "70px";
-                    document.body.insertBefore(spacer, document.body.firstChild);
+            if (searchTerm && searchTerm != "undefined" && searchTerm != "null") {
+                searchBox.value = searchTerm;
+                searched = searchTerm;
+                search({ target: searchBox });
+                removeQueryParam("searched");
+            }
 
-                    while (centerWrapper.firstChild) {
-                        document.body.insertBefore(centerWrapper.firstChild, centerWrapper);
-                    }
+            if (count > 18) {
+                searchBox.style.display = "inline-block";
+            } else {
+                searchBox.remove();
+                document.getElementById("s-break").remove();
+                document.getElementById("s-break2").remove();
+            }
 
-                    centerWrapper.remove();
+            if (count > 21) {
+                document.getElementById("back-btn overflow-back").style.display = "inline-block";
+                const breaks = document.getElementsByClassName("overflow-break");
+
+                for (const br of breaks) {
+                    br.style.display = "block";
                 }
+                document.getElementById("back-btn").remove();
+            } else {
+                document.getElementById("back-btn overflow-back").remove();
+                const breaks = document.getElementsByClassName("overflow-break");
+
+                for (const br of breaks) {
+                    br.style.display = "none";
+                }
+            }
+
+            if (DEVICE == "Mobile" || DEVICE == "iOS" || DEVICE == "Android") {
+                removeOverCount(count, 9);
+            } else {
+                removeOverCount(count, 12);
             }
         })
         .catch((err) => {
             console.error(`Failed to load ${album}/info.json`, err);
+            // If data is empty or has no keys, treat as not found
+            // Hide grid and show error in title
+            if (grid) grid.style.display = "none";
+            document.getElementById("back-btn overflow-back").remove();
+            albumTitle.innerHTML = notFoundMessage;
+            document.title = "404 Not Found";
         });
+}
+
+function removeOverCount(count, amount) {
+    if (count > amount) {
+        const centerWrapper = document.querySelector(".center");
+        if (centerWrapper) {
+            const spacer = document.createElement("div");
+            spacer.style.minHeight = "30px";
+            document.body.insertBefore(spacer, document.body.firstChild);
+
+            while (centerWrapper.firstChild) {
+                document.body.insertBefore(centerWrapper.firstChild, centerWrapper);
+            }
+
+            centerWrapper.remove();
+        }
+    }
+}
+
+const searchBox = document.getElementById("search-box");
+if (searchBox) searchBox.addEventListener("input", search);
+
+// Listen for Enter key
+if (searchBox)
+    searchBox.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+            ev.preventDefault(); // stop form submission if inside a form
+            enterFirst();
+        }
+    });
+
+var searched;
+
+function search(ev) {
+    console.trace(ev);
+    const query = ev.target.value.toLowerCase().trim();
+    const photos = document.getElementsByClassName("album-image");
+
+    // Detect prefix
+    let mode = "title"; // default
+    let term = query;
+
+    if (query.startsWith("s-")) {
+        mode = "song";
+        term = query.slice(2);
+    } else if (query.startsWith("a-")) {
+        mode = "artist";
+        term = query.slice(2);
+    } else if (query.startsWith("d-")) {
+        mode = "date";
+        term = query.slice(2);
+    }
+
+    searched = query;
+
+    for (const photo of photos) {
+        const title = photo.getAttribute("img-title")?.toLowerCase() || "";
+        const song = photo.getAttribute("img-song")?.toLowerCase() || "";
+        const artist = photo.getAttribute("img-song-artist")?.toLowerCase() || "";
+        const date = photo.getAttribute("img-date")?.toLowerCase() || "";
+
+        let match = false;
+
+        if (mode === "title" && title.includes(term)) match = true;
+        if (mode === "song" && song.includes(term)) match = true;
+        if (mode === "artist" && artist.includes(term)) match = true;
+        if (mode === "date" && date.includes(term)) match = true;
+
+        photo.style.display = match || term === "" ? "block" : "none";
+    }
+}
+
+function enterFirst() {
+    const photos = document.getElementsByClassName("album-image");
+
+    for (const photo of photos) {
+        if (photo.style.display !== "none") {
+            photo.click(); // simulate user click
+            break; // only click the first one
+        }
+    }
 }
 
 function setupTooltipHover() {
@@ -244,10 +401,13 @@ function setupTooltipHover() {
         const song_a = img.getAttribute("img-song-artist");
 
         img.addEventListener("mouseenter", () => {
+            img.style.borderColor = img.getAttribute("col");
+
+            if (currentFullUrl != undefined) return;
             const lines = [];
 
             if (title != "undefined" || "") lines.push(`${title}`);
-            if (caption != "undefined" || "") lines.push(`<br>${caption}`);
+            if (caption != "undefined" || "") lines.push(`<br>${parseCaption(caption)}`);
             if (date != "undefined" || "") lines.push(`<br>${date}`);
             if (song != "undefined" || "") lines.push(`<br><i style="color: rgba(158, 158, 158, 1)">${song}</i>`);
             if (song_a != "undefined" || "") lines.push(`<br><i style="color: rgba(158, 158, 158, 1)">${song_a}</i>`);
@@ -255,11 +415,11 @@ function setupTooltipHover() {
             tooltip.innerHTML = lines.join("");
             tooltip.style.opacity = "1";
             tooltip.style.borderColor = img.getAttribute("col");
-            img.style.borderColor = img.getAttribute("col");
         });
 
-        img.addEventListener("mousemove", (e) => {
-            const offset = 15;
+        document.addEventListener("mousemove", (e) => {
+            if (currentFullUrl != undefined) return;
+            const offset = 8;
             const tooltipWidth = tooltip.offsetWidth;
             const pageWidth = window.innerWidth;
 
@@ -272,7 +432,7 @@ function setupTooltipHover() {
                 tooltip.style.left = `${e.clientX + offset}px`;
             }
 
-            tooltip.style.top = `${e.clientY + offset}px`;
+            tooltip.style.top = `${e.clientY + offset + 10}px`;
         });
 
         img.addEventListener("mouseleave", () => {
@@ -280,12 +440,374 @@ function setupTooltipHover() {
             tooltip.style.borderColor = "grey";
             img.style.borderColor = "rgba(255, 255, 255, 0.1)";
         });
+
+        img.addEventListener("contextmenu", (e) => {
+            tooltip.style.opacity = "0";
+            tooltip.style.borderColor = "grey";
+        });
     });
+}
+
+function truncateWithExpand(element, text, maxWords = 15) {
+    // Split into words
+    const words = text.trim().split(/\s+/);
+
+    // If text is short, show it as-is
+    if (words.length <= maxWords) {
+        element.innerHTML = text;
+        return;
+    } // Animate only left/top
+
+    // Build truncated version
+    const shortText = words.slice(0, maxWords).join(" ") + " ";
+    element.innerHTML = `${shortText}<span class="expand-ellipsis" style="color:#00bfff; cursor:pointer;">...</span>`;
+
+    // Add click event for expansion
+    const ellipsis = element.querySelector(".expand-ellipsis");
+    ellipsis.onclick = () => {
+        element.innerHTML = text;
+        menu.style.transition = "opacity 0.2s ease, transform 0.2s ease, top 0.2s ease";
+        // Re-check menu height and reposition
+        const menuWidth = menu.offsetWidth;
+        const menuHeight = menu.offsetHeight;
+        const off = 8;
+        const space = 24;
+
+        const rect = menu.getBoundingClientRect();
+        let left = rect.left;
+        let top = rect.top;
+
+        if (left + menuWidth > window.innerWidth - space) {
+            left = window.innerWidth - menuWidth - off;
+        }
+
+        if (top + menuHeight > window.innerHeight - space) {
+            top = window.innerHeight - menuHeight - off;
+        }
+
+        // Apply new position
+        menu.style.left = `${left}px`;
+        menu.style.top = `${top}px`;
+        setTimeout(() => {
+            menu.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+        }, 200);
+    };
+}
+
+const viewMetaBtn = document.getElementById("viewMeta");
+const metaEl = document.getElementById("menu-img-meta");
+
+function hideMetaLabels() {
+    document.getElementById("meta-sep").style.display = "none";
+    metaEl.style.display = "none";
+    viewMetaBtn.innerText = "View Metadata";
+    viewMetaBtn.style.display = "block";
+    document.getElementById("openFull").innerHTML = "Open full image<br>in new tab";
+    menu.style.width = "152px";
+    document.querySelectorAll(".custom-menu p").forEach((el) => {
+        el.classList.remove("large");
+    });
+    document.querySelectorAll(".sep").forEach((el) => {
+        el.textContent = "-------------------------";
+    });
+}
+
+if (viewMetaBtn) {
+    viewMetaBtn.addEventListener("click", async () => {
+        if (!currentFullUrl) return;
+
+        // Fetch metadata
+        viewMetaBtn.innerText = "Loading metadata...";
+
+        const metadata = await getImageMetadata(currentFullUrl);
+
+        metaEl.style.display = "block";
+
+        document.getElementById("meta-sep").style.display = "block";
+
+        document.getElementById("openFull").innerHTML = "Open full image in new tab";
+
+        viewMetaBtn.style.display = "none";
+        menu.style.width = "300px";
+        document.querySelectorAll(".custom-menu p").forEach((el) => {
+            el.classList.add("large");
+        });
+
+        document.querySelectorAll(".sep").forEach((el) => {
+            el.textContent = "----------------------------------------------------";
+        });
+
+        if (Object.keys(metadata).length === 0) {
+            metaEl.innerText = "No Metadata";
+        } else {
+            const lines = Object.entries(metadata)
+                .map(([key, val]) => `${key}: ${val}`)
+                .join("\n");
+            metaEl.innerText = lines;
+        }
+
+        // Ensure menu fits on screen (bottom + right edges)
+        const menuRect = menu.getBoundingClientRect();
+        const off = 8;
+        const loff = 20;
+        const space = 24;
+
+        let top = menuRect.top;
+        let left = menuRect.left;
+        const menuHeight = menu.offsetHeight;
+        const menuWidth = menu.offsetWidth;
+
+        // Check bottom edge
+        if (top + menuHeight > window.innerHeight - space) {
+            top = window.innerHeight - menuHeight - off;
+        }
+
+        // Check right edge
+        if (left + menuWidth > window.innerWidth - space) {
+            left = window.innerWidth - menuWidth - loff;
+        }
+
+        // Apply transition before moving
+        menu.style.transition = "opacity 0.2s ease, top 0.2s ease, left 0.2s ease";
+
+        requestAnimationFrame(() => {
+            menu.style.top = `${top}px`;
+            menu.style.left = `${left}px`;
+        });
+
+        // Reset transition after animation
+        setTimeout(() => {
+            menu.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+        }, 200);
+    });
+}
+
+async function getImageMetadata(url) {
+    try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const exif = await exifr.parse(blob);
+
+        if (!exif) return {};
+
+        // Pick only meaningful fields
+        const important = {
+            "Camera Maker": exif.Make,
+            "Camera Model": exif.Model,
+            "Date Taken": exif.DateTimeOriginal || exif.CreateDate,
+            Exposure: exif.ExposureTime ? `${exif.ExposureTime}s` : undefined,
+            Aperture: exif.FNumber ? `f/${exif.FNumber}` : undefined,
+            ISO: exif.ISO,
+            "Focal Length": exif.FocalLengthIn35mmFormat ? `${exif.FocalLengthIn35mmFormat}mm` : exif.FocalLength ? `${exif.FocalLength}mm` : undefined,
+            "Exposure Compensation": exif.ExposureCompensation,
+            "White Balance": exif.WhiteBalance === 1 ? "Manual" : "Auto",
+            Brightness: exif.BrightnessValue
+        };
+
+        console.log(exif);
+
+        // Remove empty values
+        for (const key in important) {
+            if (important[key] === undefined || important[key] === null) delete important[key];
+        }
+
+        return important;
+    } catch (err) {
+        console.error("Error reading metadata:", err);
+        return {};
+    }
+}
+
+var currentFullUrl = undefined;
+var currentImagePageUrl = undefined;
+
+let currentTempImg = null; // reference to the loaded image
+
+function setupContextMenus() {
+    document.querySelectorAll(".album-image").forEach((img) => {
+        img.addEventListener("contextmenu", (e) => {
+            e.preventDefault(); // stop native menu
+            if (currentTempImg) {
+                currentTempImg.src = "";
+                currentTempImg = null;
+            }
+
+            const fullUrl = img.getAttribute("img-data-url");
+            const imageUrl = img.getAttribute("img-data-onclick");
+            const col = img.getAttribute("col");
+
+            const updateMenuContent = () => {
+                currentFullUrl = fullUrl;
+
+                currentImagePageUrl = imageUrl;
+
+                quickDown.setAttribute("href", currentFullUrl);
+
+                const tempImg = new Image();
+                currentTempImg = tempImg;
+                tempImg.src = fullUrl;
+
+                tempImg.onload = () => {
+                    if (menu.style.display === "block" && menu.classList.contains("show")) {
+                        document.getElementById("menu-img-dim").innerText = `${tempImg.naturalWidth}x${tempImg.naturalHeight}`;
+                    }
+                };
+
+                tempImg.onerror = () => {
+                    if (menu.style.display === "block" && menu.classList.contains("show")) {
+                        document.getElementById("menu-img-dim").innerText = "Unknown size";
+                    }
+                };
+
+                const title = img.getAttribute("img-title") || "";
+                document.getElementById("menu-img-title").innerText = title.startsWith('"') ? title : `"${title}"`;
+
+                document.getElementById("menu-img-file").innerText = img.alt;
+                document.getElementById("menu-img-date").innerText = img.getAttribute("img-date");
+
+                const captionEl = document.getElementById("menu-img-caption");
+                const loreEl = document.getElementById("menu-img-lore");
+                const captionText = img.getAttribute("img-caption");
+                const loreText = img.getAttribute("img-lore");
+
+                if (!captionText || captionText === "undefined") {
+                    captionEl.style.display = "none";
+                } else {
+                    captionEl.style.display = "block";
+                    truncateWithExpand(captionEl, parseCaption(captionText));
+                }
+
+                if (!loreText || loreText === "undefined") {
+                    loreEl.style.display = "none";
+                } else {
+                    loreEl.style.display = "block";
+                    truncateWithExpand(loreEl, parseCaption(loreText));
+                }
+
+                const songEl = document.getElementById("menu-img-song");
+                const artistEl = document.getElementById("menu-img-artist");
+                const sSep = document.getElementById("song-sep");
+
+                const song = img.getAttribute("img-song");
+                const artist = img.getAttribute("img-song-artist");
+
+                if (!song || song === "undefined" || song.trim() === "") {
+                    songEl.style.display = "none";
+                    sSep.style.display = "none";
+                    artistEl.style.display = "none";
+                } else {
+                    songEl.style.display = "block";
+                    songEl.innerHTML = `<i>"${song}"</i>`;
+                    artistEl.style.display = "block";
+                    artistEl.innerText = artist;
+                    sSep.style.display = "block";
+                }
+            };
+
+            const showMenu = () => {
+                updateMenuContent();
+                menu.style.display = "block"; // needed to measure
+                menu.style.transition = "opacity 0.2s ease, transform 0.2s ease;";
+                menu.style.transformOrigin = "top left";
+
+                // Measure menu after content
+                const menuWidth = menu.offsetWidth;
+                const menuHeight = menu.offsetHeight;
+
+                const off = 8;
+                const space = 24;
+
+                let left = e.clientX - off;
+                let top = e.clientY - off;
+
+                // Check right space
+                if (left + menuWidth > window.innerWidth - space) {
+                    left = e.clientX - off - menuWidth; // position left of cursor
+                    menu.style.transformOrigin = "top right";
+                }
+
+                // Check bottom space
+                if (top + menuHeight > window.innerHeight - space) {
+                    top = window.innerHeight - menuHeight - off; // offset above bottom
+                }
+
+                menu.style.left = `${left}px`;
+                menu.style.top = `${top}px`;
+                menu.style.border = `1.5px ${col} solid`;
+
+                const btns = document.getElementsByClassName("menu-btn");
+                for (const btn of btns) {
+                    btn.style.borderColor = col;
+                }
+
+                requestAnimationFrame(() => {
+                    menu.classList.add("show"); // fade/scale in
+                });
+            };
+
+            if (menu.style.display === "block" && menu.classList.contains("show")) {
+                menu.classList.remove("show");
+                setTimeout(() => {
+                    menu.style.display = "none";
+                    hideMetaLabels();
+                    setTimeout(showMenu, 20); // allow display:block to register
+                }, 70);
+            } else {
+                showMenu();
+            }
+        });
+    });
+}
+
+if (openBtn) {
+    openBtn.onclick = () => {
+        window.open(currentFullUrl, "_blank");
+        hideMenu();
+    };
+}
+
+if (openTabBtn) {
+    openTabBtn.onclick = () => {
+        window.open(currentImagePageUrl, "_blank");
+        hideMenu();
+    };
+}
+
+document.addEventListener("click", (e) => {
+    if (!menu) return;
+    const clickedInsideMenu = menu.contains(e.target);
+    const clickedEllipsis = e.target.classList.contains("expand-ellipsis");
+
+    // Only hide if it's outside both the menu and the ellipsis
+    if (!clickedInsideMenu && !clickedEllipsis) {
+        hideMenu();
+    }
+});
+
+function hideMenu() {
+    menu.style.transition = "opacity 0.2s ease, transform 0.2s ease-out;";
+
+    menu.style.transformOrigin = "center";
+    menu.classList.remove("show");
+    setTimeout(() => {
+        menu.style.display = "none";
+        hideMetaLabels();
+    }, 200); // match transition time
+
+    currentFullUrl = undefined;
+
+    // Clean up temp image reference
+    if (currentTempImg) {
+        currentTempImg.src = ""; // stops any loading
+        currentTempImg = null;
+    }
 }
 
 function loadAlbumImage() {
     const { album, img, from } = getQueryParams();
     if (!album || !img) return;
+
+    removeQueryParam("searched");
 
     console.log("Loading image:", img, "from album:", album);
     console.log("From", from);
@@ -309,13 +831,40 @@ function loadAlbumImage() {
 
     let fetched_info;
 
+    const notFoundMessage = `<span style="color: red; font-family: Helvetica;">Error (404 Not Found)</span><br>Image "${img}" was not found in album "${album}".<br><span style="font-size: 20px; font-family: Helvetica; font-weight: 400; color: gray;">${window.location}</span>`;
+
+    const noDataMessage = `<span style="color: red; font-family: Helvetica;">Error (NaN No Data)</span><br>Image "${img}" was searched in album "${album}" but no data recieved.<br><span style="font-size: 20px; font-family: Helvetica; font-weight: 400; color: gray;">${window.location}</span>`;
+
     fetch(`/${album}/info.json`)
         .then((res) => {
-            console.log("Fetching info.json from:", `/${album}/info.json`);
-            return res.json();
+            if (!res.ok) throw new Error("info.json not found");
+            return res.text();
+        })
+        .then((text) => {
+            if (!text.trim()) {
+                // Empty file
+                document.title = "NaN No Data";
+                showErrorMessage(noDataMessage);
+                throw new Error("Empty info.json");
+            }
+            let d;
+            try {
+                d = JSON.parse(text);
+            } catch (e) {
+                document.title = "404 Not Found";
+                showErrorMessage(notFoundMessage);
+                throw new Error("Invalid JSON in info.json");
+            }
+            if (!d[img]) {
+                // Image entry missing
+                document.title = "404 Not Found";
+                showErrorMessage(notFoundMessage);
+                throw new Error("Image not found in info.json");
+            }
+            return d[img];
         })
         .then((data) => {
-            fetched_info = data[img] || {};
+            fetched_info = data || {};
             console.log("Fetched info for image:", fetched_info);
 
             const info = fetched_info;
@@ -324,7 +873,7 @@ function loadAlbumImage() {
             const captionEl = document.getElementById("image-caption");
             captionEl.innerHTML = parseCaption(info.caption || "");
 
-            document.getElementById("image-lore").innerText = info.lore || "";
+            document.getElementById("image-lore").innerHTML = parseCaption(info.lore || "");
             document.getElementById("image-date").innerText = info.date || "";
 
             if (info.color) {
@@ -354,11 +903,34 @@ function loadAlbumImage() {
                     applyGradientBackground(rgb);
                     color_els = false; // disable extraction since color exists
                 } else {
-                    console.log("No fixed color found, will wait for image load to extract color and apply gradient");
+                    console.log("No fixed color waiting for img load to put grad");
+                    color_els = true;
+                }
+            } else if (info["tint-bg"] === "double-gradient") {
+                console.log("tint-bg is double gradient");
+                if (info.color && info.color2) {
+                    const rgb = parseRgbString(info.color);
+                    const rgb2 = parseRgbString(info.color2);
+                    console.log("gradient background with 2 fixed colors:", rgb, " ", rgb2);
+                    applyGradientBackground(rgb, rgb2, true);
+                    color_els = false; // disable extraction since color exists
+                } else if (info.color && !info.color2) {
+                    const rgb = parseRgbString(info.color);
+                    const hsl = rgbToHsl(rgb[0], rgb[1], rgb[2]);
+
+                    hsl[1] = Math.min(1, hsl[1] * 0.3);
+                    hsl[2] = Math.max(0, hsl[2]);
+
+                    const darkRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
+                    console.log("gradient background with fixed color and dark color:", rgb, " ", darkRgb);
+                    applyGradientBackground(rgb, darkRgb, true);
+                    color_els = false; // disable extraction since color exists
+                } else {
+                    console.log("No fixed color will wait for img load to get color and set gradient");
                     color_els = true;
                 }
             } else if (info["site-bg"]) {
-                console.log("Applying site background color:", info["site-bg"]);
+                console.log("site background color:", info["site-bg"]);
                 document.documentElement.style.backgroundColor = info["site-bg"];
                 document.body.style.backgroundColor = info["site-bg"];
             } else {
@@ -381,12 +953,16 @@ function loadAlbumImage() {
 
             // Add Spotify embed if song exists
             const iframe = document.querySelector('iframe[data-testid="embed-iframe"]');
-            if (iframe && info.song && info.song.includes("open.spotify.com/embed/track/")) {
-                console.log("Showing Spotify embed iframe with src:", info.song);
+            if (info.song && info.song.includes("open.spotify.com/embed/")) {
+                console.log("Showing embed with src:", info.song);
                 iframe.src = info.song;
                 iframe.style.display = "block";
+                iframe.parentElement.style.display = "block";
                 document.getElementById("back-btn").style.borderRadius = "4px 4px 16px 16px";
                 document.getElementById("home-btn").style.borderRadius = "16px";
+            } else {
+                iframe.parentElement.style.display = "none"
+                //console.log
             }
 
             if (from == "view" || from == "browse") {
@@ -400,10 +976,97 @@ function loadAlbumImage() {
 
             // Add image load event listener here (inside fetch block)
             imageEl.addEventListener("load", () => {
-                console.log("Image loaded event triggered");
+                console.log("Img loaded");
+
+                if (info.bg) {
+                    console.log("Bg info:", info.bg);
+
+                    // Split into path/keyword and brightness
+                    const [bgValue, brightnessStr] = info.bg.split("|").map((v) => v.trim());
+                    const brightness = parseFloat(brightnessStr) || 0.5; // default to 0.5 if missing or invalid
+
+                    let bgUrl = "";
+
+                    if (bgValue === "self") {
+                        console.log("Bg info is self");
+                        bgUrl = imgPath;
+                    } else {
+                        console.log("Bg info is custom img:", bgValue);
+                        bgUrl = bgValue;
+                    }
+
+                    // Remove previous video background (if any)
+                    const oldVid = document.getElementById("bg-video");
+                    if (oldVid) oldVid.remove();
+
+                    const oldOverlay = document.getElementById("bg-overlay");
+                    if (oldOverlay) oldOverlay.remove();
+
+                    // Reset background styles
+                    document.body.style.backgroundImage = "none";
+                    document.body.style.backgroundColor = "transparent";
+                    document.documentElement.style.background = "transparent";
+                    document.body.style.position = "relative";
+                    document.body.style.overflow = "hidden"; // prevents scrollbars
+
+                    // If it's a video
+                    if (bgUrl.toLowerCase().endsWith(".mp4")) {
+                        console.log("Background is a video:", bgUrl);
+
+                        // Create video element
+                        const video = document.createElement("video");
+                        video.id = "bg-video";
+                        video.src = bgUrl;
+                        video.autoplay = true;
+                        video.loop = true;
+                        video.muted = true;
+                        video.playsInline = true; // prevents fullscreen on mobile
+                        video.style.position = "fixed";
+                        video.style.top = "0";
+                        video.style.left = "0";
+                        video.style.width = "100%";
+                        video.style.height = "100%";
+                        video.style.objectFit = "cover";
+                        video.style.zIndex = "-2"; // behind overlay
+                        video.style.opacity = "0";
+                        video.style.transition = "opacity 0.5s ease";
+
+                        video.addEventListener("loadeddata", () => {
+                            video.style.opacity = "1"; // fade in
+                            console.log("Video loaded and visible");
+                        });
+
+                        // Create dark overlay
+                        const overlay = document.createElement("div");
+                        overlay.id = "bg-overlay";
+                        overlay.style.position = "fixed";
+                        overlay.style.top = "0";
+                        overlay.style.left = "0";
+                        overlay.style.width = "100%";
+                        overlay.style.height = "100%";
+                        overlay.style.background = `rgba(0, 0, 0, ${brightness})`;
+                        overlay.style.zIndex = "-1";
+
+                        // Add both elements to the DOM
+                        document.body.prepend(video);
+                        document.body.appendChild(overlay);
+
+                        console.log(`Video background set with overlay brightness ${brightness}`);
+                    } else {
+                        document.body.style.backgroundImage = `
+                            linear-gradient(rgba(0, 0, 0, ${brightness}), rgba(0, 0, 0, ${brightness})),
+                            url("${bgUrl}")
+                        `;
+                        document.body.style.backgroundSize = "cover";
+                        document.body.style.backgroundPosition = "center";
+                        document.body.style.backgroundRepeat = "no-repeat";
+
+                        console.log(`Image background set to ${bgUrl} with overlay brightness ${brightness}`);
+                    }
+                }
 
                 if (!color_els) {
-                    console.log("Color extraction disabled due to fixed color.");
+                    console.log("Color extraction skip fixed color");
                     return;
                 }
 
@@ -411,7 +1074,7 @@ function loadAlbumImage() {
 
                 if (imageEl.complete) {
                     const color = colorThief.getColor(imageEl);
-                    console.log("Extracted color from image:", color);
+                    console.log("Got color from img:", color);
 
                     const hsl = rgbToHsl(color[0], color[1], color[2]);
 
@@ -424,7 +1087,7 @@ function loadAlbumImage() {
                     extracted_rgb = rgb;
                     extracted_arr = brightRgb;
 
-                    console.log("Applying extracted color:", rgb);
+                    console.log("Setting extracted color:", rgb);
 
                     document.getElementById("image-title").style.color = rgb;
                     imageEl.style.borderColor = rgb;
@@ -432,11 +1095,19 @@ function loadAlbumImage() {
                     setLowColor(imageEl, extracted_arr);
 
                     if (fetched_info?.["tint-bg"] === "gradient" && !fetched_info.color) {
-                        console.log("Applying gradient background with extracted color:", extracted_arr);
+                        console.log("Setting grad background with extracted color:", extracted_arr);
                         applyGradientBackground(extracted_arr);
+                    } else if (fetched_info?.["tint-bg"] === "double-gradient" && !fetched_info.color) {
+                        console.log("Settomg double grad background with extracted color:", extracted_arr);
+                        applyGradientBackground(extracted_arr, color, true);
+                    }
+
+                    if (fetched_info?.color_hyper) {
+                        console.log("Coloring hyperlinks with extracted color:", rgb);
+                        color_as(document.querySelectorAll("#image-caption a"), rgb);
                     }
                 } else {
-                    console.log("Image not complete for color extraction");
+                    console.log("Img not loaded cant get col");
                 }
             });
 
@@ -446,9 +1117,33 @@ function loadAlbumImage() {
             }
         })
         .catch((err) => {
-            console.warn("No info.json or failed to load.", err);
-            document.title = img;
+            console.warn("Error loading album or image:", err);
+            showErrorMessage(notFoundMessage);
+            imageEl.src = "/Explosion of Colours/thumbs/GYAAAT.jpg";
+            document.getElementById("back-btn").style.borderRadius = "4px 4px 4px 16px";
+            document.getElementById("home-btn").style.borderRadius = "4px 4px 16px 4px";
         });
+
+    // Also catch the case if image file itself fails to load
+    imageEl.addEventListener("error", () => {
+        console.warn("Image file not found:", imageEl.src);
+        imageEl.src = "/Explosion of Colours/thumbs/GYAAAT.jpg";
+        showErrorMessage(notFoundMessage);
+    });
+
+    function showErrorMessage(msg) {
+        console.log("an error");
+        const titleEl = document.getElementById("image-title");
+        const captionEl = document.getElementById("image-caption");
+        const loreEl = document.getElementById("image-lore");
+        const dateEl = document.getElementById("image-date");
+        titleEl.innerHTML = msg;
+        if (captionEl) {
+            captionEl.remove();
+            loreEl.remove();
+            dateEl.remove();
+        }
+    }
 
     if (window.location.pathname !== "/image/") return;
 }
@@ -466,15 +1161,24 @@ function setLowColor(elem, color) {
     }, 500);
 }
 
-function applyGradientBackground(rgbArr) {
-    console.log("set gradient", rgbArr);
-
+function applyGradientBackground(rgbArr, secondRgbArr, twoway) {
     const hsl = rgbToHsl(rgbArr[0], rgbArr[1], rgbArr[2]);
     const darkHsl = [hsl[0], hsl[1], Math.max(0, hsl[2] * 0.16)];
     const darkRgb = hslToRgb(darkHsl[0], darkHsl[1], darkHsl[2]);
 
-    document.documentElement.style.background = `linear-gradient(to bottom, black, rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
-    document.body.style.background = `linear-gradient(to bottom, black, rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
+    if (secondRgbArr && twoway) {
+        const hsl2 = rgbToHsl(secondRgbArr[0], secondRgbArr[1], secondRgbArr[2]);
+        const darkHsl2 = [hsl2[0], hsl2[1], Math.max(0, hsl2[2] * 0.16)];
+        const darkRgb2 = hslToRgb(darkHsl2[0], darkHsl2[1], darkHsl2[2]);
+
+        document.documentElement.style.background = `linear-gradient(to bottom, rgb(${darkRgb2[0]}, ${darkRgb2[1]}, ${darkRgb2[2]}), rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
+        document.body.style.background = `linear-gradient(to bottom, rgb(${darkRgb2[0]}, ${darkRgb2[1]}, ${darkRgb2[2]}), rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
+    } else {
+        console.log("set gradient", rgbArr);
+
+        document.documentElement.style.background = `linear-gradient(to bottom, black, rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
+        document.body.style.background = `linear-gradient(to bottom, black, rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
+    }
 }
 
 function color_as(links, col) {
@@ -484,23 +1188,12 @@ function color_as(links, col) {
 }
 
 function parseCaption(caption) {
-    const linkRegex = /\((https?:\/\/[^\s()]+)\)/;
+    // Match patterns like ("Link Text")https://example.com
+    const linkRegex = /\("([^"]+)"\)(https?:\/\/[^\s]+)/g;
 
-    const match = caption.match(linkRegex);
-    if (match) {
-        const url = match[1];
-        const textBefore = caption.slice(0, match.index).trim();
-        const linkTextMatch = textBefore.match(/(\S+)$/);
-        const linkText = linkTextMatch ? linkTextMatch[1] : url;
-
-        // Remove the linkText from before the match
-        const captionStart = textBefore.replace(new RegExp(linkText + "$"), "").trim();
-        const captionEnd = caption.slice(match.index + match[0].length).trim();
-
-        return `${captionStart} <a href="${url}" target="_blank" rel="noopener">${linkText}</a> ${captionEnd}`;
-    }
-
-    return caption; // No link found
+    return caption.replace(linkRegex, (match, text, url) => {
+        return `<a href="${url}" target="_blank" rel="noopener">${text}</a>`;
+    });
 }
 
 function parseRgbString(rgbStr) {
