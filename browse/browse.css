@@ -38,8 +38,8 @@
 .photos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    max-width: calc(150px * 9 + 20px * 5); /* 8 columns max + 5 gaps */
-    gap: 13px;
+    max-width: calc(155px * 10 + 20px * 5); /* 9 columns max + 5 gaps */
+    gap: 10px 22px;
     justify-items: center;
     padding-top: 20px;
     margin: 0 auto;

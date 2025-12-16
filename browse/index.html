@@ -1,53 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Browse</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="browse.css" />
-        <link rel="stylesheet" href="/styles.css" />
-        <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
-    </head>
-    <body>
-        <div id="loading-screen">
-            <div class="spinner" id="loader"></div>
-        </div>
 
-        <div style="min-height: 50px;"></div>
-        <div class="info-section fade-in fade-delay-1">
-            <h1 style="font-family: Helvetica;">Browse</h1>
-            <div class="photos-grid" id="all-photos-grid">
-            </div>
-        </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="browse.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
+</head>
 
+<body>
+    <div id="loading-screen">
+        <div class="spinner" id="loader"></div>
+    </div>
+
+    <div style="min-height: 50px;"></div>
+    <div class="info-section fade-in fade-delay-1">
+        <h1 style="font-family: Helvetica;">Browse</h1>
+        <br id="s-break">
+        <input placeholder="Search Photos..." class="fade-in fade-delay-2" id="search-box" title='Press "Enter" to go to the first result. 
+Prefix your search with "s-" to search for photos with specific song titles.
+Prefix with "a-" to search for photos with specific song artists.
+Prefix with "d-" to search for photos of a specific date.'>
+        <br id="s-break2">
+        <br>
         <br>
 
-        <a id="back-btn" class="download-btn fade-in fade-delay-2" role="button" href="#">Back to Home</a>
+        <a id="back-btn" class="download-btn fade-in fade-delay-5" role="button" href="#">Back to Home</a>
 
-        <br></br>
- 
-        <img
-            src="https://guayabr.com/Assets/gr_logo_big.png"
-            alt="GuayabR Logo"
-            id="gr_logo"
-            title="Home (https://guayabr.com)"
-            onclick="window.location.href = '/'"
-            class="fade-in fade-delay-3 logo-img" />
         <br>
-   
-        <p class="copyright fade-in fade-delay-6">
-            © 2025 GuayabR. All Rights Reserved. 
-            <br>All photos licensed under <a class="license" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>.<br>
-            You are free to download and use these photos for personal and non-commercial projects, as long as proper credit is given.
-            <br>Commercial use is not permitted without explicit permission.
-        </p>
+        <br>
+
+        <div class="photos-grid" id="all-photos-grid">
+        </div>
+    </div>
+
+    <br></br>
+
+    <img src="https://guayabr.com/Assets/gr_logo_big.png" alt="GuayabR Logo" id="gr_logo"
+        title="Home (https://guayabr.com)" onclick="window.location.href = '/'" class="fade-in fade-delay-3 logo-img" />
+    <br>
+
+    <p class="copyright fade-in fade-delay-6">
+        © 2025 GuayabR. All Rights Reserved.
+        <br>All photos licensed under <a class="license" href="https://creativecommons.org/licenses/by-nc/4.0/"
+            target="_blank" rel="noopener">CC BY-NC 4.0</a>.<br>
+        You are free to download and use these photos for personal and non-commercial projects, as long as proper credit
+        is given.
+        <br>Commercial use is not permitted without explicit permission.
+    </p>
 
     <div id="custom-tooltip"></div>
-    </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-    <script src="browse.js"></script>
-    <script src="/script.js"></script>
+
+    <div id="customMenu" class="custom-menu">
+        <p id="menu-img-title">Title</p>
+        <p class="sep" id="title-sep">-------------------------</p>
+        <p id="menu-img-file">(File)</p>
+        <p id="menu-img-date">Date</p>
+        <p id="menu-img-caption">Caption</p>
+        <p id="menu-img-lore">Lore</p>
+        <p class="sep">-------------------------</p>
+        <p id="menu-img-dim">Dimensions</p>
+        <p class="sep">-------------------------</p>
+        <p id="menu-img-song">Song</p>
+        <p id="menu-img-artist">Artist</p>
+        <p class="sep" id="song-sep">-------------------------</p>
+        <p id="menu-img-meta" style="display: none;">(Metadata)</p>
+        <p class="sep" id="meta-sep" style="display: none">-------------------------</p>
+
+        <button class="menu-btn" id="viewMeta">View Metadata</button>
+
+        <button class="menu-btn" id="openTab">Open image<br>page in new tab</button>
+
+
+        <button class="menu-btn" id="openFull">Open full image<br>in new tab</button>
+
+        <a class="menu-btn" role="button" download id="quickDown">Quick download</a>
+    </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exifr/dist/lite.umd.js"></script>
+<script src="/script.js"></script>
+<script src="browse.js"></script>
+
 </html>

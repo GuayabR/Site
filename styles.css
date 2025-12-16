@@ -3,7 +3,8 @@
     src: url("Assets/helvetica-255/Helvetica-Bold.ttf") format("truetype");
     font-weight: 800;
     font-style: normal;
-    font-display: swap; /* Optional, improves loading behavior */
+    font-display: swap;
+    /* Optional, improves loading behavior */
 }
 
 @font-face {
@@ -11,7 +12,8 @@
     src: url("Assets/helvetica-255/Helvetica.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
-    font-display: swap; /* Optional, improves loading behavior */
+    font-display: swap;
+    /* Optional, improves loading behavior */
 }
 
 * {
@@ -41,6 +43,9 @@ body {
 a {
     color: rgb(83, 126, 167);
     text-decoration: none;
+    transition:
+        color 0.25s ease,
+        text-decoration 0.25s ease;
 }
 
 a:hover {
@@ -51,30 +56,64 @@ a[role="button"]:hover {
     text-decoration: none;
 }
 
-button {
+button,
+a[role="button"] {
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.068);
+    border: 2px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.5s ease;
+}
+
+button:not(:disabled):hover,
+a[role="button"]:not(:disabled):hover {
+    font-weight: 700;
+    background-color: rgba(0, 209, 17, 0.137);
+}
+
+button:not(:disabled):active,
+a[role="button"]:not(:disabled):active {
+    transition: all 0.1s ease-out;
+    font-weight: 800;
+    background-color: rgba(17, 209, 0, 0.308);
+}
+
+button:disabled,
+a[role="button"]:disabled {
+    color: rgb(179, 179, 179);
+    background-color: rgba(0, 0, 0, 0.651);
+    border-color: rgb(53, 53, 53);
+    border-radius: 4px;
+    cursor: not-allowed;
+}
+
+input {
     transition: all 0.5s;
-    padding: 12px;
+    padding: 4px;
     font-weight: 400;
     color: white;
     background-color: rgba(255, 255, 255, 0.068);
     border-radius: 8px;
     border-color: white;
     border: 2px solid;
-    cursor: pointer;
+    cursor: text;
 }
 
-button:not(:disabled):hover {
-    font-weight: 700;
+input:not(:disabled):hover {
     background-color: rgba(0, 209, 17, 0.137);
 }
 
-button:not(:disabled):active {
+input:not(:disabled):active {
     transition: all 0.1s ease-out;
-    font-weight: 800;
     background-color: rgba(17, 209, 0, 0.308);
 }
 
-button:disabled {
+input:disabled {
     color: rgb(179, 179, 179);
     background-color: rgba(0, 0, 0, 0.651);
     border-radius: 4px;
@@ -89,6 +128,11 @@ button:disabled {
     align-items: center;
     min-height: 100vh;
     padding: 32px 16px;
+}
+
+#search-box {
+    font-size: 16px;
+    width: 250px;
 }
 
 .download-btn {
@@ -142,7 +186,7 @@ button:disabled {
     font-family: Helvetica;
     font-weight: 500;
     font-size: 0.9em;
-    color: rgb(73, 73, 73);
+    color: rgba(255, 255, 255, 0.137);
     max-width: 90%;
 }
 
@@ -150,17 +194,140 @@ button:disabled {
     font-family: "Helvetica";
     font-weight: 400;
     text-decoration: none;
-    color: rgb(116, 116, 116);
+    color: rgba(226, 226, 226, 0.281);
 }
 
 #people {
-    color: rgba(255, 255, 255, 0.185);
+    color: rgba(255, 255, 255, 0.131);
+}
+
+.custom-menu {
+    position: fixed;
+    background: #000000ad;
+    backdrop-filter: blur(15px);
+    color: white;
+    width: 152px;
+    padding: 6px 6px 1px;
+    border-radius: 6px;
+    font-family: sans-serif;
+    font-size: 14px;
+    text-align: left;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 0px 7px rgba(0, 0, 0, 0.4);
+
+    opacity: 0;
+    transform: scale(0.8);
+    transform-origin: top left;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+#quickDown {
+    display: block;
+    width: 100%;
+    margin-bottom: 6px;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1.2px;
+    padding: 6px 12px;
+    font-weight: 400;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.068);
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.5s ease;
+}
+
+#quickDown:not(:disabled):hover {
+    font-weight: 700;
+    background-color: rgba(0, 209, 17, 0.137);
+}
+
+#quickDown:not(:disabled):active {
+    transition: all 0.1s ease-out;
+    font-weight: 800;
+    background-color: rgba(17, 209, 0, 0.308);
+}
+
+#quickDown:disabled {
+    color: rgb(179, 179, 179);
+    background-color: rgba(0, 0, 0, 0.651);
+    border-color: rgb(53, 53, 53);
+    border-radius: 4px;
+    cursor: not-allowed;
+}
+
+.custom-menu a {
+    display: auto;
+    border: none;
+}
+
+.custom-menu a:hover {
+    text-decoration: underline;
+}
+
+.custom-menu button {
+    display: block;
+    width: 100%;
+    margin-bottom: 6px;
+    border-radius: 3px;
+    border-width: 1.2px;
+    padding: 6px 12px;
+}
+
+#title-sep {
+    text-align: center;
+    color: rgb(131, 131, 131);
+    margin: -4px 0px -4px 0px;
+}
+
+.sep {
+    text-align: center;
+}
+
+#song-sep {
+    text-align: center;
+}
+
+.custom-menu p.large {
+    max-width: 296px;
+}
+
+.custom-menu p {
+    max-width: 142px;
+}
+
+.custom-menu button:hover,
+.custom-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#menu-img-caption {
+    color: darkgray;
+}
+
+#menu-img-lore {
+    color: gray;
+}
+
+.expand-ellipsis:hover {
+    text-decoration: underline;
+    color: #66cfff;
+}
+
+.custom-menu.show {
+    opacity: 1;
+    transform: scale(1);
 }
 
 #custom-tooltip {
     position: fixed;
     pointer-events: none;
     background: rgba(0, 0, 0, 0.87);
+    box-shadow: 0 0px 14px rgba(0, 0, 0, 0.6);
     color: white;
     padding: 6px 10px;
     border-radius: 6px;
@@ -170,7 +337,10 @@ button:disabled {
     font-size: 14px;
     z-index: 9999;
     opacity: 0;
-    transition: opacity 0.1s ease;
+    transition:
+        opacity 0.15s ease,
+        border-color 0.5s ease;
+
     white-space: nowrap;
 }
 
@@ -182,18 +352,23 @@ button:disabled {
 .fade-delay-2 {
     animation-delay: 0.2s;
 }
+
 .fade-delay-3 {
     animation-delay: 0.4s;
 }
+
 .fade-delay-4 {
     animation-delay: 0.6s;
 }
+
 .fade-delay-5 {
     animation-delay: 0.8s;
 }
+
 .fade-delay-6 {
     animation-delay: 1s;
 }
+
 .fade-delay-7 {
     animation-delay: 1.2s;
 }
@@ -203,6 +378,7 @@ button:disabled {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
