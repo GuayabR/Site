@@ -313,8 +313,12 @@
         "date": "16/8/2025 03:01 PM"
     },
     "20250816_150536.jpg": {
-        "title": "20250816_150536",
-        "date": "16/8/2025 03:05 PM"
+        "title": "reflections",
+        "date": "16/8/2025 03:05 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2Dx1MzjUMGREOgSju2U1wZ?utm_source=generator",
+        "s-title": "Reflections",
+        "s-artist": "Creo"
     },
     "20250816_150818.jpg": {
         "title": "20250816_150818",

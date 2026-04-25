@@ -4,7 +4,9 @@
         "lore": "That is how the sky looked.",
         "date": "1/30/2025 8:52 PM",
         "tint-bg": "gradient",
-        "song": "https://open.spotify.com/embed/track/5TRPicyLGbAF2LGBFbHGvO?utm_source=generator"
+        "song": "https://open.spotify.com/embed/track/5TRPicyLGbAF2LGBFbHGvO?utm_source=generator",
+        "s-title": "Flashing Lights",
+        "s-artist": "Kanye West"
     },
     "THANK YOU.jpg": {
         "title": "THANK YOU.",
@@ -59,7 +61,8 @@
         "lore": "Thought it was funny",
         "date": "4/29/2025 8:07 PM",
         "color": "rgb(142, 0, 224)",
-        "tint-bg": "gradient",
+        "color2": "rgb(56, 0, 67)",
+        "tint-bg": "double-gradient",
         "album": "Explosion of Colours",
         "song": "https://open.spotify.com/embed/track/4HeNCz1NePOW4X2iEtOU4Y?utm_source=generator",
         "s-title": "Aura",
@@ -87,8 +90,7 @@
         "s-artist": "Creo"
     },
     "Mixture in the Sky.jpg": {
-        "title": "Mixture in the Sky.",
-        "caption": "Mixture",
+        "title": "Mixture in the Sky",
         "date": "2/5/2025 8:41 PM",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",

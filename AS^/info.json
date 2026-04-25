@@ -6,5 +6,33 @@
         "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator",
         "s-title": "I Can Love You",
         "s-artist": "Mary J. Blige, Lil' Kim"
+    },
+    "Colored.jpg": {
+        "title": "Colored",
+        "date": "9/16/2025 6:04 PM",
+        "tint-bg": "gradient",
+        "lore": "<i style='color: rgb(105, 105, 105);'>If i could stand up and take the blame, I would, If I could take all the shame to the grave I would.</i>",
+        "song": "https://open.spotify.com/embed/track/17bgialGAwoiGj1STY4cnR?utm_source=generator",
+        "s-title": "Easier To Run",
+        "s-artist": "Linkin Park"
+    },
+    "ggggllllaaaASsss.jpg": {
+        "title": "ggggllllaaaASsss465 6",
+        "date": "10/04/2025 6:27 PM",
+        "bg": "/AS^/Massive - Linkin Park.mp4 | 0.75",
+        "lore": "<i>Unsure</i>",
+        "song": "https://open.spotify.com/embed/track/64nKjh8qkktOOD99LEcUff?utm_source=generator",
+        "s-title": "Atmosphere",
+        "s-artist": "Creo"
+    },
+    "An Ending.jpg": {
+        "title": "Revolving Stars",
+        "date": "9/29/2025 8:29 PM",
+        "lore": "131",
+        "tint-bg": "gradient",
+        "color": "rgb(131, 131, 131)",
+        "song": "https://open.spotify.com/embed/track/6eTcxkl9G7C2mwejLJ7Amm?utm_source=generator",
+        "s-title": "An Ending",
+        "s-artist": "Toby Fox"
     }
 }

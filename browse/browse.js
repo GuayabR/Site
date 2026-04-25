@@ -35,6 +35,9 @@ async function loadAlbumsInOrder() {
                 if (seenFilenames.has(filename)) continue;
                 seenFilenames.add(filename);
 
+                const container = document.createElement("div");
+                container.classList.add("album-item");
+
                 const img = document.createElement("img");
                 img.src = `/${encodeURIComponent(album)}/thumbs/${filename}`;
                 img.alt = filename;
@@ -64,12 +67,20 @@ async function loadAlbumsInOrder() {
                     processColorThiefQueue();
                 });
 
-                grid.appendChild(img);
+                const label = document.createElement("div");
+                label.classList.add("album-label");
+                label.textContent = meta.title;
+
+                container.appendChild(img);
+                container.appendChild(label);
+
+                grid.appendChild(container);
 
                 //console.log("added item", img.src);
 
-                await new Promise((res) => setTimeout(res, 5));
+                await new Promise((res) => setTimeout(res, 2));
             }
+
         } catch (err) {
             console.error(`Failed to load ${album}/info.json`, err);
         }

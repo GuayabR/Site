@@ -89,7 +89,6 @@ function setRandomAlbumBackgrounds() {
 
     buttons.forEach((button) => {
         const album = button.getAttribute("data-album");
-
         const fetchFrom = (isViewPage ? "/" : "") + `${encodeURIComponent(album)}/info.json`;
 
         fetch(fetchFrom)
@@ -98,8 +97,12 @@ function setRandomAlbumBackgrounds() {
                 const images = Object.keys(data);
                 if (images.length === 0) return;
 
-                const randomImage = images[Math.floor(Math.random() * images.length)];
-                const imagePath = (isViewPage ? "/" : "") + `${album}/thumbs/${randomImage}`;
+                const selectedImage =
+                    album === "The Next Chapter"
+                        ? images[0]
+                        : images[Math.floor(Math.random() * images.length)];
+
+                const imagePath = (isViewPage ? "/" : "") + `${album}/thumbs/${selectedImage}`;
 
                 button.style.backgroundImage = `url("${encodeURI(imagePath)}")`;
                 //console.log("set bg as ", button.style.backgroundImage);
@@ -206,6 +209,9 @@ function populateAlbumGrid() {
             for (const filename in data) {
                 const meta = data[filename];
 
+                const container = document.createElement("div");
+                container.classList.add("album-item");
+
                 const img = document.createElement("img");
                 img.src = `/${album}/thumbs/${filename}`;
                 img.alt = filename;
@@ -226,23 +232,20 @@ function populateAlbumGrid() {
                     else window.location.href = `/image/?album=${album}&img=${filename}&searched=${searched}`;
                 };
 
-
                 img.addEventListener("load", () => {
                     const colorThief = new ColorThief();
                     if (img.complete) {
                         if (img.hasAttribute("col")) return;
 
-                        const color = colorThief.getColor(img); // [r, g, b]
+                        const color = colorThief.getColor(img);
                         const hsl = rgbToHsl(color[0], color[1], color[2]);
 
-                        // Boost saturation and lightness to force brightness
-                        hsl[1] = Math.min(1, hsl[1] * 1.2); // Saturation
-                        hsl[2] = Math.max(0.65, hsl[2]); // Lightness floor
+                        hsl[1] = Math.min(1, hsl[1] * 1.2);
+                        hsl[2] = Math.max(0.65, hsl[2]);
 
                         const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
                         const rgb = `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`;
                         img.setAttribute("col", rgb);
-
                     }
                 });
 
@@ -250,7 +253,14 @@ function populateAlbumGrid() {
                     img.setAttribute("col", meta.color);
                 }
 
-                grid.appendChild(img);
+                const label = document.createElement("div");
+                label.classList.add("album-label");
+                label.textContent = meta.title;
+
+                container.appendChild(img);
+                container.appendChild(label);
+
+                grid.appendChild(container);
                 count++;
             }
 
@@ -373,7 +383,8 @@ function search(ev) {
         if (mode === "artist" && artist.includes(term)) match = true;
         if (mode === "date" && date.includes(term)) match = true;
 
-        photo.style.display = match || term === "" ? "block" : "none";
+        const container = photo.parentElement;
+        container.style.display = match || term === "" ? "flex" : "none";
     }
 }
 
@@ -381,9 +392,10 @@ function enterFirst() {
     const photos = document.getElementsByClassName("album-image");
 
     for (const photo of photos) {
-        if (photo.style.display !== "none") {
-            photo.click(); // simulate user click
-            break; // only click the first one
+        const container = photo.parentElement;
+        if (container.style.display !== "none") {
+            photo.click();
+            break;
         }
     }
 }
