@@ -39,5 +39,47 @@
         "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator",
         "s-title": "Borderline",
         "s-artist": "Tame Impala"
+    },
+    "Blossom (Original).jpg": {
+        "title": "Blossom (Original)",
+        "date": "22/2/2025 08:06 PM",
+        "caption": "Taken by (\"@mihirswrld\")https://instagram.com/mihirswrld",
+        "color_hyper": true,
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2vfshZvISOKy2Je7wQBWOV?utm_source=generator",
+        "s-title": "Valentine's Day",
+        "s-artist": "Linkin Park"
+    },
+    "Day Glows.jpg": {
+        "title": "Day Glows",
+        "date": "15/3/2026 06:14 PM",
+        "tint-bg": "gradient"
+    },
+    "Red Lantern (Up From The Bottom).jpg": {
+        "title": "Red Lantern (Up From The Bottom)",
+        "date": "15/3/2026 06:25 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2SwdMXPvGdciXamSjfoNH9?utm_source=generator&si=5379b0c7c4ea498a",
+        "s-title": "Up From The Bottom",
+        "s-artist": "Linkin Park"
+    },
+    "Suspended.jpg": {
+        "title": "Suspended",
+        "date": "15/3/2026 06:23 PM",
+        "tint-bg": "gradient"
+    },
+    "Yellow.jpg": {
+        "title": "Yellow",
+        "date": "15/3/2026 08:17 PM",
+        "tint-bg": "gradient"
+    },
+    "Night Glows Stronger.jpg": {
+        "title": "Night Glows Stronger",
+        "date": "15/3/2026 08:20 PM"
+    },
+    "Chandelier.jpg": {
+        "title": "Chandelier",
+        "date": "15/3/2026 08:16 PM",
+        "tint-bg": "gradient"
     }
 }

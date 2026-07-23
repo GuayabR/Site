@@ -215,6 +215,7 @@ body {
     border-width: 4px;
     border-style: solid;
     animation: pulseImg 1.5s ease forwards;
+    user-select: none;
 }
 
 @keyframes pulseImg {

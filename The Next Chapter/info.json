@@ -1,18 +1,28 @@
 {
     "The Next Chapter.jpg": {
         "title": "The Next Chapter",
-        "date": "26/3/2026 07:16 AM"
+        "date": "26/3/2026 07:16 AM",
+        "color": "rgb(160, 110, 180)",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/4JyvJCmWoyueENgnChl65n?utm_source=generator",
+        "s-title": "Walking In Circles",
+        "s-artist": "Dead By Sunrise"
     },
     "Liquid.jpg": {
         "title": "Liquid",
-        "date": "16/12/2025 08:52 PM"
+        "date": "16/12/2025 08:52 PM",
+        "tint-bg": "gradient"
     },
     "Ba-da-ba.jpg": {
         "title": "Ba-da-ba",
-        "date": "21/12/2025 05:17 PM"
+        "date": "21/12/2025 05:17 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5RUJ1B8Yrh7w4PT0W8KVPk?utm_source=generator",
+        "s-title": "Ba-Da-Ba",
+        "s-artist": "2 Mello"
     },
     "Bitch Spider.jpg": {
-        "title": "Bitch Spider",
+        "title": "Bitch Spider.",
         "date": "20/1/2026 09:30 PM"
     },
     "White (attack).jpg": {
@@ -25,50 +35,96 @@
     },
     "Orange (Adventurous).jpg": {
         "title": "Orange (Adventurous)",
-        "date": "26/1/2026 06:01 PM"
-    },
-    "Rose.jpg": {
-        "title": "Rose",
-        "date": "26/1/2026 06:48 PM"
-    },
-    "Spotlight.jpg": {
-        "title": "Spotlight",
-        "date": "26/1/2026 07:35 PM"
-    },
-    "GOLD.jpg": {
-        "title": "GOLD",
-        "date": "3/3/2026 07:51 PM"
-    },
-    "GOLD 2.jpg": {
-        "title": "GOLD 2",
-        "date": "3/3/2026 07:57 PM"
-    },
-    "Red Horizon.jpg": {
-        "title": "Red Horizon",
-        "date": "13/2/2026 06:27 AM"
-    },
-    "BUrn INSidE THE FIres of A THOUSAND SUNS.jpg": {
-        "title": "BUrn INSidE THE FIres of A THOUSAND SUNS",
-        "date": "4/2/2026 10:57 PM"
-    },
-    "A Thousand Suns.jpg": {
-        "title": "A Thousand Suns",
-        "date": "25/3/2026 12:42 PM"
-    },
-    "Another Thousand Suns.jpg": {
-        "title": "Another Thousand Suns",
-        "date": "26/1/2026 06:09 PM"
-    },
-    "BE PART OF SOMETHING.jpg": {
-        "title": "BE PART OF SOMETHING",
-        "date": "18/3/2026 10:53 AM"
-    },
-    "BEING PART OF SOMETHING.jpg": {
-        "title": "BEING PART OF SOMETHING",
-        "date": "18/3/2026 10:23 PM"
+        "date": "26/1/2026 06:01 PM",
+        "tint-bg": "gradient"
     },
     "moon.jpg": {
         "title": "moon",
-        "date": "12/3/2026 12:25 AM"
+        "date": "12/3/2026 12:25 AM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/135c3pF1uP7wGdgoxARYZt?utm_source=generator",
+        "s-title": "Time: The Beginning",
+        "s-artist": "Megadeth"
+    },
+    "Spotlight.jpg": {
+        "title": "Spotlight",
+        "date": "26/1/2026 07:35 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/4V6mwQ6eOVy9IutREjrFQr?utm_source=generator",
+        "s-title": "Marine Snow",
+        "s-artist": "Creo"
+    },
+    "GOLD.jpg": {
+        "title": "GOLD",
+        "date": "3/3/2026 07:51 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5dhnFKVNR2x9BYqQ6FPpQh?utm_source=generator",
+        "s-title": "Burning In The Skies",
+        "s-artist": "Linkin Park"
+    },
+    "GOLD 2.jpg": {
+        "title": "GOLD 2",
+        "date": "3/3/2026 07:57 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5dhnFKVNR2x9BYqQ6FPpQh?utm_source=generator",
+        "s-title": "Burning In The Skies",
+        "s-artist": "Linkin Park"
+    },
+    "Red Horizon.jpg": {
+        "title": "Red Horizon",
+        "date": "13/2/2026 06:27 AM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2IMkOgc8eo7OIA4ZCSrUkf?utm_source=generator",
+        "s-title": "Red Horizon",
+        "s-artist": "Creo"
+    },
+    "BUrn INSidE THE FIres of A THOUSAND SUNS.jpg": {
+        "title": "BUrn INSidE THE FIres of A THOUSAND SUNS",
+        "date": "4/2/2026 10:57 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
+        "s-title": "The Catalyst",
+        "s-artist": "Linkin Park"
+    },
+    "A Thousand Suns.jpg": {
+        "title": "A Thousand Suns",
+        "date": "25/3/2026 12:42 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/album/5uvXx5ZQswNRFCdHR521YZ?utm_source=generator",
+        "s-title": "A Thousand Suns",
+        "s-artist": "Album - Linkin Park"
+    },
+    "Another Thousand Suns.jpg": {
+        "title": "Another Thousand Suns",
+        "date": "26/1/2026 06:09 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
+        "s-title": "The Catalyst",
+        "s-artist": "Linkin Park"
+    },
+    "BE PART OF SOMETHING.jpg": {
+        "title": "BE PART OF SOMETHING",
+        "date": "18/3/2026 10:53 AM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
+        "s-title": "The Catalyst",
+        "s-artist": "Linkin Park"
+    },
+    "BEING PART OF SOMETHING.jpg": {
+        "title": "BEING PART OF SOMETHING",
+        "date": "18/3/2026 10:23 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6r2JE3s7XVnGfwiWCymyWf?utm_source=generator",
+        "s-title": "Unshatter",
+        "s-artist": "Linkin Park"
+    },
+    "Rose.jpg": {
+        "title": "Rose",
+        "date": "26/1/2026 06:48 PM",
+        "color": "rgb(255, 0, 125)",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/196rNjJkKTjsk2NTEtJKLq?utm_source=generator",
+        "s-title": "Promises",
+        "s-artist": "Megadeth"
     }
 }

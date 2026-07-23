@@ -1,5 +1,5 @@
 {
-    "AS^.jpg": {
+    "20250925_141400.jpg": {
         "title": "AS^",
         "date": "9/25/2025 2:14 PM",
         "tint-bg": "gradient",
@@ -19,7 +19,7 @@
     "ggggllllaaaASsss.jpg": {
         "title": "ggggllllaaaASsss465 6",
         "date": "10/04/2025 6:27 PM",
-        "bg": "/AS^/Massive - Linkin Park.mp4 | 0.75",
+        "tint-bg": "gradient",
         "lore": "<i>Unsure</i>",
         "song": "https://open.spotify.com/embed/track/64nKjh8qkktOOD99LEcUff?utm_source=generator",
         "s-title": "Atmosphere",
@@ -34,5 +34,37 @@
         "song": "https://open.spotify.com/embed/track/6eTcxkl9G7C2mwejLJ7Amm?utm_source=generator",
         "s-title": "An Ending",
         "s-artist": "Toby Fox"
+    },
+    "AS^ (Edited 26).png": {
+        "title": "AS^ (Edited 26)",
+        "date": "9/25/2025 2:14 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator",
+        "s-title": "I Can Love You",
+        "s-artist": "Mary J. Blige, Lil' Kim"
+    },
+    "ggggllllaaaASsss (Alt).png": {
+        "title": "ggggllllaaaASsss465 6 (Alt)",
+        "date": "10/04/2025 6:27 PM",
+        "song": "https://open.spotify.com/embed/track/64nKjh8qkktOOD99LEcUff?utm_source=generator",
+        "s-title": "Atmosphere",
+        "s-artist": "Creo"
+    },
+    "Revolving Stars (Edited 26).png": {
+        "title": "Revolving Stars (Edited 26)",
+        "date": "9/29/2025 8:29 PM",
+        "tint-bg": "gradient",
+        "color": "rgb(131, 131, 131)",
+        "song": "https://open.spotify.com/embed/track/6eTcxkl9G7C2mwejLJ7Amm?utm_source=generator",
+        "s-title": "An Ending",
+        "s-artist": "Toby Fox"
+    },
+    "hold.png": {
+        "title": "Hold the Moon",
+        "date": "4/10/2025 9:11 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5G5O4mCt1DNWxEEkigElL3?utm_source=generator&si=58dc827cbafe4924",
+        "s-title": "Shouting Out",
+        "s-artist": "Grey Daze"
     }
 }

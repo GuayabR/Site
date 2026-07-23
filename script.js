@@ -227,6 +227,8 @@ function populateAlbumGrid() {
                 img.setAttribute("img-song", meta["s-title"]);
                 img.setAttribute("img-song-artist", meta["s-artist"]);
 
+                img.style.userSelect = "none";
+
                 img.onclick = () => {
                     if (from === "view") window.location.href = `/image/?album=${album}&img=${filename}&from=view`;
                     else window.location.href = `/image/?album=${album}&img=${filename}&searched=${searched}`;
@@ -1158,6 +1160,16 @@ function loadAlbumImage() {
     }
 
     if (window.location.pathname !== "/image/") return;
+}
+
+function onLoadedSpotifyEmbed() {
+    console.log("Loaded iframe")
+
+    const iframe = document.querySelector('iframe[data-testid="embed-iframe"]');
+
+    let cover = iframe.getElementsByClassName("CoverArtBase_coverArt__ne0XI CoverArtTrackList_coverArtTrackList__1YwHX")
+
+    cover.backgroundImage = 'url("https://guayabr.com/The%20Next%20Chapter/A%20Thousand%20Suns.jpg")'
 }
 
 function setLowColor(elem, color) {

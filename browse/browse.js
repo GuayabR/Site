@@ -2,6 +2,7 @@ const albums = [
     "Explosion of Colours",
     "Chinese New Year",
     "December 2024",
+    "The Next Chapter",
     "A Different Time",
     "IT'S SO DARK",
     "IT'S SO COLOURFUL",
@@ -52,6 +53,8 @@ async function loadAlbumsInOrder() {
                 img.setAttribute("img-lore", meta.lore);
                 img.setAttribute("img-song", meta["s-title"]);
                 img.setAttribute("img-song-artist", meta["s-artist"]);
+
+                img.style.userSelect = "none";
 
                 if (meta.color) {
                     img.setAttribute("col", meta.color);
