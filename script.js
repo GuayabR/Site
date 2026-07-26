@@ -9,6 +9,80 @@ const menu = document.getElementById("customMenu");
 const openBtn = document.getElementById("openFull");
 const openTabBtn = document.getElementById("openTab");
 const quickDown = document.getElementById("quickDown");
+const ALBUM_METADATA_KEY = "_album";
+
+function getAlbumMetadata(data) {
+    const metadata = data?.[ALBUM_METADATA_KEY];
+    return metadata && typeof metadata === "object" ? metadata : {};
+}
+
+function getImageFilenames(data) {
+    return Object.keys(data || {}).filter((filename) => filename !== ALBUM_METADATA_KEY);
+}
+
+function applyAlbumMetadata(metadata, albumTitle) {
+    if (metadata.color) {
+        albumTitle.style.color = metadata.color;
+    }
+
+    if (metadata["tint-bg"] === "gradient" && metadata.color) {
+        applyGradientBackground(parseRgbString(metadata.color));
+    } else if (metadata["tint-bg"] === "double-gradient" && metadata.color) {
+        const primaryColor = parseRgbString(metadata.color);
+        const secondaryColor = metadata.color2
+            ? parseRgbString(metadata.color2)
+            : primaryColor;
+        applyGradientBackground(primaryColor, secondaryColor, true);
+    }
+
+    const songEmbed = document.getElementById("album-song-embed");
+    const songContainer = document.getElementById("album-song-container");
+    if (songEmbed && songContainer && metadata.song?.includes("open.spotify.com/embed/")) {
+        songEmbed.src = metadata.song;
+        songContainer.hidden = false;
+    }
+}
+
+function setupAlbumLabelScrolling() {
+    document.querySelectorAll(".album-label").forEach((label) => {
+        if (label.dataset.scrollReady) return;
+        label.dataset.scrollReady = "true";
+
+        const labelText = document.createElement("span");
+        labelText.classList.add("album-label-text");
+        while (label.firstChild) {
+            labelText.appendChild(label.firstChild);
+        }
+        label.appendChild(labelText);
+
+        const overflow = labelText.scrollWidth - label.clientWidth;
+        if (overflow > 0) {
+            label.classList.add("album-label-scroll");
+            label.style.setProperty("--label-scroll-distance", `-${overflow}px`);
+        }
+    });
+}
+
+function setImageLabel(label, meta, filename) {
+    const imageTitle = meta.title || filename;
+    label.replaceChildren();
+    label.title = imageTitle;
+
+    if (meta.author) {
+        const author = document.createElement("span");
+        author.classList.add("album-label-author");
+        author.textContent = `${meta.author}'s `;
+        label.appendChild(author);
+    }
+
+    const title = document.createElement("span");
+    title.textContent = imageTitle;
+    label.appendChild(title);
+}
+
+function getPhotoYear(date) {
+    return String(date || "").match(/\b(?:19|20)\d{2}\b/)?.[0];
+}
 
 console.log(DEVICE);
 
@@ -54,6 +128,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     removeQueryParam("searched");
 
+    setupAlbumButtons();
     setRandomAlbumBackgrounds();
 });
 
@@ -94,8 +169,13 @@ function setRandomAlbumBackgrounds() {
         fetch(fetchFrom)
             .then((res) => res.json())
             .then((data) => {
-                const images = Object.keys(data);
+                const metadata = getAlbumMetadata(data);
+                const images = getImageFilenames(data);
                 if (images.length === 0) return;
+
+                if (metadata.title) {
+                    button.textContent = metadata.title;
+                }
 
                 const selectedImage =
                     album === "The Next Chapter"
@@ -127,6 +207,14 @@ function setRandomAlbumBackgrounds() {
             centerWrapper.remove();
         }
     }
+}
+
+function setupAlbumButtons() {
+    document.querySelectorAll(".album-btn[data-album]").forEach((button) => {
+        const { album } = button.dataset;
+        button.textContent = album;
+        button.addEventListener("click", () => album_selected(album));
+    });
 }
 
 function album_selected(album) {
@@ -191,7 +279,7 @@ function populateAlbumGrid() {
                 throw new Error("Invalid JSON");
             }
 
-            if (!data || Object.keys(data).length === 0) {
+            if (!data || getImageFilenames(data).length === 0) {
                 // JSON parsed but no content
                 if (grid) grid.style.display = "none";
                 albumTitle.innerHTML = noDataMessage;
@@ -204,9 +292,27 @@ function populateAlbumGrid() {
         .then((data) => {
             if (!data) return; // already handled empty cases
 
+            const metadata = getAlbumMetadata(data);
+            const displayTitle = metadata.title || decodeURIComponent(album);
+            const albumDate = document.getElementById("album-date");
+
+            albumTitle.textContent = displayTitle;
+            document.title = displayTitle;
+
+            if (albumDate && metadata.date) {
+                albumDate.textContent = metadata.date;
+                albumDate.hidden = false;
+            }
+
+            applyAlbumMetadata(metadata, albumTitle);
+            const albumTintNeedsImageColor =
+                !metadata.color &&
+                ["gradient", "double-gradient"].includes(metadata["tint-bg"]);
+            let albumTintApplied = !albumTintNeedsImageColor;
+
             let count = 0;
 
-            for (const filename in data) {
+            for (const filename of getImageFilenames(data)) {
                 const meta = data[filename];
 
                 const container = document.createElement("div");
@@ -237,9 +343,27 @@ function populateAlbumGrid() {
                 img.addEventListener("load", () => {
                     const colorThief = new ColorThief();
                     if (img.complete) {
-                        if (img.hasAttribute("col")) return;
+                        if (img.hasAttribute("col") && !albumTintNeedsImageColor) return;
 
                         const color = colorThief.getColor(img);
+
+                        if (albumTintNeedsImageColor && !albumTintApplied) {
+                            const hsl = rgbToHsl(color[0], color[1], color[2]);
+                            hsl[1] = Math.min(1, hsl[1] * 1.2);
+                            hsl[2] = Math.max(0.65, hsl[2]);
+                            const albumColor = hslToRgb(hsl[0], hsl[1], hsl[2]);
+
+                            if (metadata["tint-bg"] === "double-gradient") {
+                                applyGradientBackground(albumColor, color, true);
+                            } else {
+                                applyGradientBackground(albumColor);
+                            }
+
+                            albumTintApplied = true;
+                        }
+
+                        if (img.hasAttribute("col")) return;
+
                         const hsl = rgbToHsl(color[0], color[1], color[2]);
 
                         hsl[1] = Math.min(1, hsl[1] * 1.2);
@@ -257,7 +381,7 @@ function populateAlbumGrid() {
 
                 const label = document.createElement("div");
                 label.classList.add("album-label");
-                label.textContent = meta.title;
+                setImageLabel(label, meta, filename);
 
                 container.appendChild(img);
                 container.appendChild(label);
@@ -269,6 +393,7 @@ function populateAlbumGrid() {
             setupContextMenus();
 
             setupTooltipHover();
+            setupAlbumLabelScrolling();
 
             if (searchTerm && searchTerm != "undefined" && searchTerm != "null") {
                 searchBox.value = searchTerm;
@@ -884,6 +1009,17 @@ function loadAlbumImage() {
             const info = fetched_info;
 
             document.getElementById("image-title").innerText = info.title || "";
+            const authorEl = document.getElementById("image-author");
+            if (authorEl && info.author) {
+                authorEl.textContent = `${info.author}'s`;
+                authorEl.hidden = false;
+            }
+
+            const copyrightEl = document.getElementById("image-copyright");
+            const photoYear = getPhotoYear(info.date);
+            if (copyrightEl && info.author && photoYear) {
+                copyrightEl.textContent = `© ${photoYear} ${info.author}. All Rights Reserved.`;
+            }
             const captionEl = document.getElementById("image-caption");
             captionEl.innerHTML = parseCaption(info.caption || "");
 

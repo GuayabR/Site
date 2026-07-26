@@ -27,6 +27,8 @@ async function loadAlbumsInOrder() {
             const data = await res.json();
 
             for (const filename in data) {
+                if (filename === "_album") continue;
+
                 const meta = data[filename];
 
                 // Check if image is meant to be shown in a specific album
@@ -40,6 +42,10 @@ async function loadAlbumsInOrder() {
                 container.classList.add("album-item");
 
                 const img = document.createElement("img");
+                // Create every image element up front, but defer downloading thumbnails
+                // until the browser determines they are near the viewport.
+                img.loading = "lazy";
+                img.decoding = "async";
                 img.src = `/${encodeURIComponent(album)}/thumbs/${filename}`;
                 img.alt = filename;
                 img.classList.add("album-image");
@@ -72,7 +78,7 @@ async function loadAlbumsInOrder() {
 
                 const label = document.createElement("div");
                 label.classList.add("album-label");
-                label.textContent = meta.title;
+                setImageLabel(label, meta, filename);
 
                 container.appendChild(img);
                 container.appendChild(label);
@@ -81,7 +87,6 @@ async function loadAlbumsInOrder() {
 
                 //console.log("added item", img.src);
 
-                await new Promise((res) => setTimeout(res, 2));
             }
 
         } catch (err) {
@@ -98,13 +103,11 @@ async function loadAlbumsInOrder() {
     setupContextMenus();
     // Tooltip hover effects after all images are loaded
     setupTooltipHover();
+    setupAlbumLabelScrolling();
 
     // Hide loading screen
     const loadingScreen = document.getElementById("loading-screen");
-    loadingScreen.classList.add("fade-out");
-    setTimeout(() => {
-        loadingScreen.remove();
-    }, 1000);
+    loadingScreen.remove();
 }
 
 loadAlbumsInOrder();
@@ -136,7 +139,6 @@ function processColorThiefQueue() {
 
         isProcessingColorThief = false;
 
-        // Slow down the loop to avoid overloading
-        setTimeout(processColorThiefQueue, 5);
+        processColorThiefQueue();
     });
 }

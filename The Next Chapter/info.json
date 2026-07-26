@@ -126,5 +126,11 @@
         "song": "https://open.spotify.com/embed/track/196rNjJkKTjsk2NTEtJKLq?utm_source=generator",
         "s-title": "Promises",
         "s-artist": "Megadeth"
+    },
+    "Glass.jpg": {
+        "title": "Glass",
+        "date": "19/06/2026 06:08 PM",
+        "author": "_rediet.yb",
+        "tint-bg": "gradient"
     }
 }

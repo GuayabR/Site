@@ -1,4 +1,10 @@
 {
+    "_album": {
+        "title": "Blossom",
+        "date": "12/16/2025",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/album/4R6FV9NSzhPihHR0h4pI93?utm_source=generator&si=2094732635b140a6"
+    },
     "20251004_192638.jpg": {
         "title": "The Garden",
         "date": "4/10/2025 07:26 PM"
@@ -91,5 +97,29 @@
         "song": "https://open.spotify.com/embed/track/0J1IJsMbKWb5g2sJArTkGF?utm_source=generator",
         "s-title": "Stained",
         "s-artist": "Linkin Park"
+    },
+    "20251004_194018.jpg": {
+        "title": "Hierarchy",
+        "author": "mihirswrld",
+        "date": "4/10/2025 07:40 PM",
+        "tint-bg": "gradient"
+    },
+    "20251004_194049.jpg": {
+        "title": "Volcano",
+        "author": "mihirswrld",
+        "date": "4/10/2025 07:40 PM",
+        "tint-bg": "gradient"
+    },
+    "20251004_194247.jpg": {
+        "title": "Explosion",
+        "author": "mihirswrld",
+        "date": "4/10/2025 07:42 PM",
+        "tint-bg": "gradient"
+    },
+    "20251004_195513.jpg": {
+        "title": "Sea",
+        "author": "mihirswrld",
+        "date": "4/10/2025 07:43 PM",
+        "tint-bg": "gradient"
     }
 }

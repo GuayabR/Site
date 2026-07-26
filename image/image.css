@@ -126,6 +126,11 @@ body {
     color: rgb(125, 125, 125);
 }
 
+#image-author {
+    font-size: 1rem;
+    color: rgb(125, 125, 125);
+}
+
 #back-btn {
     white-space: pre-wrap;
     border-radius: 4px 4px 4px 4px;

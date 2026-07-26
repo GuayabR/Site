@@ -1,4 +1,9 @@
 {
+    "_album": {
+        "title": "Explosion Of Colours",
+        "date": "07/01/2025",
+        "tint-bg": "gradient"
+    },
     "Rosa.jpg": {
         "title": "Rosa",
         "lore": "That is how the sky looked.",
@@ -38,7 +43,7 @@
         "s-artist": "Creo"
     },
     "Red Tide.jpg": {
-        "title": "Red Tide.",
+        "title": "Red Tide",
         "date": "5/13/2025 5:27 PM",
         "color": "rgb(255, 0, 106)",
         "tint-bg": "gradient",

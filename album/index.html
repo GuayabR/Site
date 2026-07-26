@@ -18,6 +18,15 @@
 
         <div class="info-section fade-in fade-delay-1">
             <h1 style="font-family: Helvetica;">Album name</h1>
+            <p id="album-date" hidden></p>
+
+            <div id="album-song-container" hidden>
+                <iframe id="album-song-embed" title="Album song" style="border: 2px solid white; border-radius: 16px;"
+                    width="100%" height="84" frameborder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+                </iframe>
+            </div>
+
             <br id="s-break">
             <input style="display: none;" placeholder="Search Photos..." class="fade-in fade-delay-2" id="search-box"
                 title='Press "Enter" to go to the first result. 
@@ -41,7 +50,7 @@ Prefix with "d-" to search for photos of a specific date.'>
 
         <a id="back-btn" class="download-btn fade-in fade-delay-2" role="button" href="/">Back to Home</a>
 
-        <br></br>
+        <br>
 
         <img src="https://guayabr.com/Assets/gr_logo_big.png" alt="GuayabR Logo" id="gr_logo" title="Back to Home"
             onclick="window.location.href = '/'" class="fade-in fade-delay-4 logo-img" />
@@ -51,9 +60,6 @@ Prefix with "d-" to search for photos of a specific date.'>
             © 2025 - 2026 GuayabR. All Rights Reserved.
             <br>All photos licensed under <a class="license" href="https://creativecommons.org/licenses/by-nc/4.0/"
                 target="_blank" rel="noopener">CC BY-NC 4.0</a>.<br>
-            You are free to download and use these photos for personal and non-commercial projects, as long as proper
-            credit is given.
-            <br>Commercial use is not permitted without explicit permission.
         </p>
     </main>
     <div id="custom-tooltip"></div>

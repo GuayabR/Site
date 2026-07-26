@@ -357,6 +357,10 @@ input:disabled {
     text-align: center;
 }
 
+.album-label-author {
+    color: #999;
+}
+
 .fade-in {
     opacity: 0;
     animation: fadeIn 1.75s ease forwards;

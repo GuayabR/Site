@@ -8,6 +8,7 @@ import rawpy
 import imageio
 from datetime import datetime
 import platform
+import datetime
 
 # Select folder GUI
 def select_folder_gui():
@@ -168,7 +169,14 @@ IMAGE_EXTS = (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp")
 # Create info.json
 def create_info_json(folder):
     convert_cr2_to_jpg_if_missing(folder)
-    data = {}
+
+    data = {
+        "_album": {
+            "title": folder,
+            "date": datetime.today().strftime("%d/%m/%Y"),
+        }
+    }
+
     for file in os.listdir(folder):
         if file.lower().endswith(IMAGE_EXTS):
             img_path = os.path.join(folder, file)
