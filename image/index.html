@@ -1,69 +1,79 @@
 <!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Image view</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="image.css" />
+        <link rel="stylesheet" href="/styles.css" />
+        <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image view</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="image.css" />
-    <link rel="stylesheet" href="/styles.css" />
-    <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
-</head>
-
-<body>
-    <main class="page-wrapper">
-        <div class="image-view-container">
+    <body>
+        <main class="page-wrapper">
+            <div class="image-view-container">
             <div class="fade-in fade-delay-1 image-side">
-                <img id="album-img" src="" alt="Album Image" />
+                <div class="image-border">
+                    <img id="album-img" src="" alt="Album Image" />
+                </div>
             </div>
-            <div class="fade-in fade-delay-3 info-side">
-                <div class="info-content">
-                    <p id="image-author" hidden></p>
-                    <h1 id="image-title" style="font-family: Helvetica">Title</h1>
-                    <p id="image-caption">Caption</p>
-                    <p id="image-lore">Lore</p>
-                    <p id="image-date">Date taken</p>
-                    <div class="button-group">
-                        <a id="download-btn" class="download-btn" download role="button" href="#">Download Image</a>
-                        <a id="view-img-btn" class="download-btn" role="button" href="#">View Image</a>
-                        <a id="back-btn" class="download-btn" role="button" href="#">Back to Album</a>
-                        <a id="back-browse-btn" style="display: none" class="download-btn" role="button" href="#">Back
-                            to Browse</a>
+                <div class="fade-in fade-delay-3 info-side">
+                    <div class="info-content">
+                        <p id="image-author" hidden></p>
+                        <h1 id="image-title" style="font-family: Helvetica">Title</h1>
+                        <p id="image-caption">Caption</p>
+                        <p id="image-lore">Lore</p>
+                        <p id="image-date">Date taken</p>
+                        <div class="button-group">
+                            <a id="download-btn" class="download-btn" download role="button" href="#">Download Image</a>
+                            <a id="view-img-btn" class="download-btn" role="button" href="#">View Image</a>
+                            <a id="back-btn" class="download-btn" role="button" href="#">Back to Album</a>
+                            <a id="other-album-btn" class="download-btn" role="button" href="#" style="display: none"></a>
+                            <a id="back-browse-btn" style="display: none" class="download-btn" role="button" href="#">Back to Browse</a>
 
-                        <div class="spotify-container">
-                            <iframe onclick="onLoadedSpotifyEmbed()" id="s-embed" data-testid="embed-iframe"
-                                style="border: 2px solid; border-color: white; border-radius: 16px; display: none"
-                                width="100%" height="84px" , volume="0.3" , frameborder="0"
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                loading="lazy">
-                            </iframe>
+                            <div class="spotify-container">
+                                <iframe
+                                    onclick="onLoadedSpotifyEmbed()"
+                                    id="s-embed"
+                                    data-testid="embed-iframe"
+                                    style="border: 2px solid; border-color: white; border-radius: 16px; display: none"
+                                    width="100%"
+                                    height="84px"
+                                    ,
+                                    volume="0.3"
+                                    ,
+                                    frameborder="0"
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                    loading="lazy">
+                                </iframe>
+                            </div>
+
+                            <a id="home-btn" class="download-btn" role="button" href="/">Back to Home</a>
                         </div>
-                        <a id="home-btn" class="download-btn" role="button" href="/">Back to Home</a>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <img src="https://guayabr.com/Assets/gr_logo_big.png" alt="GuayabR Logo" id="gr_logo"
-            title="Home (https://guayabr.com)" onclick="window.location.href = '/'"
-            class="fade-in fade-delay-4 logo-img" />
-        <p class="copyright fade-in fade-delay-6"><span id="image-copyright">
-            © 2025 - 2026 GuayabR. All Rights Reserved.
-            </span><br />All photos licensed under
-            <a class="license" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC
-                BY-NC 4.0</a>.<br />
-            You are free to download and use these photos for personal and non-commercial projects, as long as proper
-            credit is given.
-            <br />Commercial use is not permitted without explicit permission.
-        </p>
-        <p></p>
-    </main>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/exifr/dist/lite.umd.js"></script>
-<script src="/script.js"></script>
-
+            <img
+                src="https://guayabr.com/Assets/gr_logo_big.png"
+                alt="GuayabR Logo"
+                id="gr_logo"
+                title="Home (https://guayabr.com)"
+                onclick="window.location.href = '/'"
+                class="fade-in fade-delay-4 logo-img" />
+            <p class="copyright fade-in fade-delay-6">
+                <span id="image-copyright"> © 2025 - 2026 GuayabR. All Rights Reserved. </span><br />All photos licensed under
+                <a class="license" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>.<br />
+                You are free to download and use these photos for personal and non-commercial projects, as long as proper credit is given.
+                <br />Commercial use is not permitted without explicit permission.
+            </p>
+            <p></p>
+        </main>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exifr/dist/lite.umd.js"></script>
+    <script src="/script.js"></script>
 </html>

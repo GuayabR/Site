@@ -24,10 +24,27 @@
     /*outline: 1px dashed red;*/
 }
 
+@property --page-background-start {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: rgb(12, 12, 12);
+}
+
+@property --page-background-end {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: rgb(12, 12, 12);
+}
+
 html,
 body {
     height: 100%;
     background-color: rgb(12, 12, 12);
+    background-image: linear-gradient(to bottom, var(--page-background-start), var(--page-background-end));
+    background-attachment: fixed;
+    transition:
+        --page-background-start 1s ease,
+        --page-background-end 1s ease;
 }
 
 body {

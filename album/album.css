@@ -44,6 +44,10 @@
 }
 
 @keyframes album-label-scroll {
+    from {
+        transform: translateX(var(--label-scroll-start));
+    }
+
     to {
         transform: translateX(var(--label-scroll-distance));
     }

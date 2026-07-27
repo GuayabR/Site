@@ -2,7 +2,8 @@
     "_album": {
         "title": "Blossom",
         "date": "12/16/2025",
-        "tint-bg": "gradient",
+        "tint-bg": "double-gradient",
+        "switch-col-hover": true,
         "song": "https://open.spotify.com/embed/album/4R6FV9NSzhPihHR0h4pI93?utm_source=generator&si=2094732635b140a6"
     },
     "20251004_192638.jpg": {
@@ -16,7 +17,8 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/6aCBjSb87RizdH8lVBIRW7?utm_source=generator",
         "s-title": "Good Things Go",
-        "s-artist": "Linkin Park"
+        "s-artist": "Linkin Park",
+        "album": "Blossom"
     },
     "20251004_193656.jpg": {
         "title": "forest",

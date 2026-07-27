@@ -19,25 +19,26 @@
         <br>
 
         <div class="albums-grid">
-            <button onclick="album_selected('Explosion of Colours')" data-album="Explosion of Colours"
-                class="album-btn">Explosion of Colours</button>
-            <button onclick="album_selected('Chinese New Year')" data-album="Chinese New Year" class="album-btn">Chinese
-                New Year</button>
-            <button onclick="album_selected('December 2024')" data-album="December 2024" class="album-btn">December
-                2024</button>
-            <button style="box-shadow: 0px 0px 90px rgba(160, 110, 180, 0.3);"
-                onclick=" album_selected(`The Next Chapter`)" data-album="The Next Chapter" class="album-btn">The Next
-                Chapter</button>
-            <button onclick=" album_selected(`A Different Time`)" data-album="A Different Time" class="album-btn">A
-                Different Time</button>
-            <button onclick="album_selected(`Blossom`)" data-album="Blossom" class="album-btn">Blossom</button>
-            <button onclick="album_selected(`IT'S SO DARK`)" data-album="IT'S SO DARK" class="album-btn">IT'S SO
-                DARK</button>
-            <button onclick="album_selected(`IT'S SO COLOURFUL`)" data-album="IT'S SO COLOURFUL" class="album-btn">IT'S
-                SO COLOURFUL</button>
-            <button onclick="album_selected(`windy`)" data-album="windy" class="album-btn">windy</button>
-            <button onclick="album_selected(`AS^`)" data-album="AS^" class="album-btn">AS^</button>
-            <button onclick="album_selected(`Animals`)" data-album="Animals" class="album-btn">Animals</button>
+            <button data-album="A Different Time" class="album-btn"></button>
+            <button data-album="Animals" class="album-btn"></button>
+            <button data-album="Blossom" class="album-btn"></button>
+            <button data-album="AS^" class="album-btn"></button>
+            <button data-album="Blossom mine" class="album-btn"></button>
+            <button data-album="canon" class="album-btn"></button>
+            <button data-album="canon_mine" class="album-btn"></button>
+            <button data-album="Cars" class="album-btn"></button>
+            <button data-album="Chinese New Year" class="album-btn"></button>
+            
+            <button data-album="December 2024" class="album-btn"></button>
+            <button style="box-shadow: 0px 0px 90px rgba(160, 110, 180, 0.3);" data-album="The Next Chapter" class="album-btn"></button>
+            <button data-album="Explosion of Colours" class="album-btn"></button>
+            <button data-album="Flowers" class="album-btn"></button>
+            <button data-album="IT'S SO COLOURFUL" class="album-btn"></button>
+            <button data-album="IT'S SO DARK" class="album-btn"></button>
+            <button data-album="Mihir Blossom" class="album-btn"></button>
+            <button data-album="Red Rocks" class="album-btn"></button>
+            <button data-album="Star in the Middle" class="album-btn"></button>
+            <button data-album="windy" class="album-btn"></button>
         </div>
 
         <br />
@@ -58,6 +59,37 @@
         is given.
         <br>Commercial use is not permitted without explicit permission.
     </p>
+
+    <div id="custom-tooltip"></div>
+
+        <div id="customMenu" class="custom-menu">
+            <p id="menu-img-title">Title</p>
+            <p class="sep" id="title-sep">-------------------------</p>
+            <p id="menu-img-file">(File)</p>
+            <p id="menu-img-date">Date</p>
+            <p id="menu-img-caption">Caption</p>
+            <p id="menu-img-lore">Lore</p>
+            <p class="sep">-------------------------</p>
+            <p id="menu-img-dim">Dimensions</p>
+            <p class="sep">-------------------------</p>
+            <p id="menu-img-song">Song</p>
+            <p id="menu-img-artist">Artist</p>
+            <p class="sep" id="song-sep">-------------------------</p>
+            <p id="menu-img-meta" style="display: none">(Metadata)</p>
+            <p class="sep" id="meta-sep" style="display: none">-------------------------</p>
+
+            <button class="menu-btn" id="goToImg">Go to Image</button>
+
+            <button class="menu-btn" id="goToAlbum">Go to Album</button>
+
+            <button class="menu-btn" id="viewMeta">View Metadata</button>
+
+            <button class="menu-btn" id="openTab">Open image<br />page in new tab</button>
+
+            <button class="menu-btn" id="openFull">Open full image<br />in new tab</button>
+
+            <a class="menu-btn" role="button" download id="quickDown">Quick download</a>
+        </div>
 
 </body>
 <script src="/script.js"></script>

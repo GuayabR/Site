@@ -3,12 +3,12 @@ body {
     min-height: 100vh;
     height: auto;
     justify-content: center;
-    padding: 20px 0;
+    padding: 0px 0;
 }
 
 .info-section {
     max-width: 1600px;
-    margin-top: 40px;
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -57,7 +57,7 @@ body {
 .more-albums {
     display: flex;
     flex-wrap: wrap;
-    max-width: calc(140px * 7 + 14px * 6);
+    max-width: calc(140px * 9 + 14px * 6);
     gap: 14px;
     justify-content: center;
     margin-top: -8px;
@@ -65,7 +65,7 @@ body {
 
 .more-albums .album-btn {
     width: 140px;
-    height: 105px;
+    height: 90px;
     font-size: 0.85rem;
 }
 
@@ -167,6 +167,7 @@ body::-webkit-scrollbar {
 
 .browse-btn {
     padding: 12px 24px;
+    margin: 0px 6px 0px 6px;
     font-size: 1rem;
     font-weight: 600;
 }

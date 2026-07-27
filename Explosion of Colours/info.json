@@ -2,7 +2,8 @@
     "_album": {
         "title": "Explosion Of Colours",
         "date": "07/01/2025",
-        "tint-bg": "gradient"
+        "tint-bg": "gradient",
+        "switch-col-hover": true
     },
     "Rosa.jpg": {
         "title": "Rosa",

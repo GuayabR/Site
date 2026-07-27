@@ -8,8 +8,18 @@ const DEVICE = detectDeviceType();
 const menu = document.getElementById("customMenu");
 const openBtn = document.getElementById("openFull");
 const openTabBtn = document.getElementById("openTab");
+const goToImgBtn = document.getElementById("goToImg");
+const goToAlbumBtn = document.getElementById("goToAlbum");
 const quickDown = document.getElementById("quickDown");
 const ALBUM_METADATA_KEY = "_album";
+
+function shouldSwitchAlbumColorOnHover(metadata) {
+    return (
+        metadata["switch-col-hover"] === true &&
+        !["Mobile", "iOS", "Android"].includes(DEVICE) &&
+        ["gradient", "double-gradient"].includes(metadata["tint-bg"])
+    );
+}
 
 function getAlbumMetadata(data) {
     const metadata = data?.[ALBUM_METADATA_KEY];
@@ -25,13 +35,11 @@ function applyAlbumMetadata(metadata, albumTitle) {
         albumTitle.style.color = metadata.color;
     }
 
-    if (metadata["tint-bg"] === "gradient" && metadata.color) {
+    if (metadata["tint-bg"] === "gradient" && metadata.color && !shouldSwitchAlbumColorOnHover(metadata)) {
         applyGradientBackground(parseRgbString(metadata.color));
-    } else if (metadata["tint-bg"] === "double-gradient" && metadata.color) {
+    } else if (metadata["tint-bg"] === "double-gradient" && metadata.color && !shouldSwitchAlbumColorOnHover(metadata)) {
         const primaryColor = parseRgbString(metadata.color);
-        const secondaryColor = metadata.color2
-            ? parseRgbString(metadata.color2)
-            : primaryColor;
+        const secondaryColor = metadata.color2 ? parseRgbString(metadata.color2) : primaryColor;
         applyGradientBackground(primaryColor, secondaryColor, true);
     }
 
@@ -55,10 +63,13 @@ function setupAlbumLabelScrolling() {
         }
         label.appendChild(labelText);
 
+        const overscroll = 20;
         const overflow = labelText.scrollWidth - label.clientWidth;
+
         if (overflow > 0) {
             label.classList.add("album-label-scroll");
-            label.style.setProperty("--label-scroll-distance", `-${overflow}px`);
+            label.style.setProperty("--label-scroll-start", `${overscroll}px`);
+            label.style.setProperty("--label-scroll-distance", `-${overflow + overscroll}px`);
         }
     });
 }
@@ -130,6 +141,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     setupAlbumButtons();
     setRandomAlbumBackgrounds();
+    setupHomeAlbumContextMenus();
 });
 
 function detectDeviceType() {
@@ -177,14 +189,32 @@ function setRandomAlbumBackgrounds() {
                     button.textContent = metadata.title;
                 }
 
-                const selectedImage =
-                    album === "The Next Chapter"
-                        ? images[0]
-                        : images[Math.floor(Math.random() * images.length)];
+                const selectedImage = album === "The Next Chapter" ? images[0] : images[Math.floor(Math.random() * images.length)];
 
                 const imagePath = (isViewPage ? "/" : "") + `${album}/thumbs/${selectedImage}`;
 
                 button.style.backgroundImage = `url("${encodeURI(imagePath)}")`;
+                button.dataset.previewImage = selectedImage;
+
+                const previewMeta = data[selectedImage] || {};
+                if (previewMeta.color) {
+                    button.setAttribute("col", previewMeta.color);
+                } else if (typeof ColorThief !== "undefined") {
+                    const previewImage = new Image();
+                    previewImage.crossOrigin = "anonymous";
+                    previewImage.src = imagePath;
+
+                    previewImage.addEventListener("load", () => {
+                        const color = new ColorThief().getColor(previewImage);
+                        const hsl = rgbToHsl(color[0], color[1], color[2]);
+
+                        hsl[1] = Math.min(1, hsl[1] * 1.2);
+                        hsl[2] = Math.max(0.65, hsl[2]);
+
+                        const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
+                        button.setAttribute("col", `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`);
+                    });
+                }
                 //console.log("set bg as ", button.style.backgroundImage);
                 //console.log("set bg url as ", encodeURI(imagePath));
             })
@@ -214,6 +244,49 @@ function setupAlbumButtons() {
         const { album } = button.dataset;
         button.textContent = album;
         button.addEventListener("click", () => album_selected(album));
+    });
+}
+
+function setupHomeAlbumContextMenus() {
+    const isHomePage = window.location.pathname === "/" || window.location.pathname.endsWith("/index.html");
+    const isViewPage = window.location.pathname.startsWith("/view");
+    if (!isHomePage && !isViewPage) return;
+
+    document.querySelectorAll(".album-btn[data-album]").forEach((button) => {
+        button.addEventListener("contextmenu", async (event) => {
+            event.preventDefault();
+
+            const album = button.dataset.album;
+
+            try {
+                const response = await fetch(`/${encodeURIComponent(album)}/info.json`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+                const filename = button.dataset.previewImage || getImageFilenames(data)[0];
+                const meta = data[filename];
+
+                if (!filename || !meta) throw new Error("Album has no preview image metadata");
+
+                const previewImage = new Image();
+                previewImage.alt = filename;
+                previewImage.dataset.album = album;
+                previewImage.setAttribute("img-data-url", `/${encodeURIComponent(album)}/${encodeURIComponent(filename)}`);
+                const imagePageUrl = `/image/?album=${encodeURIComponent(album)}&img=${encodeURIComponent(filename)}${isViewPage ? "&from=view" : ""}`;
+                previewImage.setAttribute("img-data-onclick", imagePageUrl);
+                previewImage.setAttribute("img-title", meta.title || filename);
+                previewImage.setAttribute("img-date", meta.date || "");
+                previewImage.setAttribute("img-caption", meta.caption || "");
+                previewImage.setAttribute("img-lore", meta.lore || "");
+                previewImage.setAttribute("img-song", meta["s-title"] || "");
+                previewImage.setAttribute("img-song-artist", meta["s-artist"] || "");
+                previewImage.setAttribute("col", button.getAttribute("col") || meta.color || "rgba(255, 255, 255, 0.35)");
+
+                showImageContextMenu(event, previewImage);
+            } catch (error) {
+                console.error(`Couldn't load preview metadata for ${album}`, error);
+            }
+        });
     });
 }
 
@@ -305,9 +378,12 @@ function populateAlbumGrid() {
             }
 
             applyAlbumMetadata(metadata, albumTitle);
-            const albumTintNeedsImageColor =
-                !metadata.color &&
-                ["gradient", "double-gradient"].includes(metadata["tint-bg"]);
+            const switchColorOnHover = shouldSwitchAlbumColorOnHover(metadata);
+            if (switchColorOnHover) {
+                resetGradientBackground();
+            }
+
+            const albumTintNeedsImageColor = !switchColorOnHover && !metadata.color && ["gradient", "double-gradient"].includes(metadata["tint-bg"]);
             let albumTintApplied = !albumTintNeedsImageColor;
 
             let count = 0;
@@ -343,9 +419,10 @@ function populateAlbumGrid() {
                 img.addEventListener("load", () => {
                     const colorThief = new ColorThief();
                     if (img.complete) {
-                        if (img.hasAttribute("col") && !albumTintNeedsImageColor) return;
+                        if (img.hasAttribute("col") && !albumTintNeedsImageColor && !switchColorOnHover) return;
 
                         const color = colorThief.getColor(img);
+                        img.dataset.colorThief = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 
                         if (albumTintNeedsImageColor && !albumTintApplied) {
                             const hsl = rgbToHsl(color[0], color[1], color[2]);
@@ -377,6 +454,25 @@ function populateAlbumGrid() {
 
                 if (meta.color && meta.color != "") {
                     img.setAttribute("col", meta.color);
+                }
+
+                if (switchColorOnHover) {
+                    img.addEventListener("mouseenter", () => {
+                        const imageColor = img.getAttribute("col");
+                        if (!imageColor) return;
+
+                        const imageRgb = parseRgbString(imageColor);
+                        if (metadata["tint-bg"] === "double-gradient") {
+                            const extractedRgb = parseRgbString(img.dataset.colorThief || imageColor);
+                            const secondColor = meta.color ? parseRgbString(meta.color) : extractedRgb;
+                            const firstColor = toneDownColor(extractedRgb);
+                            applyGradientBackground(firstColor, secondColor, true);
+                        } else {
+                            applyGradientBackground(imageRgb);
+                        }
+                    });
+
+                    img.addEventListener("mouseleave", resetGradientBackground);
                 }
 
                 const label = document.createElement("div");
@@ -427,10 +523,10 @@ function populateAlbumGrid() {
                 }
             }
 
-            if (DEVICE == "Mobile" || DEVICE == "iOS" || DEVICE == "Android") {
-                removeOverCount(count, 9);
+            if (DEVICE == "Android" || DEVICE == "iOS" || DEVICE == "Mobile") {
+                removeOverCount(count, 4);
             } else {
-                removeOverCount(count, 12);
+                removeOverCount(count, 8);
             }
         })
         .catch((err) => {
@@ -759,142 +855,146 @@ async function getImageMetadata(url) {
 
 var currentFullUrl = undefined;
 var currentImagePageUrl = undefined;
+var currentAlbum = undefined;
 
 let currentTempImg = null; // reference to the loaded image
 
+function showImageContextMenu(e, img) {
+    e.preventDefault(); // stop native menu
+    if (currentTempImg) {
+        currentTempImg.src = "";
+        currentTempImg = null;
+    }
+
+    const fullUrl = img.getAttribute("img-data-url");
+    const imageUrl = img.getAttribute("img-data-onclick");
+    const col = img.getAttribute("col");
+
+    const updateMenuContent = () => {
+        currentFullUrl = fullUrl;
+
+        currentImagePageUrl = imageUrl;
+        currentAlbum = img.dataset.album;
+
+        quickDown.setAttribute("href", currentFullUrl);
+
+        const tempImg = new Image();
+        currentTempImg = tempImg;
+        tempImg.src = fullUrl;
+
+        tempImg.onload = () => {
+            if (menu.style.display === "block" && menu.classList.contains("show")) {
+                document.getElementById("menu-img-dim").innerText = `${tempImg.naturalWidth}x${tempImg.naturalHeight}`;
+            }
+        };
+
+        tempImg.onerror = () => {
+            if (menu.style.display === "block" && menu.classList.contains("show")) {
+                document.getElementById("menu-img-dim").innerText = "Unknown size";
+            }
+        };
+
+        const title = img.getAttribute("img-title") || "";
+        document.getElementById("menu-img-title").innerText = title.startsWith('"') ? title : `"${title}"`;
+
+        document.getElementById("menu-img-file").innerText = img.alt;
+        document.getElementById("menu-img-date").innerText = img.getAttribute("img-date");
+
+        const captionEl = document.getElementById("menu-img-caption");
+        const loreEl = document.getElementById("menu-img-lore");
+        const captionText = img.getAttribute("img-caption");
+        const loreText = img.getAttribute("img-lore");
+
+        if (!captionText || captionText === "undefined") {
+            captionEl.style.display = "none";
+        } else {
+            captionEl.style.display = "block";
+            truncateWithExpand(captionEl, parseCaption(captionText));
+        }
+
+        if (!loreText || loreText === "undefined") {
+            loreEl.style.display = "none";
+        } else {
+            loreEl.style.display = "block";
+            truncateWithExpand(loreEl, parseCaption(loreText));
+        }
+
+        const songEl = document.getElementById("menu-img-song");
+        const artistEl = document.getElementById("menu-img-artist");
+        const sSep = document.getElementById("song-sep");
+
+        const song = img.getAttribute("img-song");
+        const artist = img.getAttribute("img-song-artist");
+
+        if (!song || song === "undefined" || song.trim() === "") {
+            songEl.style.display = "none";
+            sSep.style.display = "none";
+            artistEl.style.display = "none";
+        } else {
+            songEl.style.display = "block";
+            songEl.innerHTML = `<i>"${song}"</i>`;
+            artistEl.style.display = "block";
+            artistEl.innerText = artist;
+            sSep.style.display = "block";
+        }
+    };
+
+    const showMenu = () => {
+        updateMenuContent();
+        menu.style.display = "block"; // needed to measure
+        menu.style.transition = "opacity 0.2s ease, transform 0.2s ease;";
+        menu.style.transformOrigin = "top left";
+
+        // Measure menu after content
+        const menuWidth = menu.offsetWidth;
+        const menuHeight = menu.offsetHeight;
+
+        const off = 8;
+        const space = 24;
+
+        let left = e.clientX - off;
+        let top = e.clientY - off;
+
+        // Check right space
+        if (left + menuWidth > window.innerWidth - space) {
+            left = e.clientX - off - menuWidth; // position left of cursor
+            menu.style.transformOrigin = "top right";
+        }
+
+        // Check bottom space
+        if (top + menuHeight > window.innerHeight - space) {
+            top = window.innerHeight - menuHeight - off; // offset above bottom
+        }
+
+        menu.style.left = `${left}px`;
+        menu.style.top = `${top}px`;
+        menu.style.border = `1.5px ${col} solid`;
+
+        const btns = document.getElementsByClassName("menu-btn");
+        for (const btn of btns) {
+            btn.style.borderColor = col;
+        }
+
+        requestAnimationFrame(() => {
+            menu.classList.add("show"); // fade/scale in
+        });
+    };
+
+    if (menu.style.display === "block" && menu.classList.contains("show")) {
+        menu.classList.remove("show");
+        setTimeout(() => {
+            menu.style.display = "none";
+            hideMetaLabels();
+            setTimeout(showMenu, 20); // allow display:block to register
+        }, 70);
+    } else {
+        showMenu();
+    }
+}
+
 function setupContextMenus() {
     document.querySelectorAll(".album-image").forEach((img) => {
-        img.addEventListener("contextmenu", (e) => {
-            e.preventDefault(); // stop native menu
-            if (currentTempImg) {
-                currentTempImg.src = "";
-                currentTempImg = null;
-            }
-
-            const fullUrl = img.getAttribute("img-data-url");
-            const imageUrl = img.getAttribute("img-data-onclick");
-            const col = img.getAttribute("col");
-
-            const updateMenuContent = () => {
-                currentFullUrl = fullUrl;
-
-                currentImagePageUrl = imageUrl;
-
-                quickDown.setAttribute("href", currentFullUrl);
-
-                const tempImg = new Image();
-                currentTempImg = tempImg;
-                tempImg.src = fullUrl;
-
-                tempImg.onload = () => {
-                    if (menu.style.display === "block" && menu.classList.contains("show")) {
-                        document.getElementById("menu-img-dim").innerText = `${tempImg.naturalWidth}x${tempImg.naturalHeight}`;
-                    }
-                };
-
-                tempImg.onerror = () => {
-                    if (menu.style.display === "block" && menu.classList.contains("show")) {
-                        document.getElementById("menu-img-dim").innerText = "Unknown size";
-                    }
-                };
-
-                const title = img.getAttribute("img-title") || "";
-                document.getElementById("menu-img-title").innerText = title.startsWith('"') ? title : `"${title}"`;
-
-                document.getElementById("menu-img-file").innerText = img.alt;
-                document.getElementById("menu-img-date").innerText = img.getAttribute("img-date");
-
-                const captionEl = document.getElementById("menu-img-caption");
-                const loreEl = document.getElementById("menu-img-lore");
-                const captionText = img.getAttribute("img-caption");
-                const loreText = img.getAttribute("img-lore");
-
-                if (!captionText || captionText === "undefined") {
-                    captionEl.style.display = "none";
-                } else {
-                    captionEl.style.display = "block";
-                    truncateWithExpand(captionEl, parseCaption(captionText));
-                }
-
-                if (!loreText || loreText === "undefined") {
-                    loreEl.style.display = "none";
-                } else {
-                    loreEl.style.display = "block";
-                    truncateWithExpand(loreEl, parseCaption(loreText));
-                }
-
-                const songEl = document.getElementById("menu-img-song");
-                const artistEl = document.getElementById("menu-img-artist");
-                const sSep = document.getElementById("song-sep");
-
-                const song = img.getAttribute("img-song");
-                const artist = img.getAttribute("img-song-artist");
-
-                if (!song || song === "undefined" || song.trim() === "") {
-                    songEl.style.display = "none";
-                    sSep.style.display = "none";
-                    artistEl.style.display = "none";
-                } else {
-                    songEl.style.display = "block";
-                    songEl.innerHTML = `<i>"${song}"</i>`;
-                    artistEl.style.display = "block";
-                    artistEl.innerText = artist;
-                    sSep.style.display = "block";
-                }
-            };
-
-            const showMenu = () => {
-                updateMenuContent();
-                menu.style.display = "block"; // needed to measure
-                menu.style.transition = "opacity 0.2s ease, transform 0.2s ease;";
-                menu.style.transformOrigin = "top left";
-
-                // Measure menu after content
-                const menuWidth = menu.offsetWidth;
-                const menuHeight = menu.offsetHeight;
-
-                const off = 8;
-                const space = 24;
-
-                let left = e.clientX - off;
-                let top = e.clientY - off;
-
-                // Check right space
-                if (left + menuWidth > window.innerWidth - space) {
-                    left = e.clientX - off - menuWidth; // position left of cursor
-                    menu.style.transformOrigin = "top right";
-                }
-
-                // Check bottom space
-                if (top + menuHeight > window.innerHeight - space) {
-                    top = window.innerHeight - menuHeight - off; // offset above bottom
-                }
-
-                menu.style.left = `${left}px`;
-                menu.style.top = `${top}px`;
-                menu.style.border = `1.5px ${col} solid`;
-
-                const btns = document.getElementsByClassName("menu-btn");
-                for (const btn of btns) {
-                    btn.style.borderColor = col;
-                }
-
-                requestAnimationFrame(() => {
-                    menu.classList.add("show"); // fade/scale in
-                });
-            };
-
-            if (menu.style.display === "block" && menu.classList.contains("show")) {
-                menu.classList.remove("show");
-                setTimeout(() => {
-                    menu.style.display = "none";
-                    hideMetaLabels();
-                    setTimeout(showMenu, 20); // allow display:block to register
-                }, 70);
-            } else {
-                showMenu();
-            }
-        });
+        img.addEventListener("contextmenu", (event) => showImageContextMenu(event, img));
     });
 }
 
@@ -909,6 +1009,12 @@ if (openTabBtn) {
     openTabBtn.onclick = () => {
         window.open(currentImagePageUrl, "_blank");
         hideMenu();
+    };
+}
+
+if (goToImgBtn) {
+    goToImgBtn.onclick = () => {
+        if (currentImagePageUrl) window.location.href = currentImagePageUrl;
     };
 }
 
@@ -940,6 +1046,34 @@ function hideMenu() {
         currentTempImg.src = ""; // stops any loading
         currentTempImg = null;
     }
+}
+
+function brightenBorderColor(color) {
+    const hsl = rgbToHsl(color[0], color[1], color[2]);
+    hsl[1] = Math.min(1, hsl[1] * 1.2);
+    hsl[2] = Math.max(0.65, hsl[2]);
+    return hslToRgb(hsl[0], hsl[1], hsl[2]);
+}
+
+function setAnimatedImageBorder(image, primaryColor, secondaryColor) {
+    const secondaryRgb = brightenBorderColor(secondaryColor);
+    const secondary = `rgb(${secondaryRgb[0] * 0.15}, ${secondaryRgb[1] * 0.15}, ${secondaryRgb[2] * 0.15})`;
+    const border = image.closest(".image-border");
+
+    if (!border) return;
+
+    border.style.setProperty("--border-color-1", primaryColor);
+    border.style.setProperty("--border-color-2", secondary);
+    border.classList.add("animated-gradient-border");
+    border.addEventListener(
+        "animationend",
+        (event) => {
+            if (event.animationName === "border-spin-intro") {
+                border.classList.add("slow-border-spin");
+            }
+        },
+        { once: true }
+    );
 }
 
 function loadAlbumImage() {
@@ -994,19 +1128,49 @@ function loadAlbumImage() {
                 showErrorMessage(notFoundMessage);
                 throw new Error("Invalid JSON in info.json");
             }
-            if (!d[img]) {
-                // Image entry missing
+            let imageFilename = img;
+            let imageInfo = d[img];
+
+            if (!imageInfo) {
+                for (const [filename, info] of Object.entries(d)) {
+                    if (filename === "_album") continue;
+
+                    if ((info.title || "") === img) {
+                        imageFilename = filename;
+                        imageInfo = info;
+                        break;
+                    }
+                }
+            }
+
+            if (!imageInfo) {
                 document.title = "404 Not Found";
                 showErrorMessage(notFoundMessage);
                 throw new Error("Image not found in info.json");
             }
-            return d[img];
+
+            return {
+                filename: imageFilename,
+                info: imageInfo
+            };
         })
-        .then((data) => {
-            fetched_info = data || {};
-            console.log("Fetched info for image:", fetched_info);
+        .then((result) => {
+            fetched_info = result.info || {};
 
             const info = fetched_info;
+            console.log("Fetched info for image:", fetched_info);
+
+            const otherAlbumBtn = document.getElementById("other-album-btn");
+
+            const hasOtherAlbum = Boolean(info.album && info.album !== album);
+
+            if (hasOtherAlbum) {
+                otherAlbumBtn.style.display = "inline-block";
+                otherAlbumBtn.textContent = `Go to Album "${info.album}"`;
+                otherAlbumBtn.href = `/album/?album=${encodeURIComponent(info.album)}`;
+            } else {
+                otherAlbumBtn.style.display = "none";
+            }
 
             document.getElementById("image-title").innerText = info.title || "";
             const authorEl = document.getElementById("image-author");
@@ -1025,6 +1189,8 @@ function loadAlbumImage() {
 
             document.getElementById("image-lore").innerHTML = parseCaption(info.lore || "");
             document.getElementById("image-date").innerText = info.date || "";
+
+            const borderPrimaryColor = info.color || null;
 
             if (info.color) {
                 console.log("Setting fixed color from info.color:", info.color);
@@ -1096,32 +1262,53 @@ function loadAlbumImage() {
 
             document.title = info.title;
 
-            if (from == null) {
-                document.getElementById("back-btn").style.borderRadius = "4px 4px 4px 16px";
-                document.getElementById("home-btn").style.borderRadius = "4px 4px 16px 4px";
-            }
-
             // Add Spotify embed if song exists
             const iframe = document.querySelector('iframe[data-testid="embed-iframe"]');
-            if (info.song && info.song.includes("open.spotify.com/embed/")) {
+            const hasSpotifyEmbed = Boolean(info.song && info.song.includes("open.spotify.com/embed/"));
+
+            if (hasSpotifyEmbed) {
                 console.log("Showing embed with src:", info.song);
                 iframe.src = info.song;
                 iframe.style.display = "block";
                 iframe.parentElement.style.display = "block";
-                document.getElementById("back-btn").style.borderRadius = "4px 4px 16px 16px";
-                document.getElementById("home-btn").style.borderRadius = "16px";
             } else {
-                iframe.parentElement.style.display = "none"
-                //console.log
+                iframe.parentElement.style.display = "none";
             }
 
-            if (from == "view" || from == "browse") {
-                console.log("view or brosw");
-                document.getElementById("back-btn").style.borderRadius = "4px 4px 4px 16px";
-                if (!info.song) {
-                    document.getElementById("back-btn").style.borderRadius = "4px";
-                    document.getElementById("back-browse-btn").style.borderRadius = "4px";
+            const backButton = document.getElementById("back-btn");
+            const homeButton = document.getElementById("home-btn");
+            const browseBackButton = document.getElementById("back-browse-btn");
+            const hasBrowseBack = browseBackButton && browseBackButton.style.display !== "none";
+
+            if (hasSpotifyEmbed) {
+                homeButton.style.borderRadius = "16px";
+
+                if (hasOtherAlbum) {
+                    otherAlbumBtn.style.borderRadius = "4px 4px 16px 4px";
+                    backButton.style.borderRadius = "4px 4px 4px 16px";
+                    if (hasBrowseBack) browseBackButton.style.borderRadius = "16px";
+                } else if (hasBrowseBack) {
+                    backButton.style.borderRadius = "4px 4px 4px 16px";
+                    browseBackButton.style.borderRadius = "4px 4px 16px 4px";
+                } else {
+                    backButton.style.borderRadius = "4px 4px 16px 16px";
                 }
+            } else if (hasOtherAlbum && hasBrowseBack) {
+                backButton.style.borderRadius = "4px";
+                otherAlbumBtn.style.borderRadius = "4px";
+                browseBackButton.style.borderRadius = "4px 4px 4px 16px";
+                homeButton.style.borderRadius = "4px 4px 16px 4px";
+            } else if (hasOtherAlbum) {
+                homeButton.style.borderRadius = "16px";
+                backButton.style.borderRadius = "4px 4px 16px 16px";
+                otherAlbumBtn.style.borderRadius = "16px 4px 4px 4px";
+            } else if (hasBrowseBack) {
+                homeButton.style.borderRadius = "16px";
+                backButton.style.borderRadius = "4px 4px 4px 16px";
+                browseBackButton.style.borderRadius = "4px 16px 4px 4px";
+            } else {
+                backButton.style.borderRadius = "4px 4px 4px 16px";
+                homeButton.style.borderRadius = "4px 4px 16px 4px";
             }
 
             // Add image load event listener here (inside fetch block)
@@ -1221,8 +1408,14 @@ function loadAlbumImage() {
                 }
 
                 const colorThief = new ColorThief();
+                const palette = colorThief.getPalette(imageEl, 3) || [];
 
                 if (imageEl.complete) {
+                    if (!color_els) {
+                        setAnimatedImageBorder(imageEl, borderPrimaryColor, palette[0] || parseRgbString(borderPrimaryColor));
+                        return;
+                    }
+
                     const color = colorThief.getColor(imageEl);
                     console.log("Got color from img:", color);
 
@@ -1241,6 +1434,10 @@ function loadAlbumImage() {
 
                     document.getElementById("image-title").style.color = rgb;
                     imageEl.style.borderColor = rgb;
+
+                    const secondaryColor =
+                        palette.find((paletteColor) => paletteColor[0] !== color[0] || paletteColor[1] !== color[1] || paletteColor[2] !== color[2]) || color;
+                    setAnimatedImageBorder(imageEl, rgb, secondaryColor);
 
                     setLowColor(imageEl, extracted_arr);
 
@@ -1299,13 +1496,13 @@ function loadAlbumImage() {
 }
 
 function onLoadedSpotifyEmbed() {
-    console.log("Loaded iframe")
+    console.log("Loaded iframe");
 
     const iframe = document.querySelector('iframe[data-testid="embed-iframe"]');
 
-    let cover = iframe.getElementsByClassName("CoverArtBase_coverArt__ne0XI CoverArtTrackList_coverArtTrackList__1YwHX")
+    let cover = iframe.getElementsByClassName("CoverArtBase_coverArt__ne0XI CoverArtTrackList_coverArtTrackList__1YwHX");
 
-    cover.backgroundImage = 'url("https://guayabr.com/The%20Next%20Chapter/A%20Thousand%20Suns.jpg")'
+    cover.backgroundImage = 'url("https://guayabr.com/The%20Next%20Chapter/A%20Thousand%20Suns.jpg")';
 }
 
 function setLowColor(elem, color) {
@@ -1331,14 +1528,37 @@ function applyGradientBackground(rgbArr, secondRgbArr, twoway) {
         const darkHsl2 = [hsl2[0], hsl2[1], Math.max(0, hsl2[2] * 0.16)];
         const darkRgb2 = hslToRgb(darkHsl2[0], darkHsl2[1], darkHsl2[2]);
 
-        document.documentElement.style.background = `linear-gradient(to bottom, rgb(${darkRgb2[0]}, ${darkRgb2[1]}, ${darkRgb2[2]}), rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
-        document.body.style.background = `linear-gradient(to bottom, rgb(${darkRgb2[0]}, ${darkRgb2[1]}, ${darkRgb2[2]}), rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
+        setPageBackgroundColors(darkRgb2, darkRgb);
     } else {
         console.log("set gradient", rgbArr);
 
-        document.documentElement.style.background = `linear-gradient(to bottom, black, rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
-        document.body.style.background = `linear-gradient(to bottom, black, rgb(${darkRgb[0]}, ${darkRgb[1]}, ${darkRgb[2]})) fixed`;
+        setPageBackgroundColors([0, 0, 0], darkRgb);
     }
+}
+
+if (goToAlbumBtn) {
+    goToAlbumBtn.onclick = () => {
+        if (currentAlbum) album_selected(currentAlbum);
+    };
+}
+
+function resetGradientBackground() {
+    setPageBackgroundColors([12, 12, 12], [12, 12, 12]);
+}
+
+function setPageBackgroundColors(startRgb, endRgb) {
+    const startColor = `rgb(${startRgb[0]}, ${startRgb[1]}, ${startRgb[2]})`;
+    const endColor = `rgb(${endRgb[0]}, ${endRgb[1]}, ${endRgb[2]})`;
+
+    for (const element of [document.documentElement, document.body]) {
+        element.style.setProperty("--page-background-start", startColor);
+        element.style.setProperty("--page-background-end", endColor);
+    }
+}
+
+function toneDownColor(rgbArr) {
+    const hsl = rgbToHsl(rgbArr[0], rgbArr[1], rgbArr[2]);
+    return hslToRgb(hsl[0], hsl[1], hsl[2] * 0.8);
 }
 
 function color_as(links, col) {

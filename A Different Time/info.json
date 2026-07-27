@@ -74,6 +74,7 @@
         "s-artist": "Tame Impala"
     },
     "20250222_200640.jpg": {
+        "author": "mihirswrld",
         "title": "Blossom (Original)",
         "date": "22/2/2025 08:06 PM",
         "caption": "Taken by (\"@mihirswrld\")https://instagram.com/mihirswrld",
@@ -81,7 +82,8 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/2vfshZvISOKy2Je7wQBWOV?utm_source=generator",
         "s-title": "Valentine's Day",
-        "s-artist": "Linkin Park"
+        "s-artist": "Linkin Park",
+        "album": "Chinese New Year"
     },
     "20250222_214302.jpg": {
         "title": "Stage Of The Snake",
@@ -252,8 +254,13 @@
         "date": "3/7/2025 08:39 PM"
     },
     "20250710_204020.jpg": {
-        "title": "20250710_204020",
-        "date": "10/7/2025 08:40 PM"
+        "title": "the moon",
+        "date": "7/10/2025 8:40 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/3TIvMJwLPjWkZmdNjO33iU?utm_source=generator",
+        "s-title": "With Hope Crossed On Our Hearts",
+        "s-artist": "Toby Fox",
+        "album": "IT'S SO DARK"
     },
     "20250712_131229.jpg": {
         "title": "20250712_131229",
@@ -326,20 +333,36 @@
         "s-artist": "Creo"
     },
     "20250816_150818.jpg": {
-        "title": "20250816_150818",
-        "date": "16/8/2025 03:08 PM"
+        "title": "reflections",
+        "date": "16/8/2025 03:05 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2Dx1MzjUMGREOgSju2U1wZ?utm_source=generator",
+        "s-title": "Reflections",
+        "s-artist": "Creo"
     },
     "20250816_151422.jpg": {
-        "title": "20250816_151422",
-        "date": "16/8/2025 03:14 PM"
+        "title": "reflections 2",
+        "date": "16/8/2025 03:05 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2Dx1MzjUMGREOgSju2U1wZ?utm_source=generator",
+        "s-title": "Reflections",
+        "s-artist": "Creo"
     },
     "20250816_151433.jpg": {
-        "title": "20250816_151433",
-        "date": "16/8/2025 03:14 PM"
+        "title": "reflections 3",
+        "date": "16/8/2025 03:14 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2Dx1MzjUMGREOgSju2U1wZ?utm_source=generator",
+        "s-title": "Reflections",
+        "s-artist": "Creo"
     },
     "20250816_151543.jpg": {
-        "title": "20250816_151543",
-        "date": "16/8/2025 03:15 PM"
+        "title": "reflections 4",
+        "date": "16/8/2025 03:05 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/2Dx1MzjUMGREOgSju2U1wZ?utm_source=generator",
+        "s-title": "Reflections",
+        "s-artist": "Creo"
     },
     "20250913_122333.jpg": {
         "title": "20250913_122333",

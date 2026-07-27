@@ -1,79 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GuayabR's</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GuayabR's</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/png" href="https://guayabr.com/Assets/gr_logo_big.png" />
-</head>
+    <body>
+        <main class="center">
+            <div class="info-section fade-in fade-delay-1">
+                <h1 style="font-family: Helvetica">GuayabR</h1>
+                <p class="quote">"NEVER STOP SAYING THANK YOU."</p>
+                <p class="bio">
+                    I remember moments through photography and bring rhythm to hands reach through game development.<br />
+                    Check out my rhythm game: <a href="https://beatzx.com" target="_blank">Beatz! X</a>
+                </p>
 
-<body>
-    <div style="min-height: 20px;"></div>
-    <div class="info-section fade-in fade-delay-1">
-        <h1 style="font-family: Helvetica;">GuayabR</h1>
-        <p class="quote">"NEVER STOP SAYING THANK YOU."</p>
-        <p class="bio">I remember moments through photography and bring rhythm to hands reach through game
-            development.<br />
-            Check out my rhythm game: <a href="https://beatzx.com" target="_blank">Beatz! X</a></p>
+                <div class="albums-grid featured-albums">
+                    <button data-album="Explosion of Colours" class="album-btn"></button>
 
-        <div class="albums-grid featured-albums">
-            <button data-album="Explosion of Colours" class="album-btn"></button>
+                    <button data-album="Chinese New Year" class="album-btn"></button>
 
-            <button data-album="Chinese New Year" class="album-btn"></button>
+                    <button data-album="December 2024" class="album-btn"></button>
 
-            <button data-album="December 2024" class="album-btn"></button>
+                    <button style="box-shadow: 0px 0px 90px rgba(160, 110, 180, 0.38)" data-album="The Next Chapter" class="album-btn"></button>
 
-            <button style="box-shadow: 0px 0px 90px rgba(160, 110, 180, 0.3);"
-                data-album="The Next Chapter" class="album-btn"></button>
+                    <button data-album="Blossom" class="album-btn"></button>
 
-            <button data-album="Blossom" class="album-btn"></button>
+                    <button data-album="IT'S SO DARK" class="album-btn"></button>
 
-            <button data-album="IT'S SO DARK" class="album-btn"></button>
+                    <button data-album="IT'S SO COLOURFUL" class="album-btn"></button>
+                </div>
 
-            <button data-album="IT'S SO COLOURFUL" class="album-btn"></button>
+                <div class="albums-grid more-albums">
+                    <button data-album="Red Rocks" class="album-btn"></button>
+
+                    <button data-album="A Different Time" class="album-btn"></button>
+
+                    <button data-album="windy" class="album-btn"></button>
+
+                    <button data-album="AS^" class="album-btn"></button>
+
+                    <button data-album="Star in the Middle" class="album-btn"></button>
+
+                    <button data-album="Cars" class="album-btn"></button>
+
+                    <button data-album="Animals" class="album-btn"></button>
+
+                    <button data-album="Flowers" class="album-btn"></button>
+                </div>
+
+                <br />
+                <button class="browse-btn" onclick="window.location.href = '/view'">Browse Albums</button>
+                <button class="browse-btn" onclick="window.location.href = '/browse'">Browse Photos</button>
+                <br /><br />
+                <button style="padding: 8px 20px" onclick="document.location.href = 'links'" class="links-btn">Links</button>
+            </div>
+            <br />
+
+            <img
+                src="https://guayabr.com/Assets/gr_logo_big.png"
+                alt="GuayabR Logo"
+                id="gr_logo"
+                title="Back to Home"
+                onclick="window.location.href = '/'"
+                class="fade-in fade-delay-4 logo-img" />
+            <p id="people" class="fade-in fade-delay-5">AA AM am AR AJ AI AK aa AS aE AL AT AF</p>
+            <br />
+            <p class="copyright fade-in fade-delay-6">
+                © 2025 - 2026 GuayabR. All Rights Reserved.
+                <br />All photos licensed under
+                <a class="license" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>.<br />
+                You are free to download and use these photos for personal and non-commercial projects, as long as proper credit is given.
+                <br />Commercial use is not permitted without explicit permission.
+            </p>
+        </main>
+
+        <div id="custom-tooltip"></div>
+
+        <div id="customMenu" class="custom-menu">
+            <p id="menu-img-title">Title</p>
+            <p class="sep" id="title-sep">-------------------------</p>
+            <p id="menu-img-file">(File)</p>
+            <p id="menu-img-date">Date</p>
+            <p id="menu-img-caption">Caption</p>
+            <p id="menu-img-lore">Lore</p>
+            <p class="sep">-------------------------</p>
+            <p id="menu-img-dim">Dimensions</p>
+            <p class="sep">-------------------------</p>
+            <p id="menu-img-song">Song</p>
+            <p id="menu-img-artist">Artist</p>
+            <p class="sep" id="song-sep">-------------------------</p>
+            <p id="menu-img-meta" style="display: none">(Metadata)</p>
+            <p class="sep" id="meta-sep" style="display: none">-------------------------</p>
+
+            <button class="menu-btn" id="goToImg">Go to Image</button>
+
+            <button class="menu-btn" id="goToAlbum">Go to Album</button>
+
+            <button class="menu-btn" id="viewMeta">View Metadata</button>
+
+            <button class="menu-btn" id="openTab">Open image<br />page in new tab</button>
+
+            <button class="menu-btn" id="openFull">Open full image<br />in new tab</button>
+
+            <a class="menu-btn" role="button" download id="quickDown">Quick download</a>
         </div>
-
-        <div class="albums-grid more-albums">
-            <button data-album="A Different Time" class="album-btn"></button>
-
-            <button data-album="windy" class="album-btn"></button>
-
-            <button data-album="AS^" class="album-btn"></button>
-
-            <button data-album="Animals" class="album-btn"></button>
-
-            <button data-album="Flowers" class="album-btn"></button>
-        </div>
-
-        <br />
-        <button class="browse-btn" onclick="window.location.href = '/view'">Browse Albums</button>
-        <br><br>
-        <button class="browse-btn" onclick="window.location.href = '/browse'">Browse Photos</button>
-        <br><br>
-        <button style="padding: 8px 30px;" onclick="document.location.href = 'links'" class="links-btn">Links</button>
-    </div>
-    <br></br>
-
-    <img src="https://guayabr.com/Assets/gr_logo_big.png" alt="GuayabR Logo" id="gr_logo" title="Back to Home"
-        onclick="window.location.href = '/'" class="fade-in fade-delay-4 logo-img" />
-    <p id="people" class="fade-in fade-delay-5">AA AM am AR AJ AI AK aa AS aE AL AT AF</p>
-    <br>
-    <p class="copyright fade-in fade-delay-6">
-        © 2025 - 2026 GuayabR. All Rights Reserved.
-        <br>All photos licensed under <a class="license" href="https://creativecommons.org/licenses/by-nc/4.0/"
-            target="_blank" rel="noopener">CC BY-NC 4.0</a>.<br>
-        You are free to download and use these photos for personal and non-commercial projects, as long as proper credit
-        is given.
-        <br>Commercial use is not permitted without explicit permission.
-    </p>
-
-</body>
-<script src="script.js"></script>
-
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exifr/dist/lite.umd.js"></script>
+    <script src="script.js"></script>
 </html>

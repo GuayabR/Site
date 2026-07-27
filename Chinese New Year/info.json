@@ -3,6 +3,7 @@
         "title": "Chinese New Year",
         "date": "07/02/2025",
         "tint-bg": "gradient",
+        "switch-col-hover": true,
         "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator"
     },
     "Stands Out.jpg": {
@@ -47,6 +48,7 @@
         "s-artist": "Tame Impala"
     },
     "Blossom (Original).jpg": {
+        "author": "mihirswrld",
         "title": "Blossom (Original)",
         "date": "22/2/2025 08:06 PM",
         "caption": "Taken by (\"@mihirswrld\")https://instagram.com/mihirswrld",
@@ -59,7 +61,10 @@
     "Day Glows.jpg": {
         "title": "Day Glows",
         "date": "15/3/2026 06:14 PM",
-        "tint-bg": "gradient"
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/709ZIqPHyFOpx2QdjmeWAM?utm_source=generator&si=0c114a16b956439a",
+        "s-title": "Dracula",
+        "s-artist": "Tame Impala"
     },
     "Red Lantern (Up From The Bottom).jpg": {
         "title": "Red Lantern (Up From The Bottom)",

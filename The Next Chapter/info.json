@@ -1,4 +1,10 @@
 {
+    "_album": {
+        "title": "The Next Chapter",
+        "date": "25/04/2026",
+        "tint-bg": "double-gradient",
+        "switch-col-hover": true
+    },
     "The Next Chapter.jpg": {
         "title": "The Next Chapter",
         "date": "26/3/2026 07:16 AM",

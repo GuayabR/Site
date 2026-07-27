@@ -1,7 +1,13 @@
 {
     "20251004_192831.jpg": {
-        "title": "20251004_192831",
-        "date": "4/10/2025 07:28 PM"
+        "title": "Blossom",
+        "date": "4/10/2025 07:28 PM",
+        "color": "rgb(255, 125, 255)",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6aCBjSb87RizdH8lVBIRW7?utm_source=generator",
+        "s-title": "Good Things Go",
+        "s-artist": "Linkin Park",
+        "album": "Blossom"
     },
     "20251004_194105.jpg": {
         "title": "20251004_194105",

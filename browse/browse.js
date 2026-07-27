@@ -11,6 +11,8 @@ const albums = [
     "canon_mine",
     "Blossom",
     "Mihir Blossom",
+    "Red Rocks",
+    "Flowers",
     "Animals",
     "Cars"
 ];
@@ -86,9 +88,7 @@ async function loadAlbumsInOrder() {
                 grid.appendChild(container);
 
                 //console.log("added item", img.src);
-
             }
-
         } catch (err) {
             console.error(`Failed to load ${album}/info.json`, err);
         }

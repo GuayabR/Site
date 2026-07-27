@@ -212,23 +212,67 @@ body {
     cursor: pointer;
 }
 
-.image-side img {
+.image-border {
+    display: flex;
     max-width: 90%;
     max-height: 70vh;
-    object-fit: contain;
+    padding: 4px;
+    position: relative;
+    overflow: hidden;
     border-radius: 10px;
-    border-width: 4px;
-    border-style: solid;
-    animation: pulseImg 1.5s ease forwards;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.image-side img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(70vh - 8px);
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    border-radius: 6px;
     user-select: none;
 }
 
-@keyframes pulseImg {
+.image-border.animated-gradient-border {
+    background: var(--border-color-1);
+}
+
+.image-border.animated-gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    z-index: 0;
+    pointer-events: none;
+    background: conic-gradient(
+        from 0deg,
+        var(--border-color-1),
+        var(--border-color-2),
+        var(--border-color-1)
+    );
+    animation: border-spin-intro 1.4s cubic-bezier(0.15, 0.8, 0.25, 1) forwards;
+}
+
+.image-border.animated-gradient-border.slow-border-spin::before {
+    animation: border-spin-slow 12s linear infinite;
+}
+
+@keyframes border-spin-intro {
     from {
-        border-width: 30px;
+        transform: rotate(0deg);
     }
 
     to {
-        border-width: 4px;
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes border-spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }
