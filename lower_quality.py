@@ -6,9 +6,9 @@ from tkinter import filedialog, messagebox, simpledialog, ttk
 from PIL import Image, ExifTags
 import rawpy
 import imageio
-from datetime import datetime
+from datetime import datetime, date
 import platform
-import datetime
+
 
 # Select folder GUI
 def select_folder_gui():
@@ -172,8 +172,8 @@ def create_info_json(folder):
 
     data = {
         "_album": {
-            "title": folder,
-            "date": datetime.today().strftime("%d/%m/%Y"),
+            "title": os.path.basename(folder),
+            "date": date.today().strftime("%d/%m/%Y"),
         }
     }
 
