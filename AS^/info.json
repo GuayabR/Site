@@ -3,7 +3,12 @@
         "title": "AS^",
         "date": "10/07/2025",
         "tint-bg": "gradient",
-        "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator"
+        "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "20250925_141400.jpg": {
         "title": "AS^",
@@ -11,16 +16,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator",
         "s-title": "I Can Love You",
-        "s-artist": "Mary J. Blige, Lil' Kim"
-    },
-    "Colored.jpg": {
-        "title": "Colored",
-        "date": "9/16/2025 6:04 PM",
-        "tint-bg": "gradient",
-        "lore": "<i style='color: rgb(105, 105, 105);'>If i could stand up and take the blame, I would, If I could take all the shame to the grave I would.</i>",
-        "song": "https://open.spotify.com/embed/track/17bgialGAwoiGj1STY4cnR?utm_source=generator",
-        "s-title": "Easier To Run",
-        "s-artist": "Linkin Park"
+        "s-artist": "Mary J. Blige, Lil' Kim",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "ggggllllaaaASsss.jpg": {
         "title": "ggggllllaaaASsss465 6",
@@ -29,7 +30,12 @@
         "lore": "<i>Unsure</i>",
         "song": "https://open.spotify.com/embed/track/64nKjh8qkktOOD99LEcUff?utm_source=generator",
         "s-title": "Atmosphere",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "glass"
+        }
     },
     "An Ending.jpg": {
         "title": "Revolving Stars",
@@ -39,7 +45,13 @@
         "color": "rgb(131, 131, 131)",
         "song": "https://open.spotify.com/embed/track/6eTcxkl9G7C2mwejLJ7Amm?utm_source=generator",
         "s-title": "An Ending",
-        "s-artist": "Toby Fox"
+        "s-artist": "Toby Fox",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.0
+        }
     },
     "AS^ (Edited 26).png": {
         "title": "AS^ (Edited 26)",
@@ -47,14 +59,24 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator",
         "s-title": "I Can Love You",
-        "s-artist": "Mary J. Blige, Lil' Kim"
+        "s-artist": "Mary J. Blige, Lil' Kim",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "ggggllllaaaASsss (Alt).png": {
         "title": "ggggllllaaaASsss465 6 (Alt)",
         "date": "10/04/2025 6:27 PM",
         "song": "https://open.spotify.com/embed/track/64nKjh8qkktOOD99LEcUff?utm_source=generator",
         "s-title": "Atmosphere",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "glass"
+        }
     },
     "Revolving Stars (Edited 26).png": {
         "title": "Revolving Stars (Edited 26)",
@@ -63,14 +85,45 @@
         "color": "rgb(131, 131, 131)",
         "song": "https://open.spotify.com/embed/track/6eTcxkl9G7C2mwejLJ7Amm?utm_source=generator",
         "s-title": "An Ending",
-        "s-artist": "Toby Fox"
+        "s-artist": "Toby Fox",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.0
+        }
+    },
+    "20250929_190827.jpg": {
+        "title": "A Note",
+        "date": "29/09/2025 07:08 PM",
+        "tint-bg": "gradient",
+        "color": "rgb(170, 185, 215)",
+        "song": "https://open.spotify.com/embed/track/62inSRFPdXScwXPMX5Z6yb?utm_source=generator&si=0c3f4908405e4e70",
+        "s-title": "Shouting Out - Stripped",
+        "s-artist": "Grey Daze",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.65,
+            "speed": 2.0
+        },
+
+        "": "How lucky I was, how fast it slipped away."
     },
     "hold.png": {
         "title": "Hold the Moon",
         "date": "4/10/2025 9:11 PM",
+        "lore": "La-di-dam<br>La-di-dam-dam",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5G5O4mCt1DNWxEEkigElL3?utm_source=generator&si=58dc827cbafe4924",
         "s-title": "Shouting Out",
-        "s-artist": "Grey Daze"
+        "s-artist": "Grey Daze",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.0
+        }
     }
 }

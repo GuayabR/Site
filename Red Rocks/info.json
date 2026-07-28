@@ -1,7 +1,9 @@
 {
     "_album": {
         "title": "Red Rocks",
-        "date": "27/07/2026"
+        "date": "28/07/2026",
+        "tint-bg": "double-gradient",
+        "switch-col-hover": true
     },
     "20260614_164310.jpg": {
         "title": "Rio de Janeiro",
@@ -11,23 +13,87 @@
         "title": "2019 Vibes",
         "date": "14/6/2026 05:02 PM",
         "tint-bg": "gradient",
-        "song": "https://open.spotify.com/embed/track/1qYKWcEOrh2tM8PlgIm8K1?utm_source=generator&si=06265ff0f2f2426d",
+        "song": "https://open.spotify.com/embed/track/1qYKWcEOrh2tM8PlgIm8K1?utm_source=generator&si=655dc86042b04317",
         "s-title": "Sunday Best",
         "s-artist": "Surfaces"
     },
-    "20260614_171726.jpg": {
-        "title": "20260614_171726",
-        "date": "14/6/2026 05:17 PM"
+    "AT THE EDGE.jpg": {
+        "title": "AT THE EDGE",
+        "date": "25/12/2025 03:56 PM",
+        "tint-bg": "gradient"
     },
-    "20260614_173436.jpg": {
-        "title": "20260614_173436",
-        "date": "14/6/2026 05:34 PM"
+    "Ba-da-ba.jpg": {
+        "title": "Ba-da-ba",
+        "date": "21/12/2025 05:17 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5RUJ1B8Yrh7w4PT0W8KVPk?utm_source=generator",
+        "s-title": "Ba-Da-Ba",
+        "s-artist": "2 Mello",
+        "album": "The Next Chapter"
+    },
+    "Calm and Collected.jpg": {
+        "title": "Calm and Collected",
+        "date": "21/12/2025 05:43 PM"
+    },
+    "El Itcher.jpg": {
+        "title": "El Itcher",
+        "date": "21/12/2025 05:27 PM"
+    },
+    "There he go.jpg": {
+        "title": "There he go",
+        "date": "21/12/2025 05:22 PM"
+    },
+    "IRIDESCENT.jpg": {
+        "title": "IRIDESCENT",
+        "date": "21/12/2025 05:27 PM",
+        "song": "https://open.spotify.com/embed/track/69ZEgPX0hxWXJIqkTlYz41?utm_source=generator&si=042df8f9279f4fe2",
+        "s-title": "Iridescent",
+        "s-artist": "Linkin park"
+    },
+    "20250424_141918.jpg": {
+        "title": "Plane - Before",
+        "date": "24/4/2025 02:19 PM"
+    },
+    "Plane.jpg": {
+        "title": "Plane",
+        "date": "21/12/2025 03:37 PM"
+    },
+    "Scatter.jpg": {
+        "title": "Scatter",
+        "date": "25/12/2025 03:46 PM"
+    },
+    "Side of The Mountain.jpg": {
+        "title": "Side of The Mountain",
+        "date": "21/12/2025 05:43 PM"
+    },
+    "Sleep - Far Away.jpg": {
+        "title": "Sleep - Far Away",
+        "date": "21/12/2025 04:21 PM"
+    },
+    "Sleep.jpg": {
+        "title": "Sleep",
+        "date": "21/12/2025 04:33 PM"
+    },
+    "Wake.jpg": {
+        "title": "Wake",
+        "date": "21/12/2025 04:34 PM"
+    },
+    "The Mountain.jpg": {
+        "title": "The Mountain",
+        "date": "25/12/2025 03:32 PM"
     },
     "walk.jpg": {
         "title": "walk",
         "date": "24/4/2025 03:00 PM",
+        "color_hyper": true,
         "caption": "(\"@mihirswrld\")https://instagram.com/mihirswrld",
-        "color-hyper": true,
+        "tint-bg": "gradient"
+    },
+    "walk away.jpg": {
+        "title": "walk away",
+        "date": "21/12/2025 03:50 PM",
+        "color_hyper": true,
+        "caption": "(\"@mihirswrld\")https://instagram.com/mihirswrld",
         "tint-bg": "gradient"
     }
 }

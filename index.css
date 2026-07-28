@@ -54,6 +54,47 @@ body {
     width: 100%;
 }
 
+.album-btn.highlight {
+    box-shadow: 0px 0px 90px color-mix(in srgb, var(--album-color) 38%, transparent);
+}
+
+.album-btn.highlight-border-spin {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.album-btn.highlight-border-spin::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    z-index: -1;
+    border-radius: inherit;
+
+    background: conic-gradient(from 0deg, var(--album-color), color-mix(in srgb, var(--album-color) 20%, transparent), var(--album-color));
+
+    animation: album-border-spin 4s linear infinite;
+}
+
+.album-btn.highlight-border-spin::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    z-index: -1;
+    border-radius: inherit;
+    background: inherit;
+}
+
+@keyframes album-border-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .more-albums {
     display: flex;
     flex-wrap: wrap;

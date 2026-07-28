@@ -6,12 +6,12 @@
         "song": "https://open.spotify.com/embed/track/339gEiwLYqFOYxpFfZmgyN?utm_source=generator&si=47a764a734734bc9"
     },
     "20251019_192713.jpg": {
-        "title": "20251019_192713",
+        "title": "Untitled 1",
         "date": "19/10/2025 07:27 PM",
         "tint-bg": "gradient"
     },
     "20251019_195642.jpg": {
-        "title": "20251019_195642",
+        "title": "Untitled 2",
         "date": "19/10/2025 07:56 PM",
         "song": "https://open.spotify.com/embed/track/7866E49sLyI938dEqxi8a4?utm_source=generator",
         "tint-bg": "gradient",
@@ -19,7 +19,7 @@
         "s-artist": "Metallica"
     },
     "20251019_195839.jpg": {
-        "title": "20251019_195839",
+        "title": "Untitled 3",
         "date": "19/10/2025 07:58 PM",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/7866E49sLyI938dEqxi8a4?utm_source=generator",
@@ -27,7 +27,7 @@
         "s-artist": "Metallica"
     },
     "20251019_200417.jpg": {
-        "title": "20251019_200417",
+        "title": "Untitled 4",
         "date": "19/10/2025 08:04 PM",
         "tint-bg": "gradient",
         "caption": "looks like the linkin park meteora spray can guy | (\"@mihirswrld\")https://instagram.com/mihirswrld",
@@ -37,7 +37,7 @@
         "s-artist": "Linkin Park"
     },
     "20251019_200446.jpg": {
-        "title": "20251019_200446",
+        "title": "Untitled 5",
         "date": "19/10/2025 08:04 PM",
         "color_hyper": true,
         "caption": "(\"@mihirswrld\")https://instagram.com/mihirswrld",
@@ -47,7 +47,7 @@
         "s-artist": "Linkin Park"
     },
     "20251019_200610.jpg": {
-        "title": "20251019_200610",
+        "title": "Untitled 6",
         "date": "19/10/2025 08:06 PM",
         "color_hyper": true,
         "caption": "(\"@mihirswrld\")https://instagram.com/mihirswrld",
@@ -57,7 +57,7 @@
         "s-artist": "Linkin Park"
     },
     "20251019_200630.jpg": {
-        "title": "20251019_200630",
+        "title": "Untitled 7",
         "date": "19/10/2025 08:06 PM",
         "color_hyper": true,
         "caption": "(\"@mihirswrld\")https://instagram.com/mihirswrld",
@@ -65,5 +65,17 @@
         "song": "https://open.spotify.com/embed/track/7866E49sLyI938dEqxi8a4?utm_source=generator",
         "s-title": "Fade To Black - Remastered",
         "s-artist": "Metallica"
+    },
+    "20251019_200810.jpg": {
+        "title": "Recommended Pedestrian Route",
+        "date": "19/10/2025 08:08 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6msuFll6iIWEZNh3NA7IFI?utm_source=generator&si=e9b270c3e0044d58",
+        "s-title": "Can't Hear You Now - Remastered",
+        "s-artist": "Mike Shinoda",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     }
 }

@@ -12,12 +12,88 @@ const goToImgBtn = document.getElementById("goToImg");
 const goToAlbumBtn = document.getElementById("goToAlbum");
 const quickDown = document.getElementById("quickDown");
 const ALBUM_METADATA_KEY = "_album";
+const KAWARP_MODULE_URL = "https://cdn.jsdelivr.net/npm/@kawarp/core@1.2.0/dist/index.js";
+const KAWARP_PRESETS = {
+    water: {
+        strength: 0.35,
+        radius: 0.45,
+        speed: 1.0,
+        darkness: 0.35,
+
+        blurPasses: 8,
+        transitionDuration: 1000,
+        saturation: 1.5,
+        tintColor: [0.16, 0.16, 0.24],
+        tintIntensity: 0.15,
+        dithering: 0.008
+    },
+
+    glass: {
+        strength: 0.15,
+        radius: 0.3,
+        speed: 0.3,
+        darkness: 0.5,
+
+        blurPasses: 10,
+        transitionDuration: 1000,
+        saturation: 1.5,
+        tintColor: [0.16, 0.16, 0.24],
+        tintIntensity: 0.15,
+        dithering: 0.0
+    },
+
+    spicetify: {
+        strength: 1.2,
+        radius: 2.0,
+        speed: 1.75,
+        darkness: 0.7,
+
+        blurPasses: 8,
+        transitionDuration: 1000,
+        saturation: 1.5,
+        tintColor: [0.16, 0.16, 0.24],
+        tintIntensity: 0.15,
+        dithering: 0.0
+    },
+
+    dream: {
+        strength: 0.6,
+        radius: 0.7,
+        speed: 0.5,
+        darkness: 0.45,
+
+        blurPasses: 8,
+        transitionDuration: 1000,
+        saturation: 1.5,
+        tintColor: [0.16, 0.16, 0.24],
+        tintIntensity: 0.15,
+        dithering: 0.008
+    },
+
+    ripple: {
+        strength: 0.4,
+        radius: 0.3,
+        speed: 1.5,
+        darkness: 0.4,
+
+        blurPasses: 8,
+        transitionDuration: 1000,
+        saturation: 1.5,
+        tintColor: [0.16, 0.16, 0.24],
+        tintIntensity: 0.15,
+        dithering: 0.008
+    }
+};
+const KAWARP_PRESET_ALIASES = {
+    liquid: "water"
+};
+
+let kawarpInstance;
+let kawarpRequestId = 0;
 
 function shouldSwitchAlbumColorOnHover(metadata) {
     return (
-        metadata["switch-col-hover"] === true &&
-        !["Mobile", "iOS", "Android"].includes(DEVICE) &&
-        ["gradient", "double-gradient"].includes(metadata["tint-bg"])
+        metadata["switch-col-hover"] === true && !["Mobile", "iOS", "Android"].includes(DEVICE) && ["gradient", "double-gradient"].includes(metadata["tint-bg"])
     );
 }
 
@@ -28,6 +104,92 @@ function getAlbumMetadata(data) {
 
 function getImageFilenames(data) {
     return Object.keys(data || {}).filter((filename) => filename !== ALBUM_METADATA_KEY);
+}
+
+function getKawarpOptions(config) {
+    const presetName = KAWARP_PRESET_ALIASES[config.preset] || config.preset;
+    const preset = KAWARP_PRESETS[presetName] || {};
+    const options = {
+        warpIntensity: config.warpIntensity ?? config.strength ?? preset.warpIntensity ?? preset.strength,
+        blurPasses: config.blurPasses ?? preset.blurPasses,
+        animationSpeed: config.animationSpeed ?? config.speed ?? preset.animationSpeed ?? preset.speed,
+        transitionDuration: config.transitionDuration ?? preset.transitionDuration,
+        saturation: config.saturation ?? preset.saturation,
+        tintColor: config.tintColor ?? preset.tintColor,
+        tintIntensity: config.tintIntensity ?? preset.tintIntensity,
+        dithering: config.dithering ?? preset.dithering,
+        scale: config.scale ?? config.radius ?? preset.scale ?? preset.radius
+    };
+
+    return Object.fromEntries(Object.entries(options).filter(([, value]) => value !== undefined));
+}
+
+function getKawarpDarkness(config) {
+    const presetName = KAWARP_PRESET_ALIASES[config.preset] || config.preset;
+    const preset = KAWARP_PRESETS[presetName] || {};
+    return Math.min(1, Math.max(0, config.darkness ?? preset.darkness ?? 0));
+}
+
+function getKawarpCanvas() {
+    let container = document.getElementById("kawarp-background");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "kawarp-background";
+        container.setAttribute("aria-hidden", "true");
+
+        container.style.position = "fixed";
+        container.style.inset = "0";
+        container.style.background = "rgb(12, 12, 12)";
+        container.style.zIndex = "-10";
+
+        const canvas = document.createElement("canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.display = "block";
+        canvas.style.background = "transparent";
+
+        container.appendChild(canvas);
+        document.body.prepend(container);
+    }
+
+    return container.querySelector("canvas");
+}
+
+function disableKawarp() {
+    kawarpRequestId++;
+    kawarpInstance?.dispose();
+    kawarpInstance = undefined;
+    document.documentElement.classList.remove("kawarp-active");
+    document.body.classList.remove("kawarp-active");
+}
+
+async function enableKawarp(config, imageUrl) {
+    if (!config?.enabled || !imageUrl) return;
+
+    const requestId = ++kawarpRequestId;
+    const canvas = getKawarpCanvas();
+
+    canvas.parentElement.style.background = "rgb(12, 12, 12)";
+
+    try {
+        const { Kawarp } = await import(KAWARP_MODULE_URL);
+        const instance = new Kawarp(canvas, getKawarpOptions(config));
+        await instance.loadImage(imageUrl);
+
+        if (requestId !== kawarpRequestId) {
+            instance.dispose();
+            return;
+        }
+
+        kawarpInstance?.dispose();
+        kawarpInstance = instance;
+        canvas.parentElement.style.setProperty("--kawarp-darkness", getKawarpDarkness(config));
+        document.documentElement.classList.add("kawarp-active");
+        document.body.classList.add("kawarp-active");
+        instance.start();
+    } catch (error) {
+        console.warn("Couldn't enable Kawarp", error);
+    }
 }
 
 function applyAlbumMetadata(metadata, albumTitle) {
@@ -199,6 +361,7 @@ function setRandomAlbumBackgrounds() {
                 const previewMeta = data[selectedImage] || {};
                 if (previewMeta.color) {
                     button.setAttribute("col", previewMeta.color);
+                    button.style.setProperty("--album-color", previewMeta.color);
                 } else if (typeof ColorThief !== "undefined") {
                     const previewImage = new Image();
                     previewImage.crossOrigin = "anonymous";
@@ -212,7 +375,9 @@ function setRandomAlbumBackgrounds() {
                         hsl[2] = Math.max(0.65, hsl[2]);
 
                         const brightRgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
-                        button.setAttribute("col", `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`);
+                        const rgb = `rgb(${brightRgb[0]}, ${brightRgb[1]}, ${brightRgb[2]})`;
+                        button.setAttribute("col", rgb);
+                        button.style.setProperty("--album-color", rgb);
                     });
                 }
                 //console.log("set bg as ", button.style.backgroundImage);
@@ -366,6 +531,9 @@ function populateAlbumGrid() {
             if (!data) return; // already handled empty cases
 
             const metadata = getAlbumMetadata(data);
+            if (!metadata.kawarp?.enabled) {
+                disableKawarp();
+            }
             const displayTitle = metadata.title || decodeURIComponent(album);
             const albumDate = document.getElementById("album-date");
 
@@ -378,6 +546,7 @@ function populateAlbumGrid() {
             }
 
             applyAlbumMetadata(metadata, albumTitle);
+            const albumKawarpConfig = metadata.kawarp;
             const switchColorOnHover = shouldSwitchAlbumColorOnHover(metadata);
             if (switchColorOnHover) {
                 resetGradientBackground();
@@ -385,6 +554,7 @@ function populateAlbumGrid() {
 
             const albumTintNeedsImageColor = !switchColorOnHover && !metadata.color && ["gradient", "double-gradient"].includes(metadata["tint-bg"]);
             let albumTintApplied = !albumTintNeedsImageColor;
+            let albumKawarpApplied = false;
 
             let count = 0;
 
@@ -419,6 +589,11 @@ function populateAlbumGrid() {
                 img.addEventListener("load", () => {
                     const colorThief = new ColorThief();
                     if (img.complete) {
+                        if (albumKawarpConfig?.enabled && !albumKawarpApplied) {
+                            albumKawarpApplied = true;
+                            enableKawarp(albumKawarpConfig, img.src);
+                        }
+
                         if (img.hasAttribute("col") && !albumTintNeedsImageColor && !switchColorOnHover) return;
 
                         const color = colorThief.getColor(img);
@@ -451,6 +626,10 @@ function populateAlbumGrid() {
                         img.setAttribute("col", rgb);
                     }
                 });
+
+                if (img.complete && img.naturalWidth > 0) {
+                    img.dispatchEvent(new Event("load"));
+                }
 
                 if (meta.color && meta.color != "") {
                     img.setAttribute("col", meta.color);
@@ -1159,6 +1338,10 @@ function loadAlbumImage() {
 
             const info = fetched_info;
             console.log("Fetched info for image:", fetched_info);
+            const kawarpConfig = info.kawarp;
+            if (!kawarpConfig?.enabled) {
+                disableKawarp();
+            }
 
             const otherAlbumBtn = document.getElementById("other-album-btn");
 
@@ -1299,9 +1482,9 @@ function loadAlbumImage() {
                 browseBackButton.style.borderRadius = "4px 4px 4px 16px";
                 homeButton.style.borderRadius = "4px 4px 16px 4px";
             } else if (hasOtherAlbum) {
-                homeButton.style.borderRadius = "16px";
-                backButton.style.borderRadius = "4px 4px 16px 16px";
-                otherAlbumBtn.style.borderRadius = "16px 4px 4px 4px";
+                homeButton.style.borderRadius = "4px 4px 16px 16px";
+                backButton.style.borderRadius = "4px"; // 4px 4px 16px";
+                otherAlbumBtn.style.borderRadius = "4px"; // 4px 16px 4px";
             } else if (hasBrowseBack) {
                 homeButton.style.borderRadius = "16px";
                 backButton.style.borderRadius = "4px 4px 4px 16px";
@@ -1314,6 +1497,10 @@ function loadAlbumImage() {
             // Add image load event listener here (inside fetch block)
             imageEl.addEventListener("load", () => {
                 console.log("Img loaded");
+
+                if (kawarpConfig?.enabled) {
+                    enableKawarp(kawarpConfig, imageEl.src);
+                }
 
                 if (info.bg) {
                     console.log("Bg info:", info.bg);

@@ -12,7 +12,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/6VObnIkLVruX4UVyxWhlqm?utm_source=generator",
         "s-title": "Skyfall",
-        "s-artist": "Adele"
+        "s-artist": "Adele",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "view.jpg": {
         "title": "view",

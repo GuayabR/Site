@@ -18,7 +18,12 @@
         "song": "https://open.spotify.com/embed/track/6aCBjSb87RizdH8lVBIRW7?utm_source=generator",
         "s-title": "Good Things Go",
         "s-artist": "Linkin Park",
-        "album": "Blossom"
+        "album": "Blossom",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "20251004_193656.jpg": {
         "title": "forest",
@@ -53,7 +58,7 @@
     "20251004_204123.jpg": {
         "title": "reflects differently",
         "date": "4/10/2025 08:41 PM",
-        "color": "rgb(220, 125, 255)",
+        "color": "rgb(250, 165, 240)",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/2Dx1MzjUMGREOgSju2U1wZ?utm_source=generator",
         "s-title": "Reflections",

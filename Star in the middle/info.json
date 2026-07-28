@@ -1,12 +1,164 @@
 {
-    "line.jpg": {
-        "title": "Line",
-        "caption": "Line.jpg",
-        "lore": "Line"
+    "_album": {
+        "title": "Star in the Middle",
+        "date": "28/07/2026",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.5
+        }
     },
-    "shine.jpg": {
-        "title": "Shine",
-        "caption": "Dark but far away, light is seen.",
-        "lore": "Right after muay thai, the street was so foggy, I just looked to my right and saw this."
+    "20250208_202208.jpg": {
+        "title": "Place For Me",
+        "date": "8/2/2025 08:22 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5wfRnupjI4OXpKCulkWJ4r?utm_source=generator&si=98b27f0ad2de4dc4",
+        "s-title": "For Me",
+        "s-artist": "Throttle"
+    },
+    "Como Tu.jpg": {
+        "title": "Como Tu / Place For Me 2",
+        "lore": "i just want to go back",
+        "date": "8/2/2025 08:29 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/6jYBc8V2b4rVCyua0xMdvH?utm_source=generator",
+        "s-title": "Epilogue",
+        "s-artist": "Creo",
+        "album": "Explosion Of Colours",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
+    },
+    "20250208_205955.jpg": {
+        "title": "Place For Me 3",
+        "date": "8/2/2025 08:59 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5wfRnupjI4OXpKCulkWJ4r?utm_source=generator&si=98b27f0ad2de4dc4",
+        "s-title": "For Me",
+        "s-artist": "Throttle"
+    },
+    "20250208_211113.jpg": {
+        "title": "Place For Me 4",
+        "date": "8/2/2025 09:11 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5wfRnupjI4OXpKCulkWJ4r?utm_source=generator&si=98b27f0ad2de4dc4",
+        "s-title": "For Me",
+        "s-artist": "Throttle"
+    },
+    "20250508_171728.jpg": {
+        "title": "Metallic",
+        "date": "8/5/2025 05:17 PM",
+        "lore": "The photo feels metallic idk"
+    },
+    "20251124_201045.jpg": {
+        "title": "Different Sunset",
+        "date": "24/11/2025 08:10 PM",
+        "color": "rgb(255, 200, 75)",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/50UNRnA6RgIegpr1QpWy4W?utm_source=generator",
+        "s-title": "Pictureboard",
+        "s-artist": "Linkin Park",
+        "album": "A Different Time",
+        "kawarp": {
+            "enabled": true,
+            "preset": "dream",
+            "tintColor": [
+                10.0,
+                6.0,
+                3.0
+            ],
+            "darkness": 0.8
+        }
+    },
+    "20260318_080321.jpg": {
+        "title": "Untitled 1",
+        "date": "18/3/2026 08:03 AM"
+    },
+    "20260318_092748.jpg": {
+        "title": "Massive",
+        "date": "18/3/2026 09:27 AM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/3NvAcUYxfyZhW2ALOGknXB?utm_source=generator&si=430c0b2b7a8543a3",
+        "s-title": "Massive",
+        "s-artist": "Linkin Park",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
+    },
+    "Another Thousand Suns.jpg": {
+        "title": "Another Thousand Suns",
+        "date": "26/1/2026 06:09 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
+        "s-title": "The Catalyst",
+        "s-artist": "Linkin Park",
+        "album": "The Next Chapter"
+    },
+    "BE PART OF SOMETHING.jpg": {
+        "title": "BE PART OF SOMETHING",
+        "date": "18/3/2026 10:53 AM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
+        "s-title": "The Catalyst",
+        "s-artist": "Linkin Park",
+        "album": "The Next Chapter"
+    },
+    "blurry.jpg": {
+        "title": "blurry",
+        "date": "5/3/2026 10:44 PM",
+        "tint-bg": "gradient",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.0
+        }
+    },
+    "BUrn INSidE THE FIres of A THOUSAND SUNS.jpg": {
+        "title": "BUrn INSidE THE FIres of A THOUSAND SUNS",
+        "date": "4/2/2026 10:57 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
+        "s-title": "The Catalyst",
+        "s-artist": "Linkin Park",
+        "album": "The Next Chapter"
+    },
+    "moon.jpg": {
+        "title": "moon",
+        "date": "12/3/2026 12:25 AM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/135c3pF1uP7wGdgoxARYZt?utm_source=generator",
+        "s-title": "Time: The Beginning",
+        "s-artist": "Megadeth",
+        "album": "The Next Chapter"
+    },
+    "SHINE A LIGHT THROUGH THE EYE.jpg": {
+        "title": "SHINE A LIGHT THROUGH THE EYE",
+        "date": "15/3/2026 05:58 PM",
+        "song": "https://open.spotify.com/embed/track/75P3ix2pybwtSiCd6a2ZMb?utm_source=generator&si=23d4e4ae05434fca",
+        "s-title": "Shine",
+        "s-artist": "Creo",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.35
+        }
+    },
+    "Spotlight.jpg": {
+        "title": "Spotlight",
+        "date": "26/1/2026 07:35 PM"
+    },
+    "sTERISK.jpg": {
+        "title": "sTERISK",
+        "date": "1/1/2026 12:00 AM",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
+    },
+    "waza potips 2.jpg": {
+        "title": "waza potips 2",
+        "date": "31/12/2025 11:58 PM"
     }
 }

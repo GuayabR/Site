@@ -5,10 +5,17 @@
         "lore": "Thought it was funny",
         "date": "4/29/2025 8:07 PM",
         "color": "rgb(142, 0, 224)",
+        "color2": "rgb(56, 0, 67)",
+        "tint-bg": "double-gradient",
         "album": "Explosion of Colours",
         "song": "https://open.spotify.com/embed/track/4HeNCz1NePOW4X2iEtOU4Y?utm_source=generator",
         "s-title": "Aura",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "wbmw.jpg": {
         "title": "wbmw",

@@ -18,7 +18,16 @@
         "date": "7/3/2025 8:35 PM",
         "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
         "s-title": "Prophecy",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "glass",
+            "darkness": 0.0,
+            "scale": 0.8,
+            "blurPasses": 4,
+            "dithering": 0.009
+        }
     },
     "signal.jpg": {
         "title": "signal",
@@ -38,14 +47,22 @@
         "s-artist": "Toby Fox"
     },
     "nobody.jpg": {
-        "title": ".",
+        "title": "",
         "caption": "nobody is waiting",
         "date": "3/7/2025 9:26 PM",
         "color": "rgb(60, 60, 75)",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/2acj21k56lNshKpVAYF7DR?utm_source=generator&theme=0",
         "s-title": "Premonition",
-        "s-artist": "Toby Fox"
+        "s-artist": "Toby Fox",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "liquid",
+            "dithering": 0.01,
+            "saturation": 0.8,
+            "darkness": 0.0
+        }
     },
     "25.jpg": {
         "title": "twenty five",
@@ -84,7 +101,15 @@
         "date": "3/7/2025 9:29 PM",
         "song": "https://open.spotify.com/embed/track/5hsRssY21u2RnOzAaRPRPE?utm_source=generator&theme=0",
         "s-title": "Flashback (Excerpt)",
-        "s-artist": "Toby Fox"
+        "s-artist": "Toby Fox",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "glass",
+            "darkness": 0.25,
+            "scale": 0.8,
+            "dithering": 0.009
+        }
     },
     "the moon.jpg": {
         "title": "the moon",
@@ -92,6 +117,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/3TIvMJwLPjWkZmdNjO33iU?utm_source=generator",
         "s-title": "With Hope Crossed On Our Hearts",
-        "s-artist": "Toby Fox"
+        "s-artist": "Toby Fox",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.0
+        }
     }
 }

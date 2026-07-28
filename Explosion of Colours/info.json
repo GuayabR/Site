@@ -2,8 +2,11 @@
     "_album": {
         "title": "Explosion Of Colours",
         "date": "07/01/2025",
-        "tint-bg": "gradient",
-        "switch-col-hover": true
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Rosa.jpg": {
         "title": "Rosa",
@@ -12,7 +15,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5TRPicyLGbAF2LGBFbHGvO?utm_source=generator",
         "s-title": "Flashing Lights",
-        "s-artist": "Kanye West"
+        "s-artist": "Kanye West",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "THANK YOU.jpg": {
         "title": "THANK YOU.",
@@ -22,7 +30,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5kDgJffgJ0lYHTSiaXFWNw?utm_source=generator&theme=0",
         "s-title": "BABY I'M BACK",
-        "s-artist": "The Kid LAROI"
+        "s-artist": "The Kid LAROI",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Haze.jpg": {
         "title": "Haze",
@@ -32,7 +45,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/3bhG8TYIHgElq7wWf8VVOn?utm_source=generator",
         "s-title": "Red Haze",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Ignite.jpg": {
         "title": "Ignite",
@@ -41,7 +59,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
         "s-title": "Prophecy",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Red Tide.jpg": {
         "title": "Red Tide",
@@ -50,7 +73,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/2xoGJODoaiCGLb8WC6GEH3?utm_source=generator&theme=0",
         "s-title": "Dark Tides",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Como Tu.jpg": {
         "title": "Como Tu",
@@ -59,7 +87,13 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/6jYBc8V2b4rVCyua0xMdvH?utm_source=generator",
         "s-title": "Epilogue",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+        "album": "Explosion Of Colours",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "GYAAAT.jpg": {
         "title": "\"GYAAAT\"",
@@ -72,7 +106,12 @@
         "album": "Explosion of Colours",
         "song": "https://open.spotify.com/embed/track/4HeNCz1NePOW4X2iEtOU4Y?utm_source=generator",
         "s-title": "Aura",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Red Lantern.jpg": {
         "title": "Red Lantern",
@@ -83,7 +122,12 @@
         "album": "Chinese New Year",
         "song": "https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator",
         "s-title": "Borderline",
-        "s-artist": "Tame Impala"
+        "s-artist": "Tame Impala",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "LIGHT RAY.jpg": {
         "title": "LIGHT RAY",
@@ -93,7 +137,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/3McDEIMFeXy8mTtJsKm85X?utm_source=generator",
         "s-title": "Slow down",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Mixture in the Sky.jpg": {
         "title": "Mixture in the Sky",
@@ -101,7 +150,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
         "s-title": "Prophecy",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Flow.jpg": {
         "title": "Flow",
@@ -110,7 +164,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/67GRnFA7CQVQlyYQfgZuzj?utm_source=generator",
         "s-title": "Flow",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Someone Said Goodbye.jpg": {
         "title": "Someone Said Goodbye",
@@ -118,6 +177,11 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
         "s-title": "Prophecy",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     }
 }

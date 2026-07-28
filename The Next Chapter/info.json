@@ -17,7 +17,12 @@
     "Liquid.jpg": {
         "title": "Liquid",
         "date": "16/12/2025 08:52 PM",
-        "tint-bg": "gradient"
+        "tint-bg": "gradient",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Ba-da-ba.jpg": {
         "title": "Ba-da-ba",
@@ -50,7 +55,8 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/135c3pF1uP7wGdgoxARYZt?utm_source=generator",
         "s-title": "Time: The Beginning",
-        "s-artist": "Megadeth"
+        "s-artist": "Megadeth",
+        "album": "The Next Chapter"
     },
     "Spotlight.jpg": {
         "title": "Spotlight",
@@ -58,7 +64,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/4V6mwQ6eOVy9IutREjrFQr?utm_source=generator",
         "s-title": "Marine Snow",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "GOLD.jpg": {
         "title": "GOLD",
@@ -82,7 +93,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/2IMkOgc8eo7OIA4ZCSrUkf?utm_source=generator",
         "s-title": "Red Horizon",
-        "s-artist": "Creo"
+        "s-artist": "Creo",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "BUrn INSidE THE FIres of A THOUSAND SUNS.jpg": {
         "title": "BUrn INSidE THE FIres of A THOUSAND SUNS",
@@ -90,7 +106,8 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
         "s-title": "The Catalyst",
-        "s-artist": "Linkin Park"
+        "s-artist": "Linkin Park",
+        "album": "The Next Chapter"
     },
     "A Thousand Suns.jpg": {
         "title": "A Thousand Suns",
@@ -98,7 +115,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/album/5uvXx5ZQswNRFCdHR521YZ?utm_source=generator",
         "s-title": "A Thousand Suns",
-        "s-artist": "Album - Linkin Park"
+        "s-artist": "Album - Linkin Park",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Another Thousand Suns.jpg": {
         "title": "Another Thousand Suns",
@@ -106,7 +128,8 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
         "s-title": "The Catalyst",
-        "s-artist": "Linkin Park"
+        "s-artist": "Linkin Park",
+        "album": "The Next Chapter"
     },
     "BE PART OF SOMETHING.jpg": {
         "title": "BE PART OF SOMETHING",
@@ -114,7 +137,8 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5bvgRxco3jgSZ3SP8rueDA?utm_source=generator",
         "s-title": "The Catalyst",
-        "s-artist": "Linkin Park"
+        "s-artist": "Linkin Park",
+        "album": "The Next Chapter"
     },
     "BEING PART OF SOMETHING.jpg": {
         "title": "BEING PART OF SOMETHING",
@@ -131,7 +155,12 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/196rNjJkKTjsk2NTEtJKLq?utm_source=generator",
         "s-title": "Promises",
-        "s-artist": "Megadeth"
+        "s-artist": "Megadeth",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "Glass.jpg": {
         "title": "Glass",

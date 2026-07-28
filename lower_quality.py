@@ -3,11 +3,12 @@ import json
 import shutil
 import tkinter as tk
 from tkinter import filedialog, messagebox, simpledialog, ttk
-from PIL import Image, ExifTags
+from PIL import Image, ImageOps, ExifTags
 import rawpy
 import imageio
 from datetime import datetime, date
 import platform
+import re
 
 
 # Select folder GUI
@@ -29,7 +30,7 @@ def ask_action_dropdown():
     tk.Label(root, text="Choose an action:").pack(pady=10)
 
     action_var = tk.StringVar(value="compress")
-    actions = ["compress", "resize", "info"]
+    actions = ["Compress Images", "Resize images", "Create Info.json", "Setup again"]
     dropdown = ttk.Combobox(root, textvariable=action_var, values=actions, state="readonly")
     dropdown.pack(pady=5)
 
@@ -81,6 +82,33 @@ def strip_gps_metadata(img):
             break
     if gps_tag in exif_data:
         del exif_data[gps_tag]
+    return exif_data
+
+# Keep camera related metadata and date taken
+# Keep camera related metadata and date taken
+def keep_camera_date_metadata(img):
+    exif_data = img.getexif()
+
+    remove_tags = [
+        "GPSInfo",
+        "XPComment",
+        "UserComment",
+        "ImageDescription",
+        "Copyright",
+        "Artist",
+        "Software"
+    ]
+
+    remove_tag_ids = []
+
+    for tag_id, value in ExifTags.TAGS.items():
+        if value in remove_tags:
+            remove_tag_ids.append(tag_id)
+
+    for tag_id in remove_tag_ids:
+        if tag_id in exif_data:
+            del exif_data[tag_id]
+
     return exif_data
 
 # Move original to "Original" folder & replace with stripped version
@@ -137,6 +165,57 @@ def resize_images(folder, percent):
             except Exception as e:
                 print(f"Failed to resize {file}: {e}")
 
+def setup_again(folder):
+    original_dir = os.path.join(folder, "Original")
+
+    if not os.path.exists(original_dir):
+        print(f"Original folder not found in {folder}")
+        return
+
+    print("Setting up again...")
+
+    # Remove everything except Original
+    for item in os.listdir(folder):
+        item_path = os.path.join(folder, item)
+
+        if item == "Original":
+            continue
+
+        if os.path.isdir(item_path):
+            shutil.rmtree(item_path)
+        else:
+            os.remove(item_path)
+
+    # Copy originals back
+    for file in os.listdir(original_dir):
+        if file.lower().endswith(IMAGE_EXTS):
+            src = os.path.join(original_dir, file)
+            dst = os.path.join(folder, file)
+
+            try:
+                with Image.open(src) as img:
+                    exif_data = keep_camera_date_metadata(img)
+
+                    img.save(
+                        dst,
+                        "JPEG",
+                        exif=exif_data
+                    )
+
+                print(f"Restored {file}")
+
+            except Exception as e:
+                print(f"Failed restoring {file}: {e}")
+
+    # Create info.json from restored images
+    create_info_json(folder)
+
+    # Resize thumbnails
+    percent = ask_resize_percent()
+    resize_images(folder, percent)
+
+    print("Setup again complete.")
+
 def format_datetime(dt):
     if platform.system() == "Windows":
         # Windows-compatible formatting, strip leading zeros manually
@@ -163,6 +242,21 @@ def get_image_date(img_path):
     except:
         return format_datetime(datetime.now())
 
+def is_camera_filename(filename):
+    name = os.path.splitext(filename)[0]
+
+    # Matches:
+    # 20260614_164310
+    # 20260614_164310(0)
+    # _MG_2506
+    if re.fullmatch(r"\d{8}_\d{6}(\(\d+\))?", name):
+        return True
+
+    if re.fullmatch(r"_MG_\d+", name):
+        return True
+
+    return False
+
 # Supported image extensions
 IMAGE_EXTS = (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp")
 
@@ -177,11 +271,21 @@ def create_info_json(folder):
         }
     }
 
+    untitled_index = 1
+
     for file in os.listdir(folder):
         if file.lower().endswith(IMAGE_EXTS):
             img_path = os.path.join(folder, file)
-            title = os.path.splitext(file)[0]
+            filename_title = os.path.splitext(file)[0]
+
+            if is_camera_filename(file):
+                title = f"Untitled {untitled_index}"
+                untitled_index += 1
+            else:
+                title = filename_title
+
             date_taken = get_image_date(img_path)
+
             data[file] = {
                 "title": title,
                 "date": date_taken
@@ -189,6 +293,7 @@ def create_info_json(folder):
 
     with open(os.path.join(folder, "info.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
+
     print("info.json created with entries for all images.")
 
 # Main
@@ -198,14 +303,20 @@ if __name__ == "__main__":
     if not folder:
         exit()
 
-    convert_cr2_to_jpg_if_missing(folder)
-    backup_and_strip_metadata(folder)
+    if action != "Setup again":
+        convert_cr2_to_jpg_if_missing(folder)
+        backup_and_strip_metadata(folder)
 
     if action == "compress":
         quality = ask_compression_level()
         compress_images(folder, quality)
+
     elif action == "resize":
         percent = ask_resize_percent()
         resize_images(folder, percent)
+
     elif action == "info":
         create_info_json(folder)
+
+    elif action == "Setup again":
+        setup_again(folder)

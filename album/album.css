@@ -30,7 +30,7 @@
     white-space: nowrap;
 }
 
-.album-label>span {
+.album-label > span {
     display: inline-block;
 }
 
@@ -39,7 +39,7 @@
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-.album-label-scroll>span {
+.album-label-scroll > span {
     animation: album-label-scroll 5s ease-in-out infinite alternate;
 }
 
@@ -160,5 +160,17 @@
     .photos-grid .album-item,
     .album-label {
         width: 118px;
+    }
+}
+
+@media (max-width: 600px) {
+    #album-song-container iframe {
+        transform: scale(0.75) translateX(7.75%);
+        transform-origin: 0 0;
+        width: 116.5%;
+    }
+
+    #album-song-container {
+        margin-bottom: -21px;
     }
 }

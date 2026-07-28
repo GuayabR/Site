@@ -10,12 +10,14 @@
         "album": "Blossom"
     },
     "20251004_194105.jpg": {
-        "title": "20251004_194105",
+        "title": "Untitled 1",
         "date": "4/10/2025 07:41 PM"
     },
     "20251111_123541.jpg": {
-        "title": "20251111_123541",
-        "date": "11/11/2025 12:35 PM"
+        "title": "jazz hands",
+        "date": "11/11/2025 12:35 PM",
+        "color": "rgb(125, 143, 206)",
+        "album": "A Different Time"
     },
     "20260126_184812.jpg": {
         "title": "The Little Things Give You Away",
@@ -27,7 +29,7 @@
         "s-artist": "Linkin Park"
     },
     "20260127_193353.jpg": {
-        "title": "20260127_193353",
+        "title": "Untitled 3",
         "date": "27/1/2026 07:33 PM"
     }
 }

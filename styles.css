@@ -47,6 +47,44 @@ body {
         --page-background-end 1s ease;
 }
 
+#kawarp-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+#kawarp-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(0, 0, 0);
+    opacity: var(--kawarp-darkness, 0);
+    pointer-events: none;
+}
+
+#kawarp-background canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+html.kawarp-active #kawarp-background {
+    opacity: 1;
+}
+
+html.kawarp-active,
+body.kawarp-active {
+    background: transparent !important;
+}
+
+body > main {
+    position: relative;
+    z-index: 1;
+}
+
 body {
     display: flex;
     flex-direction: column;
