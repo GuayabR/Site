@@ -77,5 +77,34 @@
             "enabled": true,
             "preset": "spicetify"
         }
+    },
+    "IMG_1101.JPG": {
+        "title": "Sil",
+        "date": "XX/10/2025 XX:XX PM",
+        "caption": "(\"@mihirswrld\")https://instagram.com/mihirswrld",
+        "color_hyper": true,
+        "tint-bg": "gradient",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "tintColor": [9, 5, 3],
+            "darkness": 0.75,
+            "dithering": 0.01
+        }
+    },
+    "IMG_1107.JPG": {
+        "title": "Windy",
+        "date": "XX/10/2025 XX:XX PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/161DnLWsx1i3u1JT05lzqU?utm_source=generator&si=de876e3bd41c4cb9",
+        "s-title": "Talking to the Moon",
+        "s-artist": "Bruno Mars",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "dithering": 0.017,
+            "darkness": 0.65,
+            "speed": 0.5
+        }
     }
 }

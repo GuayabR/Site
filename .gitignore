@@ -17,3 +17,6 @@ lower_quality.py
 INFO_JSON_REFERENCE.txt
 lower_quality.py
 Microsoft/Windows/PowerShell/ModuleAnalysisCache
+lower_quality.py
+*.py
+/.vscode

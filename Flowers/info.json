@@ -20,13 +20,19 @@
         "album": "A Different Time"
     },
     "20260126_184812.jpg": {
-        "title": "The Little Things Give You Away",
+        "title": "Rose",
         "date": "26/1/2026 06:48 PM",
-        "color": "rgb(255, 65, 90)",
+        "color": "rgb(255, 0, 125)",
         "tint-bg": "gradient",
-        "song": "https://open.spotify.com/embed/track/48QYP8a8gEqbtvjOTMSpiD?utm_source=generator",
-        "s-title": "The Little Things Give You Away",
-        "s-artist": "Linkin Park"
+        "song": "https://open.spotify.com/embed/track/196rNjJkKTjsk2NTEtJKLq?utm_source=generator",
+        "s-title": "Promises",
+        "s-artist": "Megadeth",
+        "album": "The Next Chapter",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "20260127_193353.jpg": {
         "title": "Untitled 3",

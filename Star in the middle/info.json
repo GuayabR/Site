@@ -63,11 +63,7 @@
         "kawarp": {
             "enabled": true,
             "preset": "dream",
-            "tintColor": [
-                10.0,
-                6.0,
-                3.0
-            ],
+            "tintColor": [10.0, 6.0, 3.0],
             "darkness": 0.8
         }
     },
@@ -147,7 +143,8 @@
     },
     "Spotlight.jpg": {
         "title": "Spotlight",
-        "date": "26/1/2026 07:35 PM"
+        "date": "26/1/2026 07:35 PM",
+        "album": "The Next Chapter"
     },
     "sTERISK.jpg": {
         "title": "sTERISK",
@@ -157,8 +154,32 @@
             "preset": "spicetify"
         }
     },
+    "waza potips.jpg": {
+        "title": "waza potips",
+        "date": "23/03/2024 08:45 PM",
+        "song": "https://open.spotify.com/embed/playlist/1EHwwFOV8m77ryi9XudZDJ?utm_source=generator&si=b165288c8a474347",
+        "s-title": "waza potips",
+        "s-artist": "Playlist by GuayabR",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.0
+        }
+    },
     "waza potips 2.jpg": {
         "title": "waza potips 2",
-        "date": "31/12/2025 11:58 PM"
+        "date": "31/12/2025 11:58 PM",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
+    },
+    "waza potips 3.jpg": {
+        "title": "waza potips 3",
+        "date": "06/02/2026 12:36 AM",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     }
 }

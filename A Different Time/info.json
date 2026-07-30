@@ -15,10 +15,16 @@
         "title": "Rosa (Original)",
         "date": "30/1/2025 08:52 PM",
         "color": "rgb(255, 200, 240)",
+        "lore": "That is actually how the sky looked.",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5TRPicyLGbAF2LGBFbHGvO?utm_source=generator",
         "s-title": "Flashing Lights",
-        "s-artist": "Kanye West"
+        "s-artist": "Kanye West",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify"
+        }
     },
     "20250202_202430.jpg": {
         "title": "Food tech cookie",

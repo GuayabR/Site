@@ -351,7 +351,8 @@ function setRandomAlbumBackgrounds() {
                     button.textContent = metadata.title;
                 }
 
-                const selectedImage = album === "The Next Chapter" ? images[0] : images[Math.floor(Math.random() * images.length)];
+                const selectedImage = images[Math.floor(Math.random() * images.length)];
+                //const selectedImage = album === "The Next Chapter" ? images[0] : images[Math.floor(Math.random() * images.length)];
 
                 const imagePath = (isViewPage ? "/" : "") + `${album}/thumbs/${selectedImage}`;
 
