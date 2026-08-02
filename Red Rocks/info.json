@@ -43,12 +43,45 @@
         "title": "There he go",
         "date": "21/12/2025 05:22 PM"
     },
+    "紅岩 海豹大师.jpg": {
+        "author": "Ranith",
+        "title": "紅岩 海豹大师",
+        "date": "21/12/2025 05:22 PM",
+        "no-thumb": true,
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.7
+        }
+    },
+    "海豹與龍.jpg": {
+        "author": "Ranith",
+        "title": "海豹與龍",
+        "date": "21/12/2025 05:22 PM",
+        "no-thumb": true,
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.7
+        }
+    },
+    "Wise.jpg": {
+        "author": "Ranith",
+        "title": "Wise",
+        "date": "21/12/2025 05:22 PM"
+    },
+    "Patience.jpg": {
+        "author": "Ranith",
+        "title": "Patience",
+        "date": "21/12/2025 05:22 PM"
+    },
     "IRIDESCENT.jpg": {
         "title": "IRIDESCENT",
         "date": "21/12/2025 05:27 PM",
         "song": "https://open.spotify.com/embed/track/69ZEgPX0hxWXJIqkTlYz41?utm_source=generator&si=042df8f9279f4fe2",
         "s-title": "Iridescent",
-        "s-artist": "Linkin park"
+        "s-artist": "Linkin park",
+        "album": "Red Rocks"
     },
     "20250424_141918.jpg": {
         "title": "Plane - Before",

@@ -6,7 +6,8 @@
         "kawarp": {
             "enabled": true,
             "preset": "spicetify"
-        }
+        },
+        "switch-col-hover": true
     },
     "Rosa.jpg": {
         "title": "Rosa",

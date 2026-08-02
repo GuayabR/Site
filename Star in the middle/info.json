@@ -8,8 +8,17 @@
             "darkness": 0.5
         }
     },
+    "moon in the middle.jpg": {
+        "title": "moon in the middle",
+        "date": "08/06/2025 4:39 PM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5ZI2uKHpKza44XVsRZy7lM?utm_source=generator",
+        "s-title": "For Me - VIP",
+        "s-artist": "Throttle",
+        "album": "IT'S SO COLOURFUL"
+    },
     "20250208_202208.jpg": {
-        "title": "Place For Me",
+        "title": "There's a Place For Me",
         "date": "8/2/2025 08:22 PM",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5wfRnupjI4OXpKCulkWJ4r?utm_source=generator&si=98b27f0ad2de4dc4",
@@ -68,8 +77,12 @@
         }
     },
     "20260318_080321.jpg": {
-        "title": "Untitled 1",
-        "date": "18/3/2026 08:03 AM"
+        "title": "Prophecy",
+        "date": "18/3/2026 08:03 AM",
+        "song": "https://open.spotify.com/embed/track/6dUN5gfOJN6y61piEiPViQ?utm_source=generator",
+        "s-title": "Prophecy",
+        "s-artist": "Creo",
+        "tint-bg": "gradient"
     },
     "20260318_092748.jpg": {
         "title": "Massive",
@@ -144,11 +157,12 @@
     "Spotlight.jpg": {
         "title": "Spotlight",
         "date": "26/1/2026 07:35 PM",
-        "album": "The Next Chapter"
-    },
-    "sTERISK.jpg": {
-        "title": "sTERISK",
-        "date": "1/1/2026 12:00 AM",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/4V6mwQ6eOVy9IutREjrFQr?utm_source=generator",
+        "s-title": "Marine Snow",
+        "s-artist": "Creo",
+        "album": "The Next Chapter",
+
         "kawarp": {
             "enabled": true,
             "preset": "spicetify"
@@ -171,7 +185,8 @@
         "date": "31/12/2025 11:58 PM",
         "kawarp": {
             "enabled": true,
-            "preset": "spicetify"
+            "preset": "spicetify",
+            "darkness": 0.0
         }
     },
     "waza potips 3.jpg": {
@@ -179,7 +194,8 @@
         "date": "06/02/2026 12:36 AM",
         "kawarp": {
             "enabled": true,
-            "preset": "spicetify"
+            "preset": "spicetify",
+            "darkness": 0.0
         }
     }
 }

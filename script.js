@@ -21,7 +21,7 @@ const KAWARP_PRESETS = {
         darkness: 0.35,
 
         blurPasses: 8,
-        transitionDuration: 1000,
+        transitionDuration: 500,
         saturation: 1.5,
         tintColor: [0.16, 0.16, 0.24],
         tintIntensity: 0.15,
@@ -35,7 +35,7 @@ const KAWARP_PRESETS = {
         darkness: 0.5,
 
         blurPasses: 10,
-        transitionDuration: 1000,
+        transitionDuration: 500,
         saturation: 1.5,
         tintColor: [0.16, 0.16, 0.24],
         tintIntensity: 0.15,
@@ -49,7 +49,7 @@ const KAWARP_PRESETS = {
         darkness: 0.7,
 
         blurPasses: 8,
-        transitionDuration: 1000,
+        transitionDuration: 500,
         saturation: 1.5,
         tintColor: [0.16, 0.16, 0.24],
         tintIntensity: 0.15,
@@ -63,7 +63,7 @@ const KAWARP_PRESETS = {
         darkness: 0.45,
 
         blurPasses: 8,
-        transitionDuration: 1000,
+        transitionDuration: 500,
         saturation: 1.5,
         tintColor: [0.16, 0.16, 0.24],
         tintIntensity: 0.15,
@@ -77,7 +77,7 @@ const KAWARP_PRESETS = {
         darkness: 0.4,
 
         blurPasses: 8,
-        transitionDuration: 1000,
+        transitionDuration: 500,
         saturation: 1.5,
         tintColor: [0.16, 0.16, 0.24],
         tintIntensity: 0.15,
@@ -90,6 +90,146 @@ const KAWARP_PRESET_ALIASES = {
 
 let kawarpInstance;
 let kawarpRequestId = 0;
+let kawarpCurrentSignature = null;
+let kawarpHasStarted = false;
+
+function tryUpdateKawarpOptions(instance, options) {
+    if (!instance) return false;
+
+    const updateMethods = [
+        ["setOptions", (target, value) => target.setOptions(value)],
+        ["updateOptions", (target, value) => target.updateOptions(value)],
+        ["update", (target, value) => target.update(value)],
+        ["setConfig", (target, value) => target.setConfig(value)]
+    ];
+
+    for (const [methodName, executor] of updateMethods) {
+        const method = instance[methodName];
+        if (typeof method === "function") {
+            try {
+                executor(instance, options);
+                return true;
+            } catch (error) {
+                console.warn(`[Kawarp] ${methodName} failed`, error);
+            }
+        }
+    }
+
+    if (instance.options && typeof instance.options === "object") {
+        try {
+            Object.assign(instance.options, options);
+            return true;
+        } catch (error) {
+            console.warn("[Kawarp] options assignment failed", error);
+        }
+    }
+
+    return false;
+}
+
+function disableKawarp() {
+    kawarpRequestId++;
+    kawarpInstance?.dispose();
+    kawarpInstance = undefined;
+    kawarpCurrentSignature = null;
+    kawarpHasStarted = false;
+
+    const container = document.getElementById("kawarp-background");
+    const canvas = container?.querySelector("canvas");
+
+    if (container) {
+        container.style.display = "none";
+        container.style.backgroundColor = "rgb(12, 12, 12)";
+    }
+
+    if (canvas) {
+        canvas.style.opacity = "0";
+    }
+
+    document.documentElement.classList.remove("kawarp-active");
+    document.body.classList.remove("kawarp-active");
+}
+
+async function enableKawarp(config, imageUrl) {
+    if (!config?.enabled || !imageUrl) {
+        hideKawarpBackground();
+        return;
+    }
+
+    const requestId = ++kawarpRequestId;
+    const canvas = getKawarpCanvas();
+    const container = canvas?.parentElement;
+
+    if (!container) return;
+
+    container.style.display = "block";
+    container.style.backgroundColor = "rgb(12, 12, 12)";
+    container.style.transition = "background-color 300ms ease";
+
+    canvas.style.transition = "opacity 300ms ease";
+    canvas.style.opacity = "0";
+
+    const options = getKawarpOptions(config);
+    const nextSignature = JSON.stringify(options);
+
+    try {
+        if (!kawarpInstance) {
+            const { Kawarp } = await import(KAWARP_MODULE_URL);
+            kawarpInstance = new Kawarp(canvas, options);
+            kawarpCurrentSignature = nextSignature;
+        } else {
+            const updated = tryUpdateKawarpOptions(kawarpInstance, options);
+            if (updated) {
+                kawarpCurrentSignature = nextSignature;
+            }
+        }
+
+        const instance = kawarpInstance;
+        if (!instance) {
+            throw new Error("Kawarp instance unavailable");
+        }
+
+        if (typeof instance.loadImage === "function") {
+            await instance.loadImage(imageUrl, {
+                ...options,
+                transitionDuration: options.transitionDuration
+            });
+        } else {
+            await instance.loadImage(imageUrl);
+        }
+
+        if (requestId !== kawarpRequestId) {
+            instance.dispose();
+            kawarpInstance = undefined;
+            kawarpCurrentSignature = null;
+            kawarpHasStarted = false;
+            return;
+        }
+
+        container.style.setProperty("--kawarp-darkness", getKawarpDarkness(config));
+        document.documentElement.classList.add("kawarp-active");
+        document.body.classList.add("kawarp-active");
+
+        if (!kawarpHasStarted && typeof instance.start === "function") {
+            instance.start();
+            kawarpHasStarted = true;
+        }
+
+        showKawarpBackground();
+    } catch (error) {
+        console.warn("Couldn't enable Kawarp", error);
+
+        const imageEl = document.getElementById("album-img");
+        if (imageEl) {
+            imageEl.src = "/Explosion of Colours/thumbs/GYAAAT.jpg";
+        }
+
+        const backBtn = document.getElementById("back-btn");
+        const homeBtn = document.getElementById("home-btn");
+        if (backBtn) backBtn.style.borderRadius = "4px 4px 4px 16px";
+        if (homeBtn) homeBtn.style.borderRadius = "4px 4px 16px 4px";
+    }
+}
 
 function shouldSwitchAlbumColorOnHover(metadata) {
     return (
@@ -104,6 +244,88 @@ function getAlbumMetadata(data) {
 
 function getImageFilenames(data) {
     return Object.keys(data || {}).filter((filename) => filename !== ALBUM_METADATA_KEY);
+}
+
+function buildAlbumImageUrl(album, filename, useThumbs = true) {
+    const folder = useThumbs ? "thumbs" : "";
+    return `/${album}/${folder ? `${folder}/` : ""}${filename}`;
+}
+
+function resolveKawarpImageSource(album, data, config, allowRandomFallback = true) {
+    const imageFilenames = getImageFilenames(data);
+    if (!imageFilenames.length) {
+        return { mode: "solid" };
+    }
+
+    const imgSource = config?.["img-source"];
+
+    if (typeof imgSource === "string" && imgSource.trim().toLowerCase() === "none") {
+        return { mode: "solid" };
+    }
+
+    let candidates = [];
+
+    if (imgSource === undefined || imgSource === null) {
+        candidates = allowRandomFallback ? imageFilenames : [];
+    } else if (typeof imgSource === "string") {
+        candidates = imgSource.trim() ? [imgSource.trim()] : [];
+    } else if (Array.isArray(imgSource)) {
+        candidates = imgSource.filter((value) => typeof value === "string" && value.trim());
+    } else {
+        candidates = allowRandomFallback ? imageFilenames : [];
+    }
+
+    if (!candidates.length) {
+        if (allowRandomFallback) {
+            candidates = imageFilenames;
+        } else {
+            return { mode: "solid" };
+        }
+    }
+
+    const selectedFilename = candidates[Math.floor(Math.random() * candidates.length)];
+    return {
+        mode: "image",
+        filename: selectedFilename,
+        url: encodeURI(buildAlbumImageUrl(album, selectedFilename, true))
+    };
+}
+
+function hideKawarpBackground() {
+    const container = document.getElementById("kawarp-background");
+    const canvas = container?.querySelector("canvas");
+
+    if (!container || !canvas) return;
+
+    container.style.display = "block";
+    container.style.transition = "background-color 300ms ease";
+    container.style.backgroundColor = "rgb(12, 12, 12)";
+
+    canvas.style.transition = "opacity 300ms ease";
+    canvas.style.opacity = "0";
+}
+
+function showKawarpBackground() {
+    const container = document.getElementById("kawarp-background");
+    const canvas = container?.querySelector("canvas");
+
+    if (!container || !canvas) return;
+
+    container.style.display = "block";
+    container.style.transition = "background-color 300ms ease";
+    container.style.backgroundColor = "rgb(12, 12, 12)";
+
+    canvas.style.transition = "opacity 300ms ease";
+    canvas.style.opacity = "1";
+}
+
+function getHoverKawarpConfig(baseConfig) {
+    if (!baseConfig) return undefined;
+
+    return {
+        ...baseConfig,
+        enabled: true
+    };
 }
 
 function getKawarpOptions(config) {
@@ -141,6 +363,7 @@ function getKawarpCanvas() {
         container.style.inset = "0";
         container.style.background = "rgb(12, 12, 12)";
         container.style.zIndex = "-10";
+        container.style.display = "none";
 
         const canvas = document.createElement("canvas");
         canvas.style.width = "100%";
@@ -159,36 +382,103 @@ function disableKawarp() {
     kawarpRequestId++;
     kawarpInstance?.dispose();
     kawarpInstance = undefined;
+    kawarpCurrentSignature = null;
+    kawarpHasStarted = false;
+
+    const container = document.getElementById("kawarp-background");
+    const canvas = container?.querySelector("canvas");
+
+    if (container) {
+        container.style.display = "none";
+        container.style.backgroundColor = "rgb(12, 12, 12)";
+    }
+
+    if (canvas) {
+        canvas.style.opacity = "0";
+    }
+
     document.documentElement.classList.remove("kawarp-active");
     document.body.classList.remove("kawarp-active");
 }
 
 async function enableKawarp(config, imageUrl) {
-    if (!config?.enabled || !imageUrl) return;
+    if (!config?.enabled || !imageUrl) {
+        hideKawarpBackground();
+        return;
+    }
 
     const requestId = ++kawarpRequestId;
     const canvas = getKawarpCanvas();
+    const container = canvas?.parentElement;
 
-    canvas.parentElement.style.background = "rgb(12, 12, 12)";
+    if (!container) return;
+
+    container.style.display = "block";
+    container.style.backgroundColor = "rgb(12, 12, 12)";
+    container.style.transition = "background-color 300ms ease";
+
+    canvas.style.transition = "opacity 300ms ease";
+    canvas.style.opacity = "0";
+
+    const options = getKawarpOptions(config);
+    const nextSignature = JSON.stringify(options);
 
     try {
-        const { Kawarp } = await import(KAWARP_MODULE_URL);
-        const instance = new Kawarp(canvas, getKawarpOptions(config));
-        await instance.loadImage(imageUrl);
+        if (!kawarpInstance) {
+            const { Kawarp } = await import(KAWARP_MODULE_URL);
+            kawarpInstance = new Kawarp(canvas, options);
+            kawarpCurrentSignature = nextSignature;
+        } else {
+            const updated = tryUpdateKawarpOptions(kawarpInstance, options);
+            if (updated) {
+                kawarpCurrentSignature = nextSignature;
+            }
+        }
+
+        const instance = kawarpInstance;
+        if (!instance) {
+            throw new Error("Kawarp instance unavailable");
+        }
+
+        if (typeof instance.loadImage === "function") {
+            await instance.loadImage(imageUrl, {
+                ...options,
+                transitionDuration: options.transitionDuration
+            });
+        } else {
+            await instance.loadImage(imageUrl);
+        }
 
         if (requestId !== kawarpRequestId) {
             instance.dispose();
+            kawarpInstance = undefined;
+            kawarpCurrentSignature = null;
+            kawarpHasStarted = false;
             return;
         }
 
-        kawarpInstance?.dispose();
-        kawarpInstance = instance;
-        canvas.parentElement.style.setProperty("--kawarp-darkness", getKawarpDarkness(config));
+        container.style.setProperty("--kawarp-darkness", getKawarpDarkness(config));
         document.documentElement.classList.add("kawarp-active");
         document.body.classList.add("kawarp-active");
-        instance.start();
+
+        if (!kawarpHasStarted && typeof instance.start === "function") {
+            instance.start();
+            kawarpHasStarted = true;
+        }
+
+        showKawarpBackground();
     } catch (error) {
         console.warn("Couldn't enable Kawarp", error);
+
+        const imageEl = document.getElementById("album-img");
+        if (imageEl) {
+            imageEl.src = "/Explosion of Colours/thumbs/GYAAAT.jpg";
+        }
+
+        const backBtn = document.getElementById("back-btn");
+        const homeBtn = document.getElementById("home-btn");
+        if (backBtn) backBtn.style.borderRadius = "4px 4px 4px 16px";
+        if (homeBtn) homeBtn.style.borderRadius = "4px 4px 16px 4px";
     }
 }
 
@@ -548,6 +838,7 @@ function populateAlbumGrid() {
 
             applyAlbumMetadata(metadata, albumTitle);
             const albumKawarpConfig = metadata.kawarp;
+            const usesHoverKawarp = albumKawarpConfig?.enabled && metadata["switch-col-hover"] === true;
             const switchColorOnHover = shouldSwitchAlbumColorOnHover(metadata);
             if (switchColorOnHover) {
                 resetGradientBackground();
@@ -556,6 +847,22 @@ function populateAlbumGrid() {
             const albumTintNeedsImageColor = !switchColorOnHover && !metadata.color && ["gradient", "double-gradient"].includes(metadata["tint-bg"]);
             let albumTintApplied = !albumTintNeedsImageColor;
             let albumKawarpApplied = false;
+            let albumKawarpSource = null;
+
+            if (albumKawarpConfig?.enabled) {
+                albumKawarpSource = resolveKawarpImageSource(album, data, albumKawarpConfig, true);
+
+                if (albumKawarpSource?.mode === "image") {
+                    console.log("[Kawarp] Album page selected bg source:", albumKawarpSource.filename, "->", albumKawarpSource.url);
+                    enableKawarp(albumKawarpConfig, albumKawarpSource.url);
+                } else if (albumKawarpSource?.mode === "solid") {
+                    console.log("[Kawarp] Album page using solid fallback color.");
+                    hideKawarpBackground();
+                } else {
+                    console.log("[Kawarp] Album page had no valid bg source candidates.");
+                    hideKawarpBackground();
+                }
+            }
 
             let count = 0;
 
@@ -587,12 +894,34 @@ function populateAlbumGrid() {
                     else window.location.href = `/image/?album=${album}&img=${filename}&searched=${searched}`;
                 };
 
+                if (albumKawarpConfig?.enabled && usesHoverKawarp) {
+                    img.addEventListener("mouseenter", () => {
+                        const hoverConfig = getHoverKawarpConfig(albumKawarpConfig);
+                        const hoverUrl = img.currentSrc || img.src;
+                        console.log("[Kawarp] Hover selected bg source:", filename, "->", hoverUrl);
+                        enableKawarp(hoverConfig, hoverUrl);
+                    });
+
+                    img.addEventListener("mouseleave", () => {
+                        if (albumKawarpSource?.mode === "image") {
+                            console.log("[Kawarp] Restoring album bg source:", albumKawarpSource.filename, "->", albumKawarpSource.url);
+                            enableKawarp(albumKawarpConfig, albumKawarpSource.url);
+                        } else {
+                            hideKawarpBackground();
+                        }
+                    });
+                }
+
                 img.addEventListener("load", () => {
                     const colorThief = new ColorThief();
                     if (img.complete) {
-                        if (albumKawarpConfig?.enabled && !albumKawarpApplied) {
+                        if (albumKawarpConfig?.enabled && !usesHoverKawarp && !albumKawarpApplied) {
                             albumKawarpApplied = true;
-                            enableKawarp(albumKawarpConfig, img.src);
+                            const kawarpUrl = albumKawarpSource?.url || img.src;
+                            if (!albumKawarpSource) {
+                                console.log("[Kawarp] Album page fallback bg source:", kawarpUrl);
+                            }
+                            enableKawarp(albumKawarpConfig, kawarpUrl);
                         }
 
                         if (img.hasAttribute("col") && !albumTintNeedsImageColor && !switchColorOnHover) return;
@@ -888,9 +1217,12 @@ function truncateWithExpand(element, text, maxWords = 15) {
         const off = 8;
         const space = 24;
 
+        let left = 0;
+        let top = 0;
+
         const rect = menu.getBoundingClientRect();
-        let left = rect.left;
-        let top = rect.top;
+        left = rect.left;
+        top = rect.top;
 
         if (left + menuWidth > window.innerWidth - space) {
             left = window.innerWidth - menuWidth - off;
@@ -1132,8 +1464,8 @@ function showImageContextMenu(e, img) {
         const off = 8;
         const space = 24;
 
-        let left = e.clientX - off;
-        let top = e.clientY - off;
+        let left = e.clientX + off;
+        let top = e.clientY + off;
 
         // Check right space
         if (left + menuWidth > window.innerWidth - space) {
@@ -1260,23 +1592,30 @@ function loadAlbumImage() {
     const { album, img, from } = getQueryParams();
     if (!album || !img) return;
 
+    const imageEl = document.getElementById("album-img");
+    if (!imageEl) {
+        console.warn("album-img element not found on this page.");
+        return;
+    }
+
     removeQueryParam("searched");
 
     console.log("Loading image:", img, "from album:", album);
     console.log("From", from);
 
-    const imgPath = `/${album}/thumbs/${img}`;
-    const imageEl = document.getElementById("album-img");
-    imageEl.crossOrigin = "anonymous";
-    imageEl.src = imgPath;
+    let imgPath = buildAlbumImageUrl(album, img, true);
 
     const downloadBtn = document.getElementById("download-btn");
-    downloadBtn.href = `/${album}/${img}`;
-    downloadBtn.download = img;
+    if (downloadBtn) {
+        downloadBtn.href = `/${album}/${img}`;
+        downloadBtn.download = img;
+    }
 
     const viewBtn = document.getElementById("view-img-btn");
-    viewBtn.href = `/${album}/${img}`;
-    viewBtn.target = "_blank";
+    if (viewBtn) {
+        viewBtn.href = `/${album}/${img}`;
+        viewBtn.target = "_blank";
+    }
 
     let color_els = true;
     let color_a = false;
@@ -1338,6 +1677,12 @@ function loadAlbumImage() {
             fetched_info = result.info || {};
 
             const info = fetched_info;
+            const imageFilename = result.filename || img;
+            const useThumbs = info?.["no-thumb"] !== true;
+
+            imgPath = buildAlbumImageUrl(album, imageFilename, useThumbs);
+            imageEl.src = imgPath;
+
             console.log("Fetched info for image:", fetched_info);
             const kawarpConfig = info.kawarp;
             if (!kawarpConfig?.enabled) {
@@ -1372,7 +1717,7 @@ function loadAlbumImage() {
             captionEl.innerHTML = parseCaption(info.caption || "");
 
             document.getElementById("image-lore").innerHTML = parseCaption(info.lore || "");
-            document.getElementById("image-date").innerText = info.date || "";
+            document.getElementById("image-date").innerHTML = info.date || "";
 
             const borderPrimaryColor = info.color || null;
 
@@ -1487,9 +1832,9 @@ function loadAlbumImage() {
                 backButton.style.borderRadius = "4px"; // 4px 4px 16px";
                 otherAlbumBtn.style.borderRadius = "4px"; // 4px 16px 4px";
             } else if (hasBrowseBack) {
-                homeButton.style.borderRadius = "16px";
-                backButton.style.borderRadius = "4px 4px 4px 16px";
-                browseBackButton.style.borderRadius = "4px 16px 4px 4px";
+                homeButton.style.borderRadius = "4px 4px 16px 16px";
+                backButton.style.borderRadius = "4px";
+                browseBackButton.style.borderRadius = "4px";
             } else {
                 backButton.style.borderRadius = "4px 4px 4px 16px";
                 homeButton.style.borderRadius = "4px 4px 16px 4px";
@@ -1501,6 +1846,7 @@ function loadAlbumImage() {
 
                 if (kawarpConfig?.enabled) {
                     enableKawarp(kawarpConfig, imageEl.src);
+                    console.log("Kawarp enabled with src:", imageEl.src);
                 }
 
                 if (info.bg) {
@@ -1654,11 +2000,17 @@ function loadAlbumImage() {
         .catch((err) => {
             console.warn("Error loading album or image:", err);
             showErrorMessage(notFoundMessage);
-            imageEl.src = "/Explosion of Colours/thumbs/GYAAAT.jpg";
-            document.getElementById("back-btn").style.borderRadius = "4px 4px 4px 16px";
-            document.getElementById("home-btn").style.borderRadius = "4px 4px 16px 4px";
-        });
 
+            const imageEl = document.getElementById("album-img");
+            if (imageEl) {
+                imageEl.src = "/Explosion of Colours/thumbs/GYAAAT.jpg";
+            }
+
+            const backBtn = document.getElementById("back-btn");
+            const homeBtn = document.getElementById("home-btn");
+            if (backBtn) backBtn.style.borderRadius = "4px 4px 4px 16px";
+            if (homeBtn) homeBtn.style.borderRadius = "4px 4px 16px 4px";
+        });
     // Also catch the case if image file itself fails to load
     imageEl.addEventListener("error", () => {
         console.warn("Image file not found:", imageEl.src);
@@ -1668,16 +2020,19 @@ function loadAlbumImage() {
 
     function showErrorMessage(msg) {
         console.log("an error");
+
         const titleEl = document.getElementById("image-title");
         const captionEl = document.getElementById("image-caption");
         const loreEl = document.getElementById("image-lore");
         const dateEl = document.getElementById("image-date");
-        titleEl.innerHTML = msg;
-        if (captionEl) {
-            captionEl.remove();
-            loreEl.remove();
-            dateEl.remove();
+
+        if (titleEl) {
+            titleEl.innerHTML = msg;
         }
+
+        if (captionEl) captionEl.remove();
+        if (loreEl) loreEl.remove();
+        if (dateEl) dateEl.remove();
     }
 
     if (window.location.pathname !== "/image/") return;

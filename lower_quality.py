@@ -248,11 +248,19 @@ def is_camera_filename(filename):
     # Matches:
     # 20260614_164310
     # 20260614_164310(0)
+    # IMG_0000
     # _MG_2506
+    # DSC00000
     if re.fullmatch(r"\d{8}_\d{6}(\(\d+\))?", name):
         return True
 
+    if re.fullmatch(r"IMG_\d+", name):
+        return True
+
     if re.fullmatch(r"_MG_\d+", name):
+        return True
+
+    if re.fullmatch(r"DSC\d+", name):
         return True
 
     return False
@@ -291,10 +299,27 @@ def create_info_json(folder):
                 "date": date_taken
             }
 
-    with open(os.path.join(folder, "info.json"), "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+        with open(os.path.join(folder, "info.json"), "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
 
-    print("info.json created with entries for all images.")
+        album_title = os.path.basename(folder)
+
+        html = f"""<!doctype html>
+    <html>
+        <head>
+            <meta http-equiv="refresh" content="0; url=/album/?album={album_title}" />
+            <title>{album_title}</title>
+            <link rel="icon" type="image/png" href="/Assets/gr_logo_big.png" />
+        </head>
+        <body></body>
+    </html>
+    """
+
+        with open(os.path.join(folder, "index.html"), "w", encoding="utf-8") as f:
+            f.write(html)
+
+        print("info.json created with entries for all images.")
+        print("index.html created.")
 
 # Main
 if __name__ == "__main__":

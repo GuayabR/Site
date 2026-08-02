@@ -1,14 +1,15 @@
 {
     "_album": {
         "title": "AS^",
-        "date": "10/07/2025",
+        "date": "09/30/2025",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator",
-
         "kawarp": {
             "enabled": true,
-            "preset": "spicetify"
-        }
+            "preset": "spicetify",
+            "img-source": "AS^ (Edited 26).png"
+        },
+        "switch-col-hover": true
     },
     "20250925_141400.jpg": {
         "title": "AS^",
@@ -17,7 +18,6 @@
         "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator",
         "s-title": "I Can Love You",
         "s-artist": "Mary J. Blige, Lil' Kim",
-
         "kawarp": {
             "enabled": true,
             "preset": "spicetify"
@@ -31,7 +31,6 @@
         "song": "https://open.spotify.com/embed/track/64nKjh8qkktOOD99LEcUff?utm_source=generator",
         "s-title": "Atmosphere",
         "s-artist": "Creo",
-
         "kawarp": {
             "enabled": true,
             "preset": "glass"
@@ -46,7 +45,6 @@
         "song": "https://open.spotify.com/embed/track/6eTcxkl9G7C2mwejLJ7Amm?utm_source=generator",
         "s-title": "An Ending",
         "s-artist": "Toby Fox",
-
         "kawarp": {
             "enabled": true,
             "preset": "spicetify",
@@ -55,12 +53,11 @@
     },
     "AS^ (Edited 26).png": {
         "title": "AS^ (Edited 26)",
-        "date": "9/25/2025 2:14 PM",
+        "date": "9/25/2025 2:14 PM<br>Edited 19/6/2026 09:39 AM",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/4MTHIKGWNTBoubzDMkXFfa?utm_source=generator",
         "s-title": "I Can Love You",
         "s-artist": "Mary J. Blige, Lil' Kim",
-
         "kawarp": {
             "enabled": true,
             "preset": "spicetify"
@@ -68,11 +65,10 @@
     },
     "ggggllllaaaASsss (Alt).png": {
         "title": "ggggllllaaaASsss465 6 (Alt)",
-        "date": "10/04/2025 6:27 PM",
+        "date": "10/04/2025 6:27 PM<br>Edited 18/6/2026 10:18 AM",
         "song": "https://open.spotify.com/embed/track/64nKjh8qkktOOD99LEcUff?utm_source=generator",
         "s-title": "Atmosphere",
         "s-artist": "Creo",
-
         "kawarp": {
             "enabled": true,
             "preset": "glass"
@@ -80,13 +76,12 @@
     },
     "Revolving Stars (Edited 26).png": {
         "title": "Revolving Stars (Edited 26)",
-        "date": "9/29/2025 8:29 PM",
+        "date": "9/29/2025 8:29 PM<br>Edited 19/6/2026 09:28 AM",
         "tint-bg": "gradient",
         "color": "rgb(131, 131, 131)",
         "song": "https://open.spotify.com/embed/track/6eTcxkl9G7C2mwejLJ7Amm?utm_source=generator",
         "s-title": "An Ending",
         "s-artist": "Toby Fox",
-
         "kawarp": {
             "enabled": true,
             "preset": "spicetify",
@@ -101,25 +96,23 @@
         "song": "https://open.spotify.com/embed/track/62inSRFPdXScwXPMX5Z6yb?utm_source=generator&si=0c3f4908405e4e70",
         "s-title": "Shouting Out - Stripped",
         "s-artist": "Grey Daze",
-
         "kawarp": {
             "enabled": true,
             "preset": "spicetify",
             "darkness": 0.65,
             "speed": 2.0
         },
-
         "": "How lucky I was, how fast it slipped away."
     },
     "hold.png": {
         "title": "Hold the Moon",
-        "date": "4/10/2025 9:11 PM",
+        "date": "4/10/2025 9:11 PM<br>Edited 18/6/2026 10:30 AM",
         "lore": "La-di-dam<br>La-di-dam-dam",
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5G5O4mCt1DNWxEEkigElL3?utm_source=generator&si=58dc827cbafe4924",
         "s-title": "Shouting Out",
         "s-artist": "Grey Daze",
-
+        "album": "AS^",
         "kawarp": {
             "enabled": true,
             "preset": "spicetify",

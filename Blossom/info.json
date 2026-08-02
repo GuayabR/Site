@@ -6,11 +6,11 @@
         "switch-col-hover": true,
         "song": "https://open.spotify.com/embed/album/4R6FV9NSzhPihHR0h4pI93?utm_source=generator&si=2094732635b140a6"
     },
-    "20251004_192638.jpg": {
+    "The Garden.jpg": {
         "title": "The Garden",
         "date": "4/10/2025 07:26 PM"
     },
-    "20251004_192831.jpg": {
+    "Blossom.jpg": {
         "title": "Blossom",
         "date": "4/10/2025 07:28 PM",
         "color": "rgb(255, 125, 255)",
@@ -25,37 +25,40 @@
             "preset": "spicetify"
         }
     },
-    "20251004_193656.jpg": {
+    "forest.jpg": {
         "title": "forest",
         "date": "4/10/2025 07:36 PM"
     },
-    "20251004_193930.jpg": {
-        "title": "colourful forest",
+    "colorful forest.jpg": {
+        "title": "colorful forest",
         "date": "4/10/2025 07:39 PM",
         "tint-bg": "gradient"
     },
-    "20251004_194325.jpg": {
-        "title": "interlaced in webs",
+    "interlaced in webs.jpg": {
+        "title": "interlaced",
         "date": "4/10/2025 07:43 PM"
     },
-    "20251004_195406.jpg": {
-        "title": "disco",
-        "date": "4/10/2025 07:54 PM"
+    "Path.jpg": {
+        "title": "Does this path bring me to somewhere I belong",
+        "date": "4/10/2025 07:41 PM",
+        "song": "https://open.spotify.com/embed/track/3fjmSxt0PskST13CSdBUFx?utm_source=generator&si=9a1c4b91e2984079",
+        "s-title": "Somewhere I Belong",
+        "s-artist": "Linkin Park"
     },
-    "20251004_195501.jpg": {
-        "title": "bring me to the rose",
+    "roses.jpg": {
+        "title": "roses",
         "date": "4/10/2025 07:55 PM"
     },
-    "20251004_201716.jpg": {
+    "chimes.jpg": {
         "title": "chimes",
         "date": "4/10/2025 08:17 PM",
         "tint-bg": "gradient"
     },
-    "20251004_203234.jpg": {
+    "warm in cold.jpg": {
         "title": "warm in cold",
         "date": "4/10/2025 08:32 PM"
     },
-    "20251004_204123.jpg": {
+    "reflects differently.jpg": {
         "title": "reflects differently",
         "date": "4/10/2025 08:41 PM",
         "color": "rgb(250, 165, 240)",
@@ -64,12 +67,12 @@
         "s-title": "Reflections",
         "s-artist": "Creo"
     },
-    "20251004_210042.jpg": {
+    "labyrinth of colours.jpg": {
         "title": "labyrinth of colours",
         "tint-bg": "gradient",
         "date": "4/10/2025 09:00 PM"
     },
-    "20251004_210141.jpg": {
+    "overflowing.jpg": {
         "title": "overflowing",
         "date": "4/10/2025 09:01 PM",
         "color": "rgb(240, 127, 171)",
@@ -78,7 +81,7 @@
         "s-title": "Overflow",
         "s-artist": "Linkin Park"
     },
-    "20251004_210639.jpg": {
+    "A SHAPE.jpg": {
         "title": "A SHAPE",
         "date": "4/10/2025 09:06 PM",
         "color": "rgb(255, 80, 240)",
@@ -87,7 +90,16 @@
         "s-title": "Over Each Other",
         "s-artist": "Linkin Park"
     },
-    "20251004_210958.jpg": {
+    "CANT SEE SHAPE.jpg": {
+        "title": "CANT SEE SHAPE",
+        "date": "4/10/2025 09:06 PM",
+        "color": "rgb(255, 80, 240)",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/3k4gjmYNJugQRlh2aounZ9?utm_source=generator",
+        "s-title": "Over Each Other",
+        "s-artist": "Linkin Park"
+    },
+    "pŒRTALS.jpg": {
         "title": "pŒRTALS",
         "date": "4/10/2025 09:09 PM",
         "color": "rgb(40, 0, 255)",
@@ -96,7 +108,7 @@
         "s-title": "The Call Of Ktulu - Remastered",
         "s-artist": "Metallica"
     },
-    "20251004_211117.jpg": {
+    "Thank You.jpg": {
         "title": "Thank You",
         "date": "4/10/2025 09:09 PM",
         "color": "rgb(255, 140, 160)",
@@ -105,28 +117,109 @@
         "s-title": "Stained",
         "s-artist": "Linkin Park"
     },
-    "20251004_194018.jpg": {
+    "hold.png": {
+        "title": "Hold the Moon",
+        "date": "4/10/2025 9:11 PM<br>Edited 18/6/2026 10:30 AM",
+        "lore": "La-di-dam<br>La-di-dam-dam",
+        "tint-bg": "gradient",
+        "song": "https://open.spotify.com/embed/track/5G5O4mCt1DNWxEEkigElL3?utm_source=generator&si=58dc827cbafe4924",
+        "s-title": "Shouting Out",
+        "s-artist": "Grey Daze",
+        "album": "AS^",
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.0
+        }
+    },
+    "Hierarchy.jpg": {
         "title": "Hierarchy",
         "author": "mihirswrld",
         "date": "4/10/2025 07:40 PM",
         "tint-bg": "gradient"
     },
-    "20251004_194049.jpg": {
+    "Volcano.jpg": {
         "title": "Volcano",
         "author": "mihirswrld",
         "date": "4/10/2025 07:40 PM",
         "tint-bg": "gradient"
     },
-    "20251004_194247.jpg": {
+    "Explosion.jpg": {
         "title": "Explosion",
         "author": "mihirswrld",
         "date": "4/10/2025 07:42 PM",
         "tint-bg": "gradient"
     },
-    "20251004_195513.jpg": {
+    "Sea.jpg": {
         "title": "Sea",
         "author": "mihirswrld",
         "date": "4/10/2025 07:43 PM",
         "tint-bg": "gradient"
+    },
+    "20251004_194735.jpg": {
+        "author": "mihirswrld",
+        "title": "Oil Painting",
+        "date": "4/10/2025 07:47 PM",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.25
+        }
+    },
+    "20251004_195438.jpg": {
+        "author": "mihirswrld",
+        "title": "Reaching Out",
+        "date": "4/10/2025 07:54 PM"
+    },
+    "Λ.png": {
+        "title": "Λ",
+        "date": "4/10/2025 7:48 PM<br>Edited 18/6/2026 10:24 AM"
+    },
+    "20251004_205255.jpg": {
+        "author": "mihirswrld",
+        "title": "LIGHT SOURCE",
+        "date": "4/10/2025 08:52 PM",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.25
+        }
+    },
+    "20251004_210259.jpg": {
+        "title": "Framed",
+        "date": "4/10/2025 09:03 PM"
+    },
+    "20251004_210612.jpg": {
+        "author": "mihirswrld",
+        "title": "Untitled 8",
+        "date": "4/10/2025 09:06 PM"
+    },
+    "20251004_210630.jpg": {
+        "author": "mihirswrld",
+        "title": "Untitled 9",
+        "date": "4/10/2025 09:06 PM"
+    },
+    "20251004_211307.jpg": {
+        "title": "Drown",
+        "date": "4/10/2025 09:13 PM",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.25
+        }
+    },
+    "Under the Sea.jpg": {
+        "author": "mihirswrld",
+        "title": "Under the Sea",
+        "date": "4/10/2025 07:55 PM",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.17
+        }
     }
 }

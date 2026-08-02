@@ -16,7 +16,18 @@
 
         "kawarp": {
             "enabled": true,
-            "preset": "spicetify"
+            "preset": "spicetify",
+            "darkness": 0.25
+        }
+    },
+    "NEWER YEAR.jpg": {
+        "title": "2025.",
+        "date": "31/12/2025 11:00 PM",
+
+        "kawarp": {
+            "enabled": true,
+            "preset": "spicetify",
+            "darkness": 0.1
         }
     },
     "view.jpg": {
@@ -42,11 +53,32 @@
         "tint-bg": "gradient",
         "song": "https://open.spotify.com/embed/track/5ZI2uKHpKza44XVsRZy7lM?utm_source=generator",
         "s-title": "For Me - VIP",
-        "s-artist": "Throttle"
+        "s-artist": "Throttle",
+        "album": "IT'S SO COLOURFUL"
     },
     "rainbow rain.jpg": {
         "title": "rainbow rain",
         "date": "23/06/2025 7:57 PM",
         "tint-bg": "gradient"
+    },
+    "20251221_172707.jpg": {
+        "title": "IRIDESCENT",
+        "date": "21/12/2025 05:27 PM",
+        "song": "https://open.spotify.com/embed/track/69ZEgPX0hxWXJIqkTlYz41?utm_source=generator&si=042df8f9279f4fe2",
+        "s-title": "Iridescent",
+        "s-artist": "Linkin park",
+        "album": "Red Rocks"
+    },
+    "Look Outside.jpg": {
+        "title": "Look Outside",
+        "date": "11/11/2025 12:28 PM"
+    },
+    "RAINBOW.jpg": {
+        "title": "RAINBOW",
+        "date": "12/7/2025 01:12 PM"
+    },
+    "Take One Second.jpg": {
+        "title": "Take One Second",
+        "date": "24/10/2025 07:55 PM"
     }
 }
