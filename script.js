@@ -1713,6 +1713,7 @@ function loadAlbumImage() {
             if (copyrightEl && info.author && photoYear) {
                 copyrightEl.textContent = `© ${photoYear} ${info.author}. All Rights Reserved.`;
             }
+
             const captionEl = document.getElementById("image-caption");
             captionEl.innerHTML = parseCaption(info.caption || "");
 
@@ -2030,9 +2031,9 @@ function loadAlbumImage() {
             titleEl.innerHTML = msg;
         }
 
-        if (captionEl) captionEl.remove();
-        if (loreEl) loreEl.remove();
-        if (dateEl) dateEl.remove();
+        if (captionEl) captionEl.style.display = "none";
+        if (loreEl) loreEl.style.display = "none";
+        if (dateEl) dateEl.style.display = "none";
     }
 
     if (window.location.pathname !== "/image/") return;
